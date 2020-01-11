@@ -6,6 +6,8 @@
 
 ### Git
 
+<img src='git.png'>
+
 To clone the whole repo
 
 ```
