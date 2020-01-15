@@ -60,3 +60,6 @@ ex: git pull origin Database
 
 Reference Link:
 [ExplainShell]( https://explainshell.com/explain?cmd=git+commit+-am)
+[SQLAlchemy ORM] (https://towardsdatascience.com/sqlalchemy-python-tutorial-79a577141a91)
+[Authentication (not really secure)] (https://pythonspot.com/login-authentication-with-flask/)
+[Authentication With Flask & SQLAlchemy ORM] (https://scotch.io/tutorials/authentication-and-authorization-with-flask-login)
