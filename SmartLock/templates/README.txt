@@ -1,1 +1,0 @@
-This section is for our web application html/css templates

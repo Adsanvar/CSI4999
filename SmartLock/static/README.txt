@@ -1,1 +1,0 @@
-This section houses any images that are needed for our web application.
