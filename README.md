@@ -2,6 +2,10 @@
 
 ## Welcome to Senior Capstone Project
 
+## **Important** 
+
+**Always Remember to check the branch your are working on. Pull before you start making any changes. Add any files. Commit changes. Push changes at the end of your work. Repeat.**
+
 ### Introduction
 
 ### Git
