@@ -11,13 +11,8 @@ def index():
    
 
 
-@app.route('/singup', methods=['GET', 'POST'])
-def signup():
-    return 'Sign UP'
-
-
 #Main function that executes the application
 if __name__ == '__main__':
     #runs the flask application using an IP Address, Debug set to true so test the site and modify on the fly
-    app.run(debug=True, host='192.168.1.65')
+    app.run(debug=True, host='172.24.19.79')
 
