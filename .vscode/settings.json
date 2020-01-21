@@ -1,4 +1,3 @@
 {
-    "python.pythonPath": "C:\\Users\\Steven Hawkings\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe"
-	"python.linting.pylintArgs": ["--load-plugins", "pylint-flask"]
+    "python.pythonPath": "/Users/adriansandoval/anaconda3/bin/python"
 }
