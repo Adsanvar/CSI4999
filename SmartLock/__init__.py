@@ -4,14 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 ##Creates db -Adrian
 db = SQLAlchemy()
 
-##Creates the Flask Application with the configurations
+##Creates the Flask Application with the configurations -Adrian
 def create_app():
 
     app = Flask(__name__)
 
     #this configures the databse for communication with flask -jared
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Database13.@localhost/smart_lock'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:pass@localhost/smart_lock'
 
+    #lines 15 - 26  (retun app) -Adrian
     db.init_app(app)
 
     from SmartLock.authenticator import auth as a_bp
