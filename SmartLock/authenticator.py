@@ -1,7 +1,8 @@
 import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint
 from flask_login import login_user, logout_user, login_required
-
+from . import db
+from SmartLock.database import User, create_user
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
@@ -15,7 +16,13 @@ def login_index():
 @auth.route('/login', methods=['POST'])
 def login():
     #Authentication/Login Code Goes Here - Adrian
-    return 'Log In'
+    name = request.form.get('username')
+    pas = request.form.get('password')
+    #Dont need below but it creates a user using the create_user function in database.py
+    # usr = User(username =name, password = pas)
+    # create_user(usr)
+
+    return 'User: {}{}'.format(name, pas)
 
 #route for the login - Adrian
 @auth.route('/signup')
