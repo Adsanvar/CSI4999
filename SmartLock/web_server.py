@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, flash
 from authenticator import auth
 from flask_login import login_user, logout_user, login_required
 
+
 #Creates the application module to run upon running script -Adrian
 app = Flask(__name__)
 app.register_blueprint(auth) #registers the authenticator auth routing to this module - Adrian

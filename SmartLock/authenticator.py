@@ -17,6 +17,7 @@ def login():
     #Authentication/Login Code Goes Here - Adrian
     return 'Log In'
 
+#route for the login - Adrian
 @auth.route('/signup')
 def signup_index():
     return 'sign up template'
