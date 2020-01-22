@@ -1,8 +1,9 @@
 import os, threading, webbrowser, subprocess
-from flask import Flask, render_template, request, flash, Blueprint
+from flask import Flask, render_template, request, flash, Blueprint, session, redirect, url_for
 #from authenticator import auth
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from . import db
+from SmartLock.database import user_query
 
 home = Blueprint('home', __name__)
 
@@ -15,10 +16,14 @@ def index():
 @home.route('/dashboard')
 @login_required
 def dashboard():
-    return 'Dashboard' 
+    #displays details of user in dashboard
+    details = 'User: ' + current_user.username + '\nRole: ' + current_user.role
+    return render_template('dashboard.html', info = details)
 
-# #Main function that executes the application -Adrian
-# if __name__ == '__main__':
-#     #runs the flask application using an IP Address, Debug set to true so test the site and modify on the fly
-#     app.run(debug=True)
+@home.route('/dashboard', methods=['POST'])
+@login_required
+def post_dashboard():
+    #if the log out button is clicked 
+    if 'logout' in request.form:
+        return redirect(url_for('auth.logout'))
 
