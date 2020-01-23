@@ -1,4 +1,4 @@
-# CSI4999
+# CSI4999 - Smart Lock
 
 ## Welcome to Senior Capstone Project
 
