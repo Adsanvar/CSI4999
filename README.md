@@ -65,4 +65,3 @@ ex: git pull origin Database
 Reference Links:
 [ExplainShell]( https://explainshell.com/explain?cmd=git+commit+-am)
 
-Below You'll Find Resources to view the connections between our Webserver (Flask) and our Database MySQL using SQLAlchemy. These 'Infrustructure' tools are needed to authenticate users into our system.
