@@ -1,0 +1,21 @@
+<!--Created By: Adrian Sandoval-Vargas
+    If Modified insert your comment and your name by function
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>َDashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+
+<form class="box" action="http://localhost:5000/dashboard" method="post">
+  <h1>HOME</h1>
+    <p style="color:white;" >{{ info }}</p>
+    <input type="submit" name="logout" value="logout">
+</form>
+
+
+  </body>
+</html>
