@@ -2,7 +2,7 @@ import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
 from flask_login import login_user, logout_user, login_required
 from . import db
-from SmartLock.database import User, create_user, user_query
+from SmartLock.database import User, create_user, user_query, update_pass
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)

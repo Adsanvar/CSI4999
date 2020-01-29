@@ -10,7 +10,6 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(45))#Adrian
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
-    pin_code = db.Column(db.String(45))#Adrian
     
     def __repr__(self):
         return self.username
@@ -53,4 +52,8 @@ def create_entry_log(entry_log):
 
 def create_rpi(rpi):
     db.session.add(rpi)
+    db.session.commit()
+
+def update_pass(usr, password):
+    usr.password = password
     db.session.commit()
