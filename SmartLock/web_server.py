@@ -20,10 +20,25 @@ def dashboard():
     details = 'User: ' + current_user.username + '\nRole: ' + current_user.role
     return render_template('dashboard.html', info = details)
 
+#This routes is the dashboard post page to handle post commands inside the dashboard web page -Adrian
 @home.route('/dashboard', methods=['POST'])
 @login_required
 def post_dashboard():
     #if the log out button is clicked 
     if 'logout' in request.form:
         return redirect(url_for('auth.logout'))
+
+#This route is the keypad page
+@home.route("/keypad")
+@login_required
+def keypad():
+    #TODO: Update to the proper keypad.html file
+    return render_template('index.html') 
+
+#This route is the keypad landing page for post commands
+@home.route("/keypad", methods=['POST'])
+@login_required
+def post_keypad():
+    #TODO: Need to implement keypad stuff
+    return redirect(url_for('home.keypad'))
 
