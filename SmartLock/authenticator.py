@@ -6,9 +6,9 @@ from SmartLock.database import User, create_user, user_query
 ##import RPI.GPIO as GPIO ##sam
 import os ## sam
 
-GPIO.setmode(GPIO.BCM) ##sam
-GPIO.setwarnings(False) ##sam
-GPIO.setup(18,GPIO.OUT) ##sam
+##GPIO.setmode(GPIO.BCM) ##sam
+##GPIO.setwarnings(False) ##sam
+##GPIO.setup(18,GPIO.OUT) ##sam
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
