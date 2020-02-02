@@ -3,7 +3,7 @@ from time import sleep
 
 class Pin:
 
-    def open(17):
+    def open(pin):
         
         output = LED(GPIO17)
         output.on()
@@ -16,4 +16,4 @@ class Pin:
 
     class Camera:
         pass
-    
+
