@@ -10,7 +10,6 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(45))#Adrian
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
-    pin_code = db.Column(db.String(45))#Adrian
     
     def __repr__(self):
         return self.username
@@ -19,10 +18,20 @@ class User(UserMixin, db.Model):
 class RPI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mac_address = db.Column(db.String(45))
-    user_id = db.Column(db.String(45))
+    pin_code = db.Column(db.String(45))
+
 
     def __repr__(self):
         return self.mac_address
+
+class Entry_log(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    datetime = db.Column(db.String(45))
+    entry_type = db.Column(db.String(45))
+    user = db.Column(db.String(45))
+
+    def __repr__(self):
+        return self.id
 
 #user_query returns the first instance of username that is found by query -jared
 def user_query(usr):
@@ -35,4 +44,16 @@ def user_id_query(id):
 #Create user call api - Adrian
 def create_user(usr):
     db.session.add(usr)
+    db.session.commit()
+
+def create_entry_log(entry_log):
+    db.session.add(entry_log)
+    db.session.commit()
+
+def create_rpi(rpi):
+    db.session.add(rpi)
+    db.session.commit()
+
+def update_pass(usr, password):
+    usr.password = password
     db.session.commit()
