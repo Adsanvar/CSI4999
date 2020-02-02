@@ -1,0 +1,40 @@
+<!--Created by Heath -->
+<!DOCTYPE html>
+<head>
+    <title>RPi login</title>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- Lets gets us our icons for delete and submit-->
+    <link href="pin-login.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <h1>RPi Login!</h1>
+    <div class="pin-login" id="mainPinLogin">
+        <input type="password" readonly class="pin-login__text">
+        <div class="pin-login__numpad">
+         <!--   <div class="pin-login__key">1</div>
+            <div class="pin-login__key">2</div>
+            <div class="pin-login__key">3</div><br>
+            <div class="pin-login__key">4</div>
+            <div class="pin-login__key">5</div>
+            <div class="pin-login__key">6</div><br>
+            <div class="pin-login__key">7</div>
+            <div class="pin-login__key">8</div>
+            <div class="pin-login__key">9</div><br>
+            <div class="pin-login__key material-icons">backspace</div>
+            <div class="pin-login__key">0</div>
+            <div class="pin-login__key material icons">done</div> -->
+        </div>
+    </div>
+    <script src="pin-login.js"></script>   <!-- These scripts are broken right now, Working on fixing it.-->
+    <script>
+        new PinLogin({
+            el: document.getElementById("mainPinLogin"),  // This is calling the main div id class         
+            LoginEndpoint: "",                           // In here he will put a script to link it to the database 
+            redirectTo: "",                             // Login success redirect might not need this? door could just open?  
+            maxNumbers: 4,                             // Limits the numbers a user can enter
+        })
+    </script>
+</body>
