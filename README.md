@@ -64,4 +64,3 @@ ex: git pull origin Database
 
 Reference Links:
 [ExplainShell]( https://explainshell.com/explain?cmd=git+commit+-am)
-

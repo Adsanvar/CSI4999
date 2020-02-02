@@ -12,7 +12,7 @@ def create_app():
     #allows us to use Login Manager and other tools suchas Flash from flask_login - Adrian
     app.config['SECRET_KEY'] = 'test_secret_key'
     #this configures the databse for communication with flask -jared
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:pass@localhost/smart_lock'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Database13.@localhost/smart_lock'
 
     # (return app) -Adrian
     db.init_app(app)
