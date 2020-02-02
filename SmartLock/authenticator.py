@@ -5,10 +5,8 @@ from . import db
 from SmartLock.database import User, create_user, user_query, update_pass
 from gpiozero import LED
 
-led = LED(18)
-##GPIO.setmode(GPIO.BCM) ##sam
-##GPIO.setwarnings(False) ##sam
-##GPIO.setup(18,GPIO.OUT) ##sam
+led = LED(17)
+
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
@@ -39,15 +37,12 @@ def login():
                     #route to dashboard and update the login session
                     login_user(usr)
                     led.on()
-                    ##GPIO.output(18, GPIO.HIGH)
                     return redirect(url_for('home.dashboard'))
                 else:
-                    ##GPIO.output(18,GPIO.LOW) ##sam
                     return redirect(url_for('auth.login'))
                     
         else:
             #empty
-            ##GPIO.cleanup() ##sam
             return redirect(url_for('auth.login'))
             
     #if signup button clicked send to signup page        
@@ -86,5 +81,6 @@ def signup():
 @login_required
 def logout():
     logout_user()
+    led.off()
     return redirect(url_for('home.index'))
 

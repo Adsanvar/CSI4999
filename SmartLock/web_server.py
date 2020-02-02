@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, flash, Blueprint, session, re
 #from authenticator import auth
 from flask_login import login_user, logout_user, login_required, current_user
 from . import db
-
 from SmartLock.database import user_query, create_entry_log, Entry_log
 
 home = Blueprint('home', __name__)
