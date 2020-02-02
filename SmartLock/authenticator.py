@@ -3,9 +3,9 @@ from flask import Flask, render_template, request, flash, Blueprint, redirect, u
 from flask_login import login_user, logout_user, login_required
 from . import db
 from SmartLock.database import User, create_user, user_query, update_pass
-##import RPI.GPIO as GPIO ##sam
+from gpiozero import LED
 
-
+led = LED(18)
 ##GPIO.setmode(GPIO.BCM) ##sam
 ##GPIO.setwarnings(False) ##sam
 ##GPIO.setup(18,GPIO.OUT) ##sam
@@ -38,6 +38,7 @@ def login():
                 if usr.username == name and usr.password == pas:
                     #route to dashboard and update the login session
                     login_user(usr)
+                    led.on()
                     ##GPIO.output(18, GPIO.HIGH)
                     return redirect(url_for('home.dashboard'))
                 else:
