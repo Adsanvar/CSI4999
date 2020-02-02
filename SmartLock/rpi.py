@@ -3,9 +3,10 @@ from time import sleep
 
 class Pin:
 
-    def open(on):
+    def open(17):
         
-        output = LED(17)
+        output = LED(GPIO17)
         output.on()
-        sleep(15)
-        ouput.off
+    def close(17):
+        output=LED(GPIO17)
+        output.off()
