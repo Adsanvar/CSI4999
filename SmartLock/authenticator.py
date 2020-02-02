@@ -2,8 +2,13 @@ import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
 from flask_login import login_user, logout_user, login_required
 from . import db
-from SmartLock.database import User, create_user, user_query
+from SmartLock.database import User, create_user, user_query, update_pass
+##import RPI.GPIO as GPIO ##sam
 
+
+##GPIO.setmode(GPIO.BCM) ##sam
+##GPIO.setwarnings(False) ##sam
+##GPIO.setup(18,GPIO.OUT) ##sam
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
@@ -33,12 +38,17 @@ def login():
                 if usr.username == name and usr.password == pas:
                     #route to dashboard and update the login session
                     login_user(usr)
+                    ##GPIO.output(18, GPIO.HIGH)
                     return redirect(url_for('home.dashboard'))
                 else:
+                    ##GPIO.output(18,GPIO.LOW) ##sam
                     return redirect(url_for('auth.login'))
+                    
         else:
             #empty
+            ##GPIO.cleanup() ##sam
             return redirect(url_for('auth.login'))
+            
     #if signup button clicked send to signup page        
     if 'signup' in request.form:
         return redirect(url_for('auth.signup'))
@@ -77,4 +87,3 @@ def logout():
     logout_user()
     return redirect(url_for('home.index'))
 
-    
