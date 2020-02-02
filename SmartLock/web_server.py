@@ -31,14 +31,14 @@ def post_dashboard():
         return redirect(url_for('auth.logout'))
 
 #This route is the keypad page
-@home.route("/pinpad test")
+@home.route("/keypad")
 @login_required
 def keypad():
     #TODO: Update to the proper keypad.html file
-    return render_template('index.html') 
+    return render_template('pinpad_test.html') 
 
 #This route is the keypad landing page for post commands
-@home.route("/pinpad test", methods=['POST'])
+@home.route("/keypad", methods=['POST'])
 @login_required
 def post_keypad():
     #Jared
@@ -56,16 +56,16 @@ def post_keypad():
 
         #if no input is detected
         if pin == None:
-            return redirect(url_for('home.pinpad test'))
+            return redirect(url_for('home.keypad'))
         else:
             #authenticate entered pin with the pin code in the db
             if pin == current_user.pin_Code:
                 #open door
                 #TODO interface code between rpi and door lock
                 print('It\'s working!')
-                return redirect(url_for('home.pinpad test'))
+                return redirect(url_for('home.keypad'))
             else:
-                return redirect(url_for('home.pinpad test'))
+                return redirect(url_for('home.keypad'))
     else:
-        return redirect(url_for('home.pinpad test'))
+        return redirect(url_for('home.keypad'))
 
