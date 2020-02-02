@@ -17,9 +17,10 @@ def index():
 @login_required
 def dashboard():
     #displays details of user in dashboard
-    details = 'User: ' + current_user.username + '\nRole: ' + current_user.role
-    return render_template('dashboard.html', info = details)
-
+    #details = 'User: ' + current_user.username + '\nRole: ' + current_user.role
+    #return render_template('dashboard.html', info = details)
+    return render_template('pinpad.html')
+    
 #This routes is the dashboard post page to handle post commands inside the dashboard web page -Adrian
 @home.route('/dashboard', methods=['POST'])
 @login_required
