@@ -10,3 +10,10 @@ class Pin:
     def close(17):
         output=LED(GPIO17)
         output.off()
+
+    class MotionSensor:
+        pass
+
+    class Camera:
+        pass
+    
