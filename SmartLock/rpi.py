@@ -7,7 +7,7 @@ class Pin:
         
         output = LED(GPIO17)
         output.on()
-    def close(17):
+    def close(pin):
         output=LED(GPIO17)
         output.off()
 
