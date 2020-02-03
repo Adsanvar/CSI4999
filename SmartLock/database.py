@@ -58,5 +58,11 @@ def update_pass(usr, password):
     usr.password = password
     db.session.commit()
 
+#Update pi's password - Adrian
+def update_pi(pi, pin_code):
+    pi.pin_code = pin_code
+    db.session.commit()
+
+#Queries pi - Adrian
 def query_rpi():
     return RPI.query.filter_by(id=1).first()

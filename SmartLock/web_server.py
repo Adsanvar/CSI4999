@@ -7,7 +7,8 @@ import SmartLock.database as database
 from gpiozero import LED
 from time import sleep
 
-led = LED(17)
+#test led on RPI - Adrian
+led = LED(17) 
 
 home = Blueprint('home', __name__)
 
@@ -31,20 +32,20 @@ def post_dashboard():
     #if the log out button is clicked 
     if 'logout' in request.form:
         return redirect(url_for('auth.logout'))
-    if 'confirm' in request.form:
-
+    if 'confirm' in request.form: #if confirm button is clicked the dashboard
+        #obtain input
         pas = request.form.get('rpi_password')
         pas_c = request.form.get('rpi_confirm_password')
 
-        if pas == pas_c:
+        if pas == pas_c: #make sure they match, redirect to rpi_config with pas as a parameter
             print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass confirm'))
             return redirect(url_for('auth.rpi_config', pas=pas))
-        else:
+        else: #if failed redirect to dashboard
             print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass not confirmed'))
             return dashboard()
 
 
-#This route is the keypad page
+#This route is the keypad page - Adrian
 @home.route("/keypad")
 @login_required
 def keypad():
@@ -63,19 +64,19 @@ def post_keypad():
         #scrape input from the pin textbox
         pin = request.form.get('userpin')
 
-        rpi = database.query_rpi()
+        rpi = database.query_rpi() # query rpi from db -Adrian
 
         #if no input is detected
         if rpi == None:
             return redirect(url_for('home.keypad'))
         else:
             #authenticate entered pin with the pin code in the db
-            if rpi.pin_code == pin:
+            if rpi.pin_code == pin: #-Adrian
                 #open door
-                led.on()
-                #TODO interface code between rpi and door lock
-                sleep(5)
+                led.on() 
+                sleep(10)
                 led.off()
+                #TODO interface code between rpi and door lock
                 return redirect(url_for('home.keypad'))
             else:
                 return redirect(url_for('home.keypad'))

@@ -31,11 +31,11 @@ def login():
             else:
                 #authenticates user to db
                 if usr.username == name and usr.password == pas:
-
+                    #Determines the role of the logged in user - Adrina
                     if usr.role == 'rpi':
-                        login_user(usr)
+                        login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
                         return redirect(url_for('home.keypad'))
-                    if usr.role == 'Admin':
+                    if usr.role == 'Admin': 
                         #route to dashboard and update the login session
                         login_user(usr)
                         #led.on()
@@ -78,23 +78,23 @@ def signup():
         #empty
         return redirect(url_for('auth.signup'))
 
+#Route for changing RPI Password
 @auth.route('/rpi/<pas>')
 @login_required
 def rpi_config(pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
 
-    rpi = database.RPI(mac_address='123', pin_code=pas)
-    database.create_rpi(rpi)
+    rpi = database.query_rpi()
+
+    database.update_pi(rpi, pas)
 
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
-
 
 #route to logout the user from the session - Adrian 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    #led.off()
     return redirect(url_for('home.index'))
 
