@@ -1,19 +1,11 @@
 from gpiozero import LED
 from time import sleep
 
-class Pin:
+def open(gpio):
+    gpio.on()
+    sleep(10)
 
-    def open(pin):
+def close():
+    gpio.off()
         
-        output = LED(GPIO17)
-        output.on()
-    def close(pin):
-        output=LED(GPIO17)
-        output.off()
-
-    class MotionSensor:
-        pass
-
-    class Camera:
-        pass
 
