@@ -5,7 +5,7 @@ def open(gpio):
     gpio.on()
     sleep(10)
 
-def close():
+def close(gpio):
     gpio.off()
         
 
