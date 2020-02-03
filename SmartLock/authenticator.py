@@ -85,6 +85,7 @@ def rpi_config(pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
 
     rpi = database.query_rpi()
+    database.query_rpi(rpi, pas)
 
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
