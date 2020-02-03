@@ -70,7 +70,7 @@ def post_keypad():
             return redirect(url_for('home.keypad'))
         else:
             #authenticate entered pin with the pin code in the db
-            if rpi.pin_Code == current_user.pin_Code:
+            if rpi.pin_Code == pin:
                 #open door
                 led.on()
                 #TODO interface code between rpi and door lock
