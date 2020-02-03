@@ -12,7 +12,11 @@
 
 <form class="box" action="http://localhost:5000/dashboard" method="post">
   <h1>HOME</h1>
-    <p style="color:white;" >{{ info }}</p>
+    <p style="color:white;" >Hello, {{ info }}</p>
+    <p style="color:white;" >Set RPI Pin Code</p>
+    <input type="password" name="rpi_password" placeholder="Password" >
+    <input type="password" name="rpi_confirm_password" placeholder="Confirm Password" >
+    <input type="submit" name="confirm" value="Confirm">
     <input type="submit" name="logout" value="logout">
 </form>
 

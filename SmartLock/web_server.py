@@ -3,7 +3,11 @@ from flask import Flask, render_template, request, flash, Blueprint, session, re
 #from authenticator import auth
 from flask_login import login_user, logout_user, login_required, current_user
 from . import db
-from SmartLock.database import user_query, create_entry_log, Entry_log
+import SmartLock.database as database
+from gpiozero import LED
+from time import sleep
+
+led = LED(17)
 
 home = Blueprint('home', __name__)
 
@@ -17,9 +21,8 @@ def index():
 @login_required
 def dashboard():
     #displays details of user in dashboard
-    #details = 'User: ' + current_user.username + '\nRole: ' + current_user.role
-    #return render_template('dashboard.html', info = details)
-    return render_template('pinpad_test.html')
+    details = current_user.username
+    return render_template('dashboard.html', info = details)
 
 #This routes is the dashboard post page to handle post commands inside the dashboard web page -Adrian
 @home.route('/dashboard', methods=['POST'])
@@ -28,6 +31,18 @@ def post_dashboard():
     #if the log out button is clicked 
     if 'logout' in request.form:
         return redirect(url_for('auth.logout'))
+    if 'confirm' in request.form:
+
+        pas = request.form.get('rpi_password')
+        pas_c = request.form.get('rpi_confirm_password')
+
+        if pas == pas_c:
+            print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass confirm'))
+            return redirect(url_for('auth.rpi_config', pas=pas))
+        else:
+            print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass not confirmed'))
+            return dashboard()
+
 
 #This route is the keypad page
 @home.route("/keypad")
@@ -53,15 +68,19 @@ def post_keypad():
         #created in the authenticator class under the login method
         #usr = login.usr
 
+        rpi = database.query_rpi()
+
         #if no input is detected
-        if pin == None:
+        if rpi == None:
             return redirect(url_for('home.keypad'))
         else:
             #authenticate entered pin with the pin code in the db
-            if pin == current_user.pin_Code:
+            if rpi.pin_Code == current_user.pin_Code:
                 #open door
+                led.on()
                 #TODO interface code between rpi and door lock
-                print('It\'s working!')
+                sleep(5)
+                led.off()
                 return redirect(url_for('home.keypad'))
             else:
                 return redirect(url_for('home.keypad'))

@@ -2,10 +2,7 @@ import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
 from flask_login import login_user, logout_user, login_required
 from . import db
-from SmartLock.database import User, create_user, user_query, update_pass
-from gpiozero import LED
-
-led = LED(17)
+import SmartLock.database as database
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
@@ -27,20 +24,24 @@ def login():
             name = request.form.get('username')
             pas = request.form.get('password')
             #obtaines user from database thru ORM
-            usr = user_query(name)
+            usr = database.user_query(name)
             #checks if usr returned is null if so redirect to the login
             if usr == None:
                 return redirect(url_for('auth.login'))
             else:
                 #authenticates user to db
                 if usr.username == name and usr.password == pas:
-                    #route to dashboard and update the login session
-                    login_user(usr)
-                    led.on()
-                    return redirect(url_for('home.dashboard'))
+
+                    if usr.role == 'rpi':
+                        login_user(usr)
+                        return redirect(url_for('home.keypad'))
+                    if usr.role == 'Admin':
+                        #route to dashboard and update the login session
+                        login_user(usr)
+                        #led.on()
+                        return redirect(url_for('home.dashboard'))
                 else:
                     return redirect(url_for('auth.login'))
-                    
         else:
             #empty
             return redirect(url_for('auth.login'))
@@ -59,6 +60,7 @@ def signup_index():
 @auth.route('/signup', methods=['POST'])
 def signup():
     #Authentication Code Goes Here - Adrian
+
     #checks to see if the the username field is empty
     if request.form.get('signup_username') and request.form.get('signup_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
         #Non-empty
@@ -68,19 +70,31 @@ def signup():
         last = request.form.get('lastname')
         mail = request.form.get('email')
         #obtaines user from database thru ORM
-        usr = User(username=uname, password = pas, first_name=name, last_name=last, role='House_Owner', pin_code=None, email=mail)
-        create_user(usr)
+        usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail)
+        database.create_user(usr)
 
         return redirect(url_for('auth.login'))
     else:
         #empty
         return redirect(url_for('auth.signup'))
 
+@auth.route('/rpi/<pas>')
+@login_required
+def rpi_config(pas):
+    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
+
+    rpi = database.RPI(mac_address='123', pin_code=pas)
+    database.create_rpi(rpi)
+
+    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
+    return redirect(url_for('home.dashboard'))
+
+
 #route to logout the user from the session - Adrian 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    led.off()
+    #led.off()
     return redirect(url_for('home.index'))
 

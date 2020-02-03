@@ -57,3 +57,6 @@ def create_rpi(rpi):
 def update_pass(usr, password):
     usr.password = password
     db.session.commit()
+
+def query_rpi():
+    return RPI.query.filter_by(id=1).first()
