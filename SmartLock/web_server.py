@@ -34,12 +34,19 @@ def post_dashboard():
         return redirect(url_for('auth.logout'))
     if 'confirm' in request.form: #if confirm button is clicked the dashboard
         #obtain input
-        pas = request.form.get('rpi_password')
-        pas_c = request.form.get('rpi_confirm_password')
+        old_pin = request.form.get('old_rpi_password')
 
-        if pas == pas_c: #make sure they match, redirect to rpi_config with pas as a parameter
-            print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass confirm'))
-            return redirect(url_for('auth.rpi_config', pas=pas))
+        rpi = data.query_rpi()
+
+        if old_pin == rpi.pin_code : #make sure they match, redirect to rpi_config with pas as a parameter - Adrian
+            new_pin = request.form.get('rpi_password')
+            confrim_pin = request.form.get('rpi_confirm_password')
+            if new_pin == confrim_pin:
+                print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('PIN confirmed'))
+                return redirect(url_for('auth.rpi_config', pas=pas))
+            else:
+                print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
+                return redirect(url_for('auth.rpi_config', pas=pas))
         else: #if failed redirect to dashboard
             print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass not confirmed'))
             return dashboard()
