@@ -59,14 +59,9 @@ def post_keypad():
     #if keypad enter button is pressed
     if 'submitpin' in request.form:
         #TODO error detection for keypad inputs to be entered here
-
+        print('IN SUBMIT')
         #scrape input from the pin textbox
         pin = request.form.get('userpin')
-
-        #this code is not being used...
-        #set a new instance variable usr to the one already
-        #created in the authenticator class under the login method
-        #usr = login.usr
 
         rpi = database.query_rpi()
 
