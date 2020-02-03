@@ -43,13 +43,13 @@ def post_dashboard():
             confrim_pin = request.form.get('rpi_confirm_password')
             if new_pin == confrim_pin:
                 print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('PIN confirmed'))
-                return redirect(url_for('auth.rpi_config', pas=pas))
+                return redirect(url_for('auth.rpi_config', pas=confrim_pin))
             else:
                 print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
-                return redirect(url_for('auth.rpi_config', pas=pas))
+                return redirect(url_for('home.dashboard'))
         else: #if failed redirect to dashboard
             print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass not confirmed'))
-            return dashboard()
+            return redirect(url_for('home.dashboard'))
 
 
 #This route is the keypad page - Adrian
