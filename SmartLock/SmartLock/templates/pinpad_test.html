@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>َKeypad Entry Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+
+<form class="box" action="http://localhost:5000/keypad" method="post">
+  <h1>Key Pad</h1>
+  <input type="password" name="userpin" placeholder="Enter your pin here">
+  <input type="submit" name="submitpin" value="Enter">
+</form>
+
+  </body>
+</html>
