@@ -6,7 +6,7 @@ from . import db
 import SmartLock.database as database
 from gpiozero import LED
 from time import sleep
-from rpi import GPIOon, GPIOoff
+from rpi import GPIOon, GPIOoff, switchOn, switchoff 
 
 #test led on RPI - Adrian
 led = LED(17) 
