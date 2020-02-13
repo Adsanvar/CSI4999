@@ -1,4 +1,4 @@
-from gpiozero import lock_pin
+from gpiozero import LED
 from time import sleep
 
 lock_pin = lock_pin(17)
