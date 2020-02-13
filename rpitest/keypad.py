@@ -4,7 +4,7 @@ from GPIO import GPIOon, GPIOoff
 import time
 from flask_sqlalchemy import SQLAlchemy
 # import mysql.connector as mariadb
-import local_database as database
+from rpitest.local_database import user_query
 
 db = SQLAlchemy()
 
@@ -89,7 +89,7 @@ class Box(FrameSize):
         if Key == str(self.Code):
             # self.Update("Correct Pin")
             # GPIOon()
-            print(database.user_query('test'))
+            print(user_query('test'))
             # while count < 11:
             #     if measure2 - measure1 >= 2:
             #         GPIOon()
