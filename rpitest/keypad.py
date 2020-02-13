@@ -4,7 +4,7 @@ from GPIO import GPIOon, GPIOoff
 import time
 import mysql.connector as mariadb
  
-mariadb_connection = mariadb.connect(user='user', password='pass', database='smart_lock')
+mariadb_connection = mariadb.connect(user='admin', password='pass', database='smart_lock')
 cursor = mariadb_connection.cursor()
 
 class FrameSize(tkinter.Tk):
