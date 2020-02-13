@@ -1,4 +1,4 @@
-from keypad import db
+from rpitest.keypad import db
 from flask_login import UserMixin
 
 #this is the model for the user table in the db -jared
