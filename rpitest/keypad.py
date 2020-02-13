@@ -2,7 +2,7 @@ import tkinter, tkinter.ttk as ttk
 import random
 from GPIO import GPIOon, GPIOoff
 import time
-from Rpitest.DATABASE import user_query
+from DATABASE import user_query
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
