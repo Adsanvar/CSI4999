@@ -2,15 +2,10 @@ import tkinter, tkinter.ttk as ttk
 import random
 from GPIO import GPIOon, GPIOoff
 import time
-from flask_sqlalchemy import SQLAlchemy
 # import mysql.connector as mariadb
-from Rpitest.local_database import user_query
-
-db = SQLAlchemy()
 
 # mariadb_connection = mariadb.connect(user='admin', password='pass', database='smart_lock')
 # cursor = mariadb_connection.cursor()
-
 
 
 class FrameSize(tkinter.Tk):
@@ -87,9 +82,8 @@ class Box(FrameSize):
         measure2 = time.time()
         count = 1
         if Key == str(self.Code):
-            # self.Update("Correct Pin")
-            # GPIOon()
-            print(user_query('test'))
+            self.Update("Correct Pin")
+            GPIOon()
             # while count < 11:
             #     if measure2 - measure1 >= 2:
             #         GPIOon()
