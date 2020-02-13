@@ -3,9 +3,11 @@ import random
 from GPIO import GPIOon, GPIOoff
 import time
 from flask_sqlalchemy import SQLAlchemy
-import mysql.connector as mariadb
-import SmartLock.database as database
- 
+# import mysql.connector as mariadb
+import rpitest.local_database as database
+
+db = SQLAlchemy()
+
 # mariadb_connection = mariadb.connect(user='admin', password='pass', database='smart_lock')
 # cursor = mariadb_connection.cursor()
 
