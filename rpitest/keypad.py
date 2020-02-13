@@ -2,6 +2,10 @@ import tkinter, tkinter.ttk as ttk
 import random
 from GPIO import GPIOon, GPIOoff
 import time
+from local_database import user_query
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 # import mysql.connector as mariadb
 
 # mariadb_connection = mariadb.connect(user='admin', password='pass', database='smart_lock')
