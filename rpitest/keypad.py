@@ -24,6 +24,7 @@ class FrameSize(tkinter.Tk):
                 self.Row += 1
                 self.Col = 0
                 continue
+            
 class Box(FrameSize):
     def __init__(self, **args):
         super(Box, self).__init__()
@@ -72,6 +73,7 @@ class Box(FrameSize):
                 self.KeyEnter.insert(tkinter.END, x)
 
             self.KeyEnter["state"] = "disabled"
+
     def CheckCode(self):
         Key = self.KeyEnter.get()
         self.Update(-1)
@@ -79,28 +81,22 @@ class Box(FrameSize):
         measure2 = time.time()
         count = 1
         if Key == str(self.Code):
-            while count < 11:
-                if measure2 - measure1 >= 2:
-                    GPIOon(x=True)
-                    measure1 = measure2
-                    measure = time.time()
-                    count += 1
-                else:
-                    measure2 = time.time()
-                    
-                
+            GPIOon()
+            # while count < 11:
+            #     if measure2 - measure1 >= 2:
+            #         GPIOon()
+            #         measure1 = measure2
+            #         measure = time.time()
+            #         count += 1
+            #     else:
+            #         measure2 = time.time()               
             self.Update("Correct Pin")
-            
-            
+               
         else:
             self.Update("Incorrect Pin")
+
         self.ChangeWritePerms()
         self.after(self.Timer, self.ChangeWritePerms)
-
-            
-
-
-
 
     def ChangeWritePerms(self):
         if self.CanWrite:

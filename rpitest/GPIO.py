@@ -1,14 +1,16 @@
 from gpiozero import LED
 from time import sleep
 
-def GPIOon(x):
-    x = LED(17)
-    x = x.on()
+led = LED(17)
+
+def GPIOon():
+    led.on()
+    sleep(10)
+    GPIOoff()
     
 
-def GPIOoff(y):
-    y = LED(17)
-    y = y.off()
+def GPIOoff():
+    led.off()
 
 
     
