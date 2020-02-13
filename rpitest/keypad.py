@@ -4,7 +4,7 @@ from GPIO import GPIOon, GPIOoff
 import time
 from flask_sqlalchemy import SQLAlchemy
 # import mysql.connector as mariadb
-from rpitest.local_database import user_query
+from local_database import user_query
 
 db = SQLAlchemy()
 
