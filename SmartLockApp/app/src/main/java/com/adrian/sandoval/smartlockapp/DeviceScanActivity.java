@@ -66,7 +66,7 @@ public class DeviceScanActivity extends AppCompatActivity {
             //super.onScanResult(callbackType, result);
 //            Log.d("Scanned", result.getDevice().toString());
             Log.d("Scanned", result.getDevice().getName() + " Address: " + result.getDevice().getAddress() + " | RSSI: " + Integer.toString(result.getRssi()));
-
+            Log.d("scanned", result.toString());
 
         }
 
