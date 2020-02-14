@@ -1,0 +1,26 @@
+<!--Created By: Adrian Sandoval-Vargas
+    If Modified insert your comment and your name by function
+-->
+<!-- Test to see if i can edit through browser, Heath -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>َSign Up Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+
+<form class="box" action="http://192.168.1.103:5000/signup" method="post">
+  <h1>Sign Up</h1>
+  <input type="text" name="signup_username" placeholder="Username" required>
+  <input type="password" name="signup_password" placeholder="Password" required>
+  <input type="text" name="firstname" placeholder="First Name" required>
+  <input type="text" name="lastname" placeholder="Last Name" required>
+  <input type="text" name="email" placeholder="Email" required>
+  <input type="submit" name="confirm" value="Confirm" required>
+</form>
+
+
+  </body>
+</html>

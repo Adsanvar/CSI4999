@@ -1,0 +1,26 @@
+<!--Created By: Adrian Sandoval-Vargas
+    If Modified insert your comment and your name by function
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>َDashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+
+<form class="box" action="http://192.168.1.103:5000/dashboard" method="post">
+  <h1>HOME</h1>
+    <p style="color:white;" >Hello, {{ info }}</p>
+    <p style="color:white;" >Set RPI Pin Code</p>
+    <input type="password" name="old_rpi_password" placeholder="Old PIN" >
+    <input type="password" name="rpi_password" placeholder="New PIN" >
+    <input type="password" name="rpi_confirm_password" placeholder="Confirm PIN" >
+    <input type="submit" name="confirm" value="Confirm">
+    <input type="submit" name="logout" value="logout">
+</form>
+
+
+  </body>
+</html>
