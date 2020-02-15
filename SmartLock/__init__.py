@@ -5,8 +5,7 @@ from flask_login import LoginManager as manager
 ##Creates db -Adrian
 db = SQLAlchemy()
 
-run_app = create_app()
-    ##Creates the Flask Application with the configurations -Adrian
+##Creates the Flask Application with the configurations -Adrian
 def create_app():
 
     app = Flask(__name__)
@@ -38,6 +37,3 @@ def create_app():
         return id_query(id)
 
     return app
-
-
-
