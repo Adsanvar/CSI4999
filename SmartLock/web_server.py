@@ -4,10 +4,10 @@ from flask import Flask, render_template, request, flash, Blueprint, session, re
 from flask_login import login_user, logout_user, login_required, current_user
 from . import db
 import SmartLock.database as database
-from gpiozero import LED
+#from gpiozero import LED
 from time import sleep
 #test led on RPI - Adrian
-led = LED(17) 
+#led = LED(17) 
 
 home = Blueprint('home', __name__)
 
@@ -79,9 +79,9 @@ def post_keypad():
             #authenticate entered pin with the pin code in the db
             if rpi.pin_code == pin: #-Adrian
                 #open door
-                led.on() 
-                sleep(10)
-                led.off()
+                #led.on() 
+                #sleep(10)
+                #led.off()
                 #TODO interface code between rpi and door lock
                 return redirect(url_for('home.keypad'))
             else:
