@@ -1,4 +1,1 @@
-gunicorn
 flask
-django
-django-heroku
