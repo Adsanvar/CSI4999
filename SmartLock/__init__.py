@@ -17,7 +17,7 @@ def create_app():
     app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
     # (return app) -Adrian
     db.init_app(app)
-    db.creatall()
+    #db.creatall()
 
     #initialized the login manager - Adrian
     LoginManager = manager()
