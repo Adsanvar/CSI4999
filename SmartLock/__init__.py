@@ -5,6 +5,7 @@ from flask_login import LoginManager as manager
 ##Creates db -Adrian
 db = SQLAlchemy()
 try:
+    app = create_app()
     ##Creates the Flask Application with the configurations -Adrian
     def create_app():
 
