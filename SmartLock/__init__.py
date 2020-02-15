@@ -16,7 +16,7 @@ def create_app():
 
     # (return app) -Adrian
     db.init_app(app)
-    db.creatall()
+    #db.creatall()
 
     #initialized the login manager - Adrian
     LoginManager = manager()
