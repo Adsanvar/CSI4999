@@ -6,9 +6,9 @@ from . import db
 import SmartLock.database as database
 from gpiozero import LED
 from time import sleep
-
+import SmartLock.Controller as controller
 #test led on RPI - Adrian
-led = LED(17) 
+#led = LED(17) 
 
 home = Blueprint('home', __name__)
 
@@ -16,6 +16,18 @@ home = Blueprint('home', __name__)
 @home.route('/', methods=['GET'])
 def index(): 
     return render_template('index.html')
+
+def call_controller():
+    controller.on()
+
+@home.route('/', methods=['POST'])
+def postIndex():
+    #led.on()
+    #sleep(10)
+    #led.off()
+    #controller.on()
+    threading.Timer(1, call_controller).start()
+    return 'UNLOCKED!!!!!'
    
 #This routes is the dashboard page -Adrian
 @home.route('/dashboard')
