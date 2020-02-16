@@ -7,6 +7,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ThemedSpinnerAdapter;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,6 +36,7 @@ import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
 
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Collection;
 
@@ -50,11 +54,17 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     //button
     Button mbutton = null;
 
-    TextView dis, mUrl, mresponse = null;
+    TextView dis, mUrl, mresponse, inzonetxt = null;
 
     String sending_url = null;
 
     RequestQueue queue = null;
+
+    Boolean mInZone, REEQUEST_COMPLETE = null;
+
+    Handler handler =null;
+
+    Integer WAIT_PERIOD = null;
 
     private static DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
@@ -90,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         dis = this.findViewById(R.id.distance_id);
         mUrl = this.findViewById(R.id.url_id);
         mresponse = this.findViewById(R.id.response_id);
+        inzonetxt = this.findViewById(R.id.inzone_id);
 
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,14 +113,9 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         });
 
         queue = Volley.newRequestQueue(this);
-//
-//        BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
-//        // Detect the main identifier (UID) frame:
-//        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));
-//        // Detect the telemetry (TLM) frame:
-//        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_TLM_LAYOUT));
-//        // Detect the URL frame:
-//        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_URL_LAYOUT));
+        handler = new Handler();
+        WAIT_PERIOD = 13*1000;
+        REEQUEST_COMPLETE = true;
 
     }
 
@@ -117,25 +123,79 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     public void login()
     {
-        sending_url = sending_url + "5000/";
+        new SendRequest().execute(sending_url);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, sending_url,
-                new Response.Listener<String>() {
+    }
+
+    protected class SendRequest extends AsyncTask<String, Integer,String>{
+        String resp = null;
+
+        protected  String doInBackground(String... urls)
+        {
+            REEQUEST_COMPLETE = false;
+
+            for(int i =0; i < urls.length; i++)
+            {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, urls[i],
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                //mresponse.setText("Response is: "+ response);
+                                resp = response;
+                            }
+                        }, new Response.ErrorListener() {
                     @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        mresponse.setText("Response is: "+ response);
+                    public void onErrorResponse(VolleyError error) {
+                        mresponse.setText("That didn't work!: " + error.toString());
+                        Log.d("Connection", error.toString());
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                mresponse.setText("That didn't work!: " + error.toString());
-                Log.d("Connection", error.toString());
+                });
+
+                queue.add(stringRequest);
             }
-        });
 
-        queue.add(stringRequest);
+            return resp;
 
+        }
+        protected  void onPostExecute(String result)
+        {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mresponse.setText(mresponse.getText() + "\nTask Completed");
+                    REEQUEST_COMPLETE = true;
+
+                }
+            }, WAIT_PERIOD);
+
+
+
+        }
+    }
+
+    protected void passiveEntry()
+    {
+        inzonetxt.setText("In Zone?, " + mInZone);
+        if(REEQUEST_COMPLETE == true)
+        {
+            if(mInZone == true)
+            {
+                new SendRequest().execute(sending_url);
+
+            }
+        }
+
+    }
+
+
+    private void setmInZone(int dis)
+    {
+        if(dis > -63 )
+        {
+            mInZone = true;
+        }
+        else mInZone = false;
     }
 
 
@@ -166,12 +226,14 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
                 // This is a Eddystone-URL frame
                 String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
-                sending_url = url;
+                sending_url = url +"5000/";
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
-                        " approximately " + beacon.getDistance() + " meters away.");
-                dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()));
+                        " approximately " + beacon.getDistance() + " meters away."+" Rssi: " +beacon.getRssi());
+                dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"\nRSSI: "+ beacon.getRssi());
                 mUrl.setText("Advertising: " +url);
-
+                //setmInZone(beacon.getDistance());
+                setmInZone(beacon.getRssi());
+                passiveEntry();
 
             }
         }
