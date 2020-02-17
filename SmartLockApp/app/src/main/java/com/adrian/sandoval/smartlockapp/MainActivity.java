@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             return resp;
 
         }
+
         protected  void onPostExecute(String result)
         {
             handler.postDelayed(new Runnable() {
@@ -191,7 +192,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     private void setmInZone(int dis)
     {
-        if(dis > -63 )
+//        if(dis > -63 )
+//        {
+//            mInZone = true;
+//        }
+//        else mInZone = false;
+        if(dis > -45 )
         {
             mInZone = true;
         }
