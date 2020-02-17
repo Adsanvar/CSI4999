@@ -1,6 +1,6 @@
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData, Table, Column
 from sqlalchemy.schema import Table
 from datetime import datetime
 from sqlalchemy.orm.attributes import QueryableAttribute
@@ -19,9 +19,15 @@ user = Base.classes.user
 session_factory = sessionmaker(bind=engine)
 session = session_factory()
 #query data test
-Users = session.query(user).all()
+Users = session.query(user)
 for Pin_Code in Users:
     print(Pin_Code)
-
+    pinn = '123'
+    if pinn == Pin_Code:
+        print('dsds')
+        
+metadata = MetaData()
+metadata.reflect(engine, only=['user'])
+Table('user', metadata, Column('Last_Name', String(45)))
 
 

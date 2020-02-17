@@ -1,11 +1,12 @@
 import tkinter, tkinter.ttk as ttk
+from tkinter import Text, Tk
 import random
 from GPIO import GPIOon, GPIOoff
 import time
-from rpitest.local_database import user_query
-from flask_sqlalchemy import SQLAlchemy
+#from rpitest.local_database import user_query
+#from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+#db = SQLAlchemy()
 # import mysql.connector as mariadb
 
 # mariadb_connection = mariadb.connect(user='admin', password='pass', database='smart_lock')
@@ -14,8 +15,9 @@ db = SQLAlchemy()
 
 class FrameSize(tkinter.Tk):
     def Size(self):
+        
         x, y = self.winfo_width(), self.winfo_height()
-        self.minsize(x, y); self.maxsize(x, y)
+        self.minsize(800, 480); self.maxsize(800, 480)
 
     def Buttons(self, ButtonList, NewLine = 3):
         self.Row = 0
@@ -37,9 +39,9 @@ class Box(FrameSize):
         self.EntryFrame = ttk.Frame(self)
         self.PadFrame = ttk.Frame(self)
 
-        self.EntryFrame.pack(padx = 5, pady = 5)
-        self.PadFrame.pack(padx = 5, pady = 5)
-
+        self.EntryFrame.pack(padx = 5, ipady = 30)
+        self.PadFrame.pack(padx = 5, ipady = 30)
+        
         self.AllButtons = []
         self.CanWrite = True
         self.Code = 1111
@@ -48,14 +50,14 @@ class Box(FrameSize):
         
 
         for x in range(1, 10):
-            self.AllButtons.append(ttk.Button(self.PadFrame, width = 4, text = x, command = lambda y = x: self.Update(y)))
+            
+            self.AllButtons.append(ttk.Button(self.PadFrame,width=31, text = x, command = lambda y = x: self.Update(y)))
             self.bind(str(x), lambda CatchEvent, y = x: self.Update(y))
         self.Buttons(self.AllButtons)
 
-        self.ZeroButton = ttk.Button(self.PadFrame, width = 4, text = 0, command = lambda: self.Update(0))
-        self.SubmitButton = ttk.Button(self.PadFrame, width = 4, text = "Ent", command = self.CheckCode)
-        self.ClearButton = ttk.Button(self.PadFrame, width = 4, text = "C", command = lambda: self.Update(-1))
-
+        self.ZeroButton = ttk.Button(self.PadFrame,width=31, text = 0, command = lambda: self.Update(0))
+        self.SubmitButton = ttk.Button(self.PadFrame,width=31, text = "Enter", command = self.CheckCode)
+        self.ClearButton = ttk.Button(self.PadFrame,width=31, text = "C", command = lambda: self.Update(-1))
         self.ClearButton.grid(row = self.Row, column = 0)
         self.ZeroButton.grid(row = self.Row, column = 1)
         self.SubmitButton.grid(row = self.Row, column = 2)
@@ -66,7 +68,7 @@ class Box(FrameSize):
         self.KeyEnter = ttk.Entry(self.EntryFrame, state = "disabled")
         self.KeyEnter.pack()
 
-        self.after(5, self.Size)
+        self.after(30, self.Size)
 
     def Update(self, x):
         if self.CanWrite:
