@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(45))#Adrian
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
-    
+    verif = db.Column(db.Binary(1))#brandons
     def __repr__(self):
         return self.username
 
@@ -66,3 +66,6 @@ def update_pi(pi, pin_code):
 #Queries pi - Adrian
 def query_rpi():
     return RPI.query.filter_by(id=1).first()
+
+def query_user():
+    return User.query.filter_by(id=1).first()

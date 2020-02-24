@@ -90,6 +90,18 @@ def rpi_config(pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
 
+#Route for changing User Password
+@auth.route('/userpass/<pas>')
+@login_required
+def userpass(pas):
+    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE User'))
+
+    userpass = database.query_user()
+    database.update_pass(userpass, pas)
+
+    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
+    return redirect(url_for('home.dashboard'))
+
 #route to logout the user from the session - Adrian 
 @auth.route('/logout')
 @login_required
