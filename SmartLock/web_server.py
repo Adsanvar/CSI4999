@@ -1,12 +1,10 @@
-import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint, session, redirect, url_for
 #from authenticator import auth
 from flask_login import login_user, logout_user, login_required, current_user
 from . import db
 import SmartLock.database as database
 #from gpiozero import LED
-from time import sleep
-
+#from time import sleep
 #test led on RPI - Adrian
 #led = LED(17) 
 

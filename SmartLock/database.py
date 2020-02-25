@@ -10,15 +10,16 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(45))#Adrian
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
-    verif = db.Column(db.Binary(1))#brandons
+    verified = db.Column(db.Boolean(1))#brandons
     def __repr__(self):
         return self.username
 
 #this is the model for the rpi table in the db -jared
 class RPI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    mac_address = db.Column(db.String(45))
+    serial_number = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
+    active = db.Column(db.Boolean(1))
 
 
     def __repr__(self):
