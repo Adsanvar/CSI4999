@@ -66,6 +66,6 @@ def update_pi(pi, pin_code):
 #Queries pi - Adrian
 def query_rpi():
     return RPI.query.filter_by(id=1).first()
-
+#Queries User- Brandon
 def query_user():
     return User.query.filter_by(id=1).first()

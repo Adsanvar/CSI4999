@@ -73,8 +73,7 @@ def post_dashboard():
         old_pass = request.form.get('old_password')
 
         userpass = database.query_user()
-        if request.form.get('original_password') and request.form.get('new_password') 
-            and request.form.get('confirm_password'):
+        if request.form.get('original_password') and request.form.get('new_password') and request.form.get('confirm_password'):
             #checks to see if a field is empty
             if request.form.get('original_password') != request.form.get('new_password'): 
                 #user can not change password to same password
