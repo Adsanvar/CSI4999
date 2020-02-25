@@ -39,11 +39,9 @@ LOCK TABLES `entry_log` WRITE;
 /*!40000 ALTER TABLE `entry_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `entry_log` ENABLE KEYS */;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `rpi`
 --
-
 DROP TABLE IF EXISTS `rpi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8 ;
@@ -51,7 +49,6 @@ CREATE TABLE `rpi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `mac_address` varchar(45) NOT NULL,
   `pin_code` varchar(45) NOT NULL,
-  `status` binary(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -62,7 +59,7 @@ CREATE TABLE `rpi` (
 
 LOCK TABLES `rpi` WRITE;
 /*!40000 ALTER TABLE `rpi` DISABLE KEYS */;
-INSERT INTO `rpi` VALUES (1,'123','123',1);
+INSERT INTO `rpi` VALUES (1,'123','123');
 /*!40000 ALTER TABLE `rpi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +78,6 @@ CREATE TABLE `user` (
   `Last_Name` varchar(45) NOT NULL,
   `Role` varchar(45) NOT NULL,
   `Email` varchar(45) NOT NULL,
-  `Verif` binary(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Username_UNIQUE` (`Username`),
   UNIQUE KEY `Email_UNIQUE` (`Email`)
@@ -94,9 +90,11 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test','test','Adrian','Sandoval','Admin','test@gmail.com',1),(2,'hometest','test','Test','Test','House_Owner','test1@gmail.com',1),(3,'rpi','rpi','raspberry','pi','rpi','null',1);
+INSERT INTO `user` VALUES (1,'test','test','Adrian','Sandoval','Admin','test@gmail.com'),(2,'hometest','test','Test','Test','House_Owner','test1@gmail.com'),(3,'rpi','rpi','raspberry','pi','rpi','null');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
