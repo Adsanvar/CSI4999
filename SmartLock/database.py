@@ -69,4 +69,18 @@ def query_rpi():
     return RPI.query.filter_by(id=1).first()
 #Queries User- Brandon
 def query_user():
-    return User.query.filter_by(id=1).first()
+    return User.query.fislter_by(id=1).first()
+
+#Queries rpi serial number -jared
+def query_serial(sn):
+    return RPI.query.filter_by(sn==RPI.serial_number).first()
+
+#Changes the rpi status -jared (referenced from Adrian)
+def active_status(sn, stat):
+    pi = RPI.query.filter_by(sn==RPI.serial_number).first()
+    pi.active = stat
+    db.session.commit()
+
+#Queries user pincode -jared
+def query_pin_code(sn):
+    return User.query.filter_by(sn==User.pin_code).first()

@@ -109,3 +109,30 @@ def logout():
     logout_user()
     return redirect(url_for('home.index'))
 
+#Route to set active status -jared (referenced from Adrian)
+@auth.route('/setActive/<sn>', methods=['GET'])
+def setActive(sn):
+    database.active_status(sn, True)
+    return "Success"
+
+#Route to get pi information and update rpi pincode if certain
+#verification checks are met -jared (referenced from Adrian)
+@auth.route('/getPiInformation/<sn>', methods=['GET'])
+def getPiInformation(sn):
+    rpi = database.query_serial(sn)
+    if rpi.serial_number == None or rpi.active == False:
+        return "404"
+    elif rpi.serial_number != None and rpi.active != False:
+        #if initial check of sn and status is successful,
+        # check for verification in the rpi db -jared
+        if rpi.verified == 0:
+            return "404"
+        elif rpi.verified == 1:
+            #if user is verified, retrieve the pin code from the
+            #user table in the remote db and copy to the rpi db -jared
+            copied_pin = database.query_pin_code(sn)
+            rpi.pin_code = copied_pin
+            db.session.commit()
+            return 'RPI initialized'
+
+            
