@@ -81,6 +81,6 @@ def active_status(sn, stat):
     pi.active = stat
     db.session.commit()
 
-#Queries user pincode -jared
+#Queries user pincode  -jared
 def query_pin_code(sn):
     return User.query.filter_by(sn==User.pin_code).first()
