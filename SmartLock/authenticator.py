@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, flash, Blueprint, redirect, u
 from flask_login import login_user, logout_user, login_required
 from . import db
 from SmartLock.database import User, create_user, user_query, update_pass
+import SmartLock.database as database
 ##import RPI.GPIO as GPIO ##sam
 
 
@@ -71,14 +72,54 @@ def signup():
         name = request.form.get('firstname')
         last = request.form.get('lastname')
         mail = request.form.get('email')
-        #obtaines user from database thru ORM
-        usr = User(username=uname, password = pas, first_name=name, last_name=last, role='House_Owner', pin_code=None, email=mail)
-        create_user(usr)
 
+        if database.user_query(uname) == None:
+            #obtaines user from database thru ORM
+            usr = User(username=uname, password = pas, first_name=name, last_name=last, role='Admin', email=mail)
+
+
+                message = 'http://localhost:5000/' + uname
+                subject = 'Email Verification'
+                sendMail(mail, subject, message)
+        else:
+            #show the user that the Username is taken.
+            print("Username Taken")
+       
+      
         return redirect(url_for('auth.login'))
     else:
         #empty
         return redirect(url_for('auth.signup'))
+
+def checkActive(serial_number):
+    try:
+        #query rpi table
+        return True 
+    except:
+        return False
+
+def checkDatabase(user):
+    try:
+        create_user(usr)
+        return True
+    except:
+        return False
+ 
+def sendMail(to, subject ,message):
+    try:
+        import smtplib
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+
+        s.starttls()
+        #Google how to add a subject to email using the smtplib library.
+        s.login("pitest873@gmail.com", "TESt123!")
+        
+        s.sendmail("pitest873@gmail.com", to, message)
+
+        s.quit()
+
+    except:
+        raise
 
 #route to logout the user from the session - Adrian 
 @auth.route('/logout')
@@ -86,4 +127,6 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('home.index'))
+
+
 
