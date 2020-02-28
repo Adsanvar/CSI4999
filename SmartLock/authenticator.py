@@ -112,7 +112,7 @@ def sendMail(to, subject ,message):
 
         s.starttls()
         #Google how to add a subject to email using the smtplib library.
-        s.login("pitest873@gmail.com", "TESt123!")
+        s.login("smartlock.noreply@gmail.com", "TESt123!")
         
         s.sendmail("pitest873@gmail.com", to, message)
 
