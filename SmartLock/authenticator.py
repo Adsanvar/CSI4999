@@ -77,6 +77,15 @@ def signup():
     else:
         #empty
         return redirect(url_for('auth.signup'))
+#Route for changing User Password
+@auth.route('/verification/<key>', methods=['GET'])
+def verification(key):
+
+    check = database.query_user(username=key)
+        if check=none:
+            return redirect(url_for('index.html'))
+        else: database.verification(key, True)
+            return redirect(url_for('auth.login'))
 
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')
@@ -120,14 +129,15 @@ def setActive(sn):
 @auth.route('/getPiInformation/<sn>', methods=['GET'])
 def getPiInformation(sn):
     rpi = database.query_serial(sn)
+    user = database.query_user()
     if rpi.serial_number == None or rpi.active == False:
         return "404"
     elif rpi.serial_number != None and rpi.active != False:
         #if initial check of sn and status is successful,
         # check for verification in the rpi db -jared
-        if rpi.verified == 0:
+        if user.verified == 0:
             return "404"
-        elif rpi.verified == 1:
+        elif user.verified == 1:
             #if user is verified, retrieve the pin code from the
             #user table in the remote db and copy to the rpi db -jared
             copied_pin = database.query_pin_code(sn)
