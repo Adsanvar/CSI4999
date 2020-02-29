@@ -67,9 +67,16 @@ def update_pi(pi, pin_code):
 #Queries pi - Adrian
 def query_rpi():
     return RPI.query.filter_by(id=1).first()
+
 #Queries User- Brandon
 def query_user():
-    return User.query.fislter_by(id=1).first()
+    return User.query.filter_by(id=1).first()
+
+#Changes the user to verified=true -brandon (referenced from Adrian&Jared)
+def verification(key, stat):
+    user = User.query.filter_by(key==User.username).first()
+    user.verified = stat
+    db.session.commit()
 
 #Queries rpi serial number -jared
 def query_serial(sn):
