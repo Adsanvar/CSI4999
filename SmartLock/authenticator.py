@@ -80,12 +80,12 @@ def signup():
 #Route for changing User Password
 @auth.route('/verification/<key>', methods=['GET'])
 def verification(key):
-
     check = database.query_user(username=key)
-        if check=none:
-            return redirect(url_for('index.html'))
-        else: database.verification(key, True)
-            return redirect(url_for('auth.login'))
+    if check == None:
+        return redirect(url_for('index.html'))
+    else: 
+        database.verification(key, True)
+        return redirect(url_for('auth.login'))
 
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')
