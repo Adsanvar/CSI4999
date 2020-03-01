@@ -19,6 +19,7 @@ class RPI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mac_address = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
+    active = db.Column(db.Boolean(1))
 
 
     def __repr__(self):
@@ -63,6 +64,14 @@ def update_pi(pi, pin_code):
     pi.pin_code = pin_code
     db.session.commit()
 
+def update_pi_active(serial_number, status):
+    pi = RPI.query.filter_by(mac_address=serial_number).first()
+    pi.active = status
+    db.session.commit()
+
 #Queries pi - Adrian
 def query_rpi():
     return RPI.query.filter_by(id=1).first()
+
+def query_rpi_serial_number(serial_number):
+    return RPI.query.filter_by(mac_address=serial_number).first()

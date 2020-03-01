@@ -1,5 +1,5 @@
 import os, threading, webbrowser, subprocess
-from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
+from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for, escape
 from flask_login import login_user, logout_user, login_required
 from . import db
 import SmartLock.database as database
@@ -31,7 +31,7 @@ def login():
             else:
                 #authenticates user to db
                 if usr.username == name and usr.password == pas:
-                    #Determines the role of the logged in user - Adrina
+                    #Determines the role of the logged in user - Adrian
                     if usr.role == 'rpi':
                         login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
                         return redirect(url_for('home.keypad'))

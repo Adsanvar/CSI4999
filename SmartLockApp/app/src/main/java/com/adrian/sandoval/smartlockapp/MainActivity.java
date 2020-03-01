@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     protected class SendRequest extends AsyncTask<String, Integer,String>{
         String resp = null;
 
-        protected  String doInBackground(String... urls)
+        protected  String doInBackground(final String... urls)
         {
             REEQUEST_COMPLETE = false;
 
@@ -190,14 +190,14 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     }
 
 
-    private void setmInZone(int dis)
+    private void setmInZone(double dis)
     {
 //        if(dis > -63 )
 //        {
 //            mInZone = true;
 //        }
 //        else mInZone = false;
-        if(dis > -45 )
+        if(dis > 3.5)
         {
             mInZone = true;
         }
@@ -237,8 +237,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                         " approximately " + beacon.getDistance() + " meters away."+" Rssi: " +beacon.getRssi());
                 dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"\nRSSI: "+ beacon.getRssi());
                 mUrl.setText("Advertising: " +url);
-                //setmInZone(beacon.getDistance());
-                setmInZone(beacon.getRssi());
+                setmInZone(beacon.getDistance());
+                //setmInZone(beacon.getRssi());
                 passiveEntry();
 
             }
