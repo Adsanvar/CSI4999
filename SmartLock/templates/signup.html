@@ -14,14 +14,14 @@
 <form class="box" action="http://jamesreddington.pythonanywhere.com/signup" method="post"> -->
   <form class="box" action="http://localhost:5000/signup" method="post"> 
   <h1>Sign Up</h1>
-  <input type="text" name="signup_username" placeholder="Username" required>
+  <input type="text" name="signup_username" placeholder="Username" value='{{username}}' required>
   <input type="password" name="signup_password" placeholder="Password" required>
   <input type="text" name="firstname" placeholder="First Name" value='{{firstname}}' required>
   <input type="text" name="lastname" placeholder="Last Name" value='{{lastname}}' required>
   <input type="text" name="email" placeholder="Email" value='{{email}}' required>
   <input type="text" name="serial_num" placeholder="Serial Number" value='{{serialnum}}'required>
   <input type="submit" name="confirm" value="Confirm" required>
-  <p style="color:white;" >{{ info }}</p>
+  <p style="color:rgb(252, 0, 0);" >{{ info }}</p>
   </form>
 
 
