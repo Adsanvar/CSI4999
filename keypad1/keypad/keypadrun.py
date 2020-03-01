@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import create_engine
-import mysql.connector as mariadb
-from GPIO import GPIOon, GPIOoff
+# import mysql.connector as mariadb
+# from GPIO import GPIOon, GPIOoff
 import time
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:pass@localhost/smart_lock'
@@ -14,8 +14,7 @@ Base = automap_base()
 Base.prepare(db.engine, reflect=True) ## Connection information for database in object form which will reflect the database table attributes.
 user = Base.classes.user ## create the "user" table in database as a class
 results = db.session.query(user).all()
-order = db.session.query(user) 
-print(order)
+
               
 def openWeb():
     port = 4444
@@ -32,8 +31,8 @@ def index():
             pin=request.form['code']
 
             if pinc == pin:
-                GPIOon()
-                print("adsd")
+                # GPIOon()
+                print("works")
     return render_template('keypadhtml.html')
     
 
