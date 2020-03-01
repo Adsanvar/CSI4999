@@ -30,7 +30,7 @@ def post_dashboard():
     #if the log out button is clicked 
     if 'logout' in request.form:
         return redirect(url_for('auth.logout'))
-    if 'confirm2' in request.form: #if confirm button is clicked the dashboard
+    if 'confirm' in request.form: #if confirm button is clicked the dashboard
         #obtain input
         old_pin = request.form.get('old_rpi_password')
 

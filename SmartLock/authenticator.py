@@ -95,7 +95,7 @@ def signup():
             lst.append(last)
             lst.append(mail)
             lst.append(serial)
-            return redirect(url_for('auth.signupUserError'))
+            return redirect(url_for('auth.signupUserError', info = lst))
 
         
     else:
