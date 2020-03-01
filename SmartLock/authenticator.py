@@ -149,6 +149,7 @@ def getPiInformation(sn):
 def checkActive(serial_number):
     try:
         #query rpi table
+        
         return True 
     except:
         return False
@@ -168,7 +169,7 @@ def sendMail(to, subject ,message):
         s = smtplib.SMTP('smtp.gmail.com', 587)
 
         s.starttls()
-        #Google how to add a subject to email using the smtplib library.
+
         s.login("smartlock.noreply@gmail.com", "TESt123!")
         
         s.sendmail("pitest873@gmail.com", to, message)

@@ -20,6 +20,7 @@ class RPI(db.Model):
     serial_number = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
     active = db.Column(db.Boolean(1))
+    user_id = db.Column(db.Integer(11))
 
 
     def __repr__(self):
@@ -51,6 +52,7 @@ def create_entry_log(entry_log):
     db.session.add(entry_log)
     db.session.commit()
 
+#creates an RPI Object
 def create_rpi(rpi):
     db.session.add(rpi)
     db.session.commit()
@@ -65,29 +67,23 @@ def update_pi(pi, pin_code):
     db.session.commit()
 
 #Queries pi - Adrian
-def query_rpi():
-    return RPI.query.filter_by(id=1).first()
-
-#Queries User- Brandon
-def query_user():
-    return User.query.filter_by(id=1).first()
+def query_rpi(sn):
+    return RPI.query.filter_by(serial_number = sn).first()
 
 #Changes the user to verified=true -brandon (referenced from Adrian&Jared)
-def verification(key, stat):
-    user = User.query.filter_by(key==User.username).first()
+#Modified by Adrian
+def verification(usr, stat):
     user.verified = stat
     db.session.commit()
 
-#Queries rpi serial number -jared
-def query_serial(sn):
-    return RPI.query.filter_by(sn==RPI.serial_number).first()
-
 #Changes the rpi status -jared (referenced from Adrian)
-def active_status(sn, stat):
-    pi = RPI.query.filter_by(sn==RPI.serial_number).first()
+#Modified by Adrian
+def active_status(pi, stat):
     pi.active = stat
     db.session.commit()
 
 #Queries user pincode  -jared
+#Modified by Adrian
 def query_pin_code(sn):
-    return User.query.filter_by(sn==User.pin_code).first()
+    rpi = query_rpi(sn)
+    return rpi.pin_code 
