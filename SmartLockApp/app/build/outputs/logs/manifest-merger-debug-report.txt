@@ -1,0 +1,286 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7fc5a695cb498a8007894339a030e76e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/82773576fad214776dfd9de0c7561f20/AndroidManifest.xml:2:1-11:12
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:2:1-58:12
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/21352b9b572a74f5025f21bc687ffa95/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/c60073c7eb47a76ec80f9812d4c9c476/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/ebe54848f555fd14b27d281752108e9e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7781d6f9b7a0265456f9d43a8e5aef88/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/3996d0c0d6c5abd12da6c0b83104c499/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.volley:volley:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/66bd4e845aac864f26193f232d468b28/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/bbac29eaaed182651c651af3bf771776/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/addadb290b98ee00185fe3addb8c7c59/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/6336a35d9841c6762754100cdac9a047/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/5e721214bb5e1859645eb9ac5b2b7863/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/71f8b41020eb06474ab144f242febfa5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/98d1c228a71fff8004d785d6659ce8bc/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/4c16411c547309467f122f34726cbb84/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/b6c7adad33e30667febb67a8cfde0abb/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/244c490f40da95aacc83231b48d7d1f6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/67bfea1c6f60e26b1eff160e1443096e/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/752ba6909622ce13209e4044c4d2cde2/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/b3809f95c04b1898be3a19d1c5108dd1/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/58e15d6c4a9a601b82406488b8e346ad/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/d45648cc5ea9ab5dde57db436ab171b7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/eb3d5a4c49b9a2d88783dd9729e2d7ff/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/72757e16687125e1aa09617a70d81dd1/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/d284522ddddf2c8eb1484d80c0038acc/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/0ec50d24090bcca7314a09b62f4d4f3e/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7bd8efd1d978f88e1559106ee83b3435/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/2ee7b859173805e4805b1d8bb4b56e58/AndroidManifest.xml:17:1-22:12
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+	package
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:3:5-47
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:1-38:12
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:5:22-64
+uses-permission#android.permission.BLUETOOTH
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:6:5-68
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:11:5-13:36
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:11:5-13:36
+	android:required
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:13:9-33
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:6:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:7:5-74
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:14:5-16:36
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:14:5-16:36
+	android:required
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:16:9-33
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:7:22-71
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:8:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:9:5-81
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:18:5-81
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:18:5-81
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:9:22-78
+uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:10:5-85
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:10:22-82
+uses-feature#android.hardware.bluetooth_le
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:11:5-13:36
+	android:required
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:13:9-33
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:12:9-53
+application
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:16:5-36:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/82773576fad214776dfd9de0c7561f20/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/82773576fad214776dfd9de0c7561f20/AndroidManifest.xml:9:5-20
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:20:5-56:19
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:20:5-56:19
+MERGED from [com.android.volley:volley:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/66bd4e845aac864f26193f232d468b28/AndroidManifest.xml:9:5-20
+MERGED from [com.android.volley:volley:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/66bd4e845aac864f26193f232d468b28/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/67bfea1c6f60e26b1eff160e1443096e/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/67bfea1c6f60e26b1eff160e1443096e/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/752ba6909622ce13209e4044c4d2cde2/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/752ba6909622ce13209e4044c4d2cde2/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/67bfea1c6f60e26b1eff160e1443096e/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:21:9-35
+	android:label
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:19:9-41
+	android:roundIcon
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:20:9-54
+	android:icon
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:18:9-43
+	android:allowBackup
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:17:9-35
+	android:theme
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:22:9-40
+	android:usesCleartextTraffic
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:23:9-44
+activity#com.adrian.sandoval.smartlockapp.DeviceScanActivity
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:27:9-65
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:27:19-53
+activity#com.adrian.sandoval.smartlockapp.Home
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:28:9-42
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:28:19-39
+activity#com.adrian.sandoval.smartlockapp.MainActivity
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:29:9-35:20
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:29:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:30:13-34:29
+action#android.intent.action.MAIN
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:31:17-69
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:31:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:33:17-77
+	android:name
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml:33:27-74
+uses-sdk
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7fc5a695cb498a8007894339a030e76e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7fc5a695cb498a8007894339a030e76e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/82773576fad214776dfd9de0c7561f20/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/82773576fad214776dfd9de0c7561f20/AndroidManifest.xml:5:5-7:41
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:7:5-9:41
+MERGED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/21352b9b572a74f5025f21bc687ffa95/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/21352b9b572a74f5025f21bc687ffa95/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/c60073c7eb47a76ec80f9812d4c9c476/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/c60073c7eb47a76ec80f9812d4c9c476/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/ebe54848f555fd14b27d281752108e9e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/ebe54848f555fd14b27d281752108e9e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7781d6f9b7a0265456f9d43a8e5aef88/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7781d6f9b7a0265456f9d43a8e5aef88/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/3996d0c0d6c5abd12da6c0b83104c499/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/3996d0c0d6c5abd12da6c0b83104c499/AndroidManifest.xml:20:5-44
+MERGED from [com.android.volley:volley:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/66bd4e845aac864f26193f232d468b28/AndroidManifest.xml:7:5-43
+MERGED from [com.android.volley:volley:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/66bd4e845aac864f26193f232d468b28/AndroidManifest.xml:7:5-43
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/bbac29eaaed182651c651af3bf771776/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/bbac29eaaed182651c651af3bf771776/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/addadb290b98ee00185fe3addb8c7c59/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/addadb290b98ee00185fe3addb8c7c59/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/6336a35d9841c6762754100cdac9a047/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/6336a35d9841c6762754100cdac9a047/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/5e721214bb5e1859645eb9ac5b2b7863/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/5e721214bb5e1859645eb9ac5b2b7863/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/71f8b41020eb06474ab144f242febfa5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/71f8b41020eb06474ab144f242febfa5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/98d1c228a71fff8004d785d6659ce8bc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/98d1c228a71fff8004d785d6659ce8bc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/4c16411c547309467f122f34726cbb84/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/4c16411c547309467f122f34726cbb84/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/b6c7adad33e30667febb67a8cfde0abb/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/b6c7adad33e30667febb67a8cfde0abb/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/244c490f40da95aacc83231b48d7d1f6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/244c490f40da95aacc83231b48d7d1f6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/67bfea1c6f60e26b1eff160e1443096e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/67bfea1c6f60e26b1eff160e1443096e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/752ba6909622ce13209e4044c4d2cde2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/752ba6909622ce13209e4044c4d2cde2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/b3809f95c04b1898be3a19d1c5108dd1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/b3809f95c04b1898be3a19d1c5108dd1/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/58e15d6c4a9a601b82406488b8e346ad/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/58e15d6c4a9a601b82406488b8e346ad/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/d45648cc5ea9ab5dde57db436ab171b7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/d45648cc5ea9ab5dde57db436ab171b7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/eb3d5a4c49b9a2d88783dd9729e2d7ff/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/eb3d5a4c49b9a2d88783dd9729e2d7ff/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/72757e16687125e1aa09617a70d81dd1/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/72757e16687125e1aa09617a70d81dd1/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/d284522ddddf2c8eb1484d80c0038acc/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/d284522ddddf2c8eb1484d80c0038acc/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/0ec50d24090bcca7314a09b62f4d4f3e/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/0ec50d24090bcca7314a09b62f4d4f3e/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7bd8efd1d978f88e1559106ee83b3435/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/7bd8efd1d978f88e1559106ee83b3435/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/2ee7b859173805e4805b1d8bb4b56e58/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/2ee7b859173805e4805b1d8bb4b56e58/AndroidManifest.xml:20:5-44
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+		ADDED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/adriansandoval/Documents/CSI_4999/CSI4999/SmartLockApp/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:17:5-81
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:17:22-78
+receiver#org.altbeacon.beacon.startup.StartupBroadcastReceiver
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:21:9-27:20
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:21:19-87
+intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED+action:name:android.intent.action.BOOT_COMPLETED
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:22:13-26:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:23:17-79
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:23:25-76
+action#android.intent.action.ACTION_POWER_CONNECTED
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:24:17-87
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:24:25-84
+action#android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:25:17-90
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:25:25-87
+service#org.altbeacon.beacon.service.BeaconService
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:29:9-34:38
+	android:enabled
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:31:13-35
+	android:label
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:34:13-35
+	android:exported
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:32:13-37
+	android:isolatedProcess
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:33:13-44
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:30:13-70
+service#org.altbeacon.beacon.BeaconIntentProcessor
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:35:9-38:40
+	android:enabled
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:38:13-37
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:36:13-70
+service#org.altbeacon.beacon.service.ScanJob
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:39:9-48:19
+	android:permission
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:41:13-69
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:40:13-64
+meta-data#immediateScanJobId
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:42:13-44:45
+	android:value
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:44:17-42
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:43:17-50
+meta-data#periodicScanJobId
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:45:13-47:45
+	android:value
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:47:17-42
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:46:17-49
+service#org.altbeacon.bluetooth.BluetoothTestJob
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:49:9-55:19
+	android:permission
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:51:13-69
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:50:13-68
+meta-data#jobId
+ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:52:13-54:46
+	android:value
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:54:17-43
+	android:name
+		ADDED from [org.altbeacon:android-beacon-library:2.16.3] /Users/adriansandoval/.gradle/caches/transforms-2/files-2.1/44695aceca52ebf08c0d282306e65935/AndroidManifest.xml:53:17-37
