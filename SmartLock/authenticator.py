@@ -145,4 +145,35 @@ def getPiInformation(sn):
             db.session.commit()
             return 'RPI initialized'
 
-            
+#check if the serial number is active or not
+def checkActive(serial_number):
+    try:
+        #query rpi table
+        return True 
+    except:
+        return False
+
+#check the database if the user already exists or not
+def checkDatabase(user):
+    try:
+        create_user(usr)
+        return True
+    except:
+        return False
+ 
+ #sends mail to the intended user
+def sendMail(to, subject ,message):
+    try:
+        import smtplib
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+
+        s.starttls()
+        #Google how to add a subject to email using the smtplib library.
+        s.login("smartlock.noreply@gmail.com", "TESt123!")
+        
+        s.sendmail("pitest873@gmail.com", to, message)
+
+        s.quit()
+
+    except:
+        raise
