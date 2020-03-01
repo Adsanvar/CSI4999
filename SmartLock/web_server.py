@@ -48,52 +48,52 @@ def post_dashboard():
         else: #if failed redirect to dashboard
             print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass not confirmed'))
             return redirect(url_for('home.dashboard'))
-    if 'confirm1' in request.form:
-        #checks to see if any field is empty 
-        if request.form.get('member_username') and request.form.get('member_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
-            #Non-empty
-            uname = request.form.get('member_username')
-            pas = request.form.get('member_password')
-            name = request.form.get('firstname')
-            last = request.form.get('lastname')
-            mail = request.form.get('email')
-            #obtaines user from database thru ORM
-            usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail)
-            database.create_user(usr)
-            flash('Your new member has been created')
-            return redirect(url_for('home.dashboard'))
-        else:
-            #empty
-            flash('You have an empty field')
-            return redirect(url_for('home.dashboard'))
-    #if confirm button is activated proceed with change of password
-    if 'confirm3' in request.form:
-        old_pass = request.form.get('old_password')
+    # if 'confirm1' in request.form:
+    #     #checks to see if any field is empty 
+    #     if request.form.get('member_username') and request.form.get('member_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
+    #         #Non-empty
+    #         uname = request.form.get('member_username')
+    #         pas = request.form.get('member_password')
+    #         name = request.form.get('firstname')
+    #         last = request.form.get('lastname')
+    #         mail = request.form.get('email')
+    #         #obtaines user from database thru ORM
+    #         usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail)
+    #         database.create_user(usr)
+    #         flash('Your new member has been created')
+    #         return redirect(url_for('home.dashboard'))
+    #     else:
+    #         #empty
+    #         flash('You have an empty field')
+    #         return redirect(url_for('home.dashboard'))
+    # #if confirm button is activated proceed with change of password
+    # if 'confirm3' in request.form:
+    #     old_pass = request.form.get('old_password')
 
-        userpass = database.query_user()
-        if request.form.get('original_password') and request.form.get('new_password') and request.form.get('confirm_password'):
-            #checks to see if a field is empty
-            if request.form.get('original_password') != request.form.get('new_password'): 
-                #user can not change password to same password
-                if old_pass == userpass.password : 
-                    #make sure they match database, redirect to userpass with pas as a parameter - Brandon
-                    new_pass = request.form.get('new_password')
-                    confrim_pass = request.form.get('confirm_password')
-                    if new_pass == confrim_pass:
-                        print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password confirmed'))
-                        return redirect(url_for('auth.userpass', pas=confrim_pass))
-                    else:
-                        print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
-                        return redirect(url_for('home.dashboard'))
-                else: #if failed redirect to dashboard
-                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password was not confirmed'))
-                    return redirect(url_for('home.dashboard'))
-            else:#if failed redirect to dashboard
-                flash('Password will not be changed')
-                return redirect(url_for('home.dashboard'))
-        else:#empty  
-            flash('Every input is required')
-            return redirect(url_for('home.dashboard'))
+    #     userpass = database.query_user()
+    #     if request.form.get('original_password') and request.form.get('new_password') and request.form.get('confirm_password'):
+    #         #checks to see if a field is empty
+    #         if request.form.get('original_password') != request.form.get('new_password'): 
+    #             #user can not change password to same password
+    #             if old_pass == userpass.password : 
+    #                 #make sure they match database, redirect to userpass with pas as a parameter - Brandon
+    #                 new_pass = request.form.get('new_password')
+    #                 confrim_pass = request.form.get('confirm_password')
+    #                 if new_pass == confrim_pass:
+    #                     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password confirmed'))
+    #                     return redirect(url_for('auth.userpass', pas=confrim_pass))
+    #                 else:
+    #                     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
+    #                     return redirect(url_for('home.dashboard'))
+    #             else: #if failed redirect to dashboard
+    #                 print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password was not confirmed'))
+    #                 return redirect(url_for('home.dashboard'))
+    #         else:#if failed redirect to dashboard
+    #             flash('Password will not be changed')
+    #             return redirect(url_for('home.dashboard'))
+    #     else:#empty  
+    #         flash('Every input is required')
+    #         return redirect(url_for('home.dashboard'))
 
 
 #This route is the keypad page - Adrian

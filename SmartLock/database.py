@@ -20,7 +20,7 @@ class RPI(db.Model):
     serial_number = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
     active = db.Column(db.Boolean(1))
-    user_id = db.Column(db.Integer(11))
+    user_id = db.Column(db.Integer())
 
 
     def __repr__(self):
@@ -42,6 +42,10 @@ def user_query(usr):
 #get user by ID #Adrian
 def user_id_query(id):
     return User.query.get(int(id))
+
+#Query User By Email
+def query_userByEmail(rEmail):
+    return User.query.filter_by(email = rEmail).first()
 
 #Create user call api - Adrian
 def create_user(usr):

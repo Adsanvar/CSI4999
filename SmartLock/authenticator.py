@@ -56,24 +56,48 @@ def login():
 def signup_index():
     return render_template('signup.html')
 
+@auth.route('/signupUserError/<info>', methods = ['GET'])
+def signupUserError(info):
+    first = info[0]
+    last = info[1]
+    email = info[2]
+    serial = info[3]
+    error = info[4]
+    return render_template('signup.html', firstname = first, info = error)
+
 #route for the sign up post command - Adrian
 @auth.route('/signup', methods=['POST'])
 def signup():
     #Authentication Code Goes Here - Adrian
 
-    #checks to see if the the username field is empty
-    if request.form.get('signup_username') and request.form.get('signup_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
+    #checks to see if the the username field is empty -Adrian
+    if request.form.get('signup_username') and request.form.get('signup_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email') and request.form.get('serial_num'):
         #Non-empty
         uname = request.form.get('signup_username')
         pas = request.form.get('signup_password')
         name = request.form.get('firstname')
         last = request.form.get('lastname')
         mail = request.form.get('email')
-        #obtaines user from database thru ORM
-        usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail)
-        database.create_user(usr)
+        serial = request.form.get('serial_num')
+        
+        test = database.user_query(uname)
+        
+        #check to make sure the user is unique -Adrian
+        if database.user_query(uname) == None:
+            print("IN HERE")
+            #obtaines user from database thru ORM
+            # usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
+            # database.create_user(usr)
+            return redirect(url_for('auth.login'))
+        else:
+            lst = []
+            lst.append(name)
+            lst.append(last)
+            lst.append(mail)
+            lst.append(serial)
+            return redirect(url_for('auth.signupUserError'))
 
-        return redirect(url_for('auth.login'))
+        
     else:
         #empty
         return redirect(url_for('auth.signup'))
@@ -154,14 +178,6 @@ def checkActive(serial_number):
     except:
         return False
 
-#check the database if the user already exists or not
-def checkDatabase(user):
-    try:
-        create_user(usr)
-        return True
-    except:
-        return False
- 
  #sends mail to the intended user
 def sendMail(to, subject ,message):
     try:
