@@ -1,14 +1,21 @@
 import os, threading, webbrowser, subprocess
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from sqlalchemy.ext.automap import automap_base
+from sqlalchemy import create_engine
+# import mysql.connector as mariadb
+# from GPIO import GPIOon, GPIOoff
+import time
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:pass@localhost/smart_lock'
 db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123eid123@localhost/smart_lock'
-
 Base = automap_base()
-Base.prepare(db.engine, reflect=True)
+Base.prepare(db.engine, reflect=True) ## Connection information for database in object form which will reflect the database table attributes.
+user = Base.classes.user ## create the "user" table in database as a class
+results = db.session.query(user).all()
 
+              
 def openWeb():
     port = 4444
     url = "http://127.0.0.1:"+str(port)
@@ -17,15 +24,17 @@ def openWeb():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        pin=request.form['code']
-        print(pin)
+    for r in results:
+        pinc = r.Pin_Code
         
-        
-        
+        if request.method == 'POST':
+            pin=request.form['code']
 
-
+            if pinc == pin:
+                # GPIOon()
+                print("works")
     return render_template('keypadhtml.html')
+    
 
 
 if __name__ == '__main__':
