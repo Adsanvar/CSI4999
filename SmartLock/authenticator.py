@@ -1,9 +1,10 @@
-#import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
 from flask_login import login_user, logout_user, login_required
 from . import db
 import SmartLock.database as database
 from validate_email import validate_email
+from email.mime.text import MIMEText
+import os
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
@@ -49,7 +50,12 @@ def login():
             
     #if signup button clicked send to signup page        
     if 'signup' in request.form:
-        return redirect(url_for('auth.signup'))
+        #return redirect(url_for('auth.signup'))
+        msg = 'http://localhost:5000/verification/james'
+        sendMail('ertech404@gmail.com', msg)
+        return redirect(url_for('auth.vertification_post'))
+                            
+        
 
 
 #route for the signup - Adrian
@@ -115,11 +121,15 @@ def signup():
 
                         if database.query_rpi(serial).active == True:
 
-                            
-                            #obtaines user from database thru ORM
-                            # usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
-                            # database.create_user(usr)
+                            #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
+                            msg = 'http://localhost:5000/verification/'+uname
+                            sendMail(mail, msg)
                             return redirect(url_for('auth.vertification_post'))
+                            # if sendMail(mail, msg):
+                            #     print(mail, "\t", msg)
+                            #     usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
+                            #     database.create_user(usr)
+                            #     return redirect(url_for('auth.vertification_post'))
                         else:
                             lst.append('Smart Lock Is Not Active. Please Activate The Smart Lock.')
                             lst.append('inactive_smartlock')
@@ -146,8 +156,6 @@ def signup():
             lst.append('user')
             data = ','.join(lst)
             return redirect(url_for('auth.signupUserError', data = data))
-
-        
     else:
         #empty
         return redirect(url_for('auth.signup'))
@@ -155,17 +163,20 @@ def signup():
 #Route to handle vertification screen
 @auth.route('/vertification', methods=['POST','GET'])
 def vertification_post():
-    if request.form.get('vertification_login'):
-        return render_template(url_for('auth.login_index'))
+    if request.method == 'POST':
+        if request.form.get('vertification_login'):
+            return redirect(url_for('auth.login_index'))
+    else:
+        return render_template('vertification.html')
 
 #Route for verifying
 @auth.route('/verification/<key>', methods=['GET'])
 def verification_return(key):
-    check = database.query_user(username=key)
-    if check == None:
-        return redirect(url_for('index.html'))
+    if database.user_query(key) == None:
+        return redirect(url_for('auth.login_index'))
     else: 
-        database.verification(key, True)
+        usr = database.user_query(key)
+        database.verify_user(usr)
         return redirect(url_for('auth.login'))
 
 #Route for changing RPI Password
@@ -236,18 +247,24 @@ def checkActive(serial_number):
         return False
 
  #sends mail to the intended user
-def sendMail(to, subject ,message):
-    try:
-        import smtplib
-        s = smtplib.SMTP('smtp.gmail.com', 587)
+# def sendMail(to, message):
+#     try:
+#         s = smtplib.SMTP('smtp.gmail.com', 587)
 
-        s.starttls()
-
-        s.login("smartlock.noreply@gmail.com", "TESt123!")
+#         # s.starttls()
+#         # s.login("smartlock.vertification.noreply@gmail.com", "TESt123!")
         
-        s.sendmail("pitest873@gmail.com", to, message)
+#         # s.sendmail("smartlock.vertification.noreply@gmail.com", "ertech404@gmail.com", message)
+#         # s.quit()
+#         s.starttls()
+#         s.login("pitest873@gmail.com", "TESt123!")
 
-        s.quit()
+#         s.sendmail("pitest873@gmail.com", "ertech404@gmail.com", message)
+#         s.quit()
+#         return True
+#     except:
+#         raise
+#         return False
 
-    except:
-        raise
+def sendMail(to, message):
+    os.system("python sendmail.py {} {}".format(to, message))
