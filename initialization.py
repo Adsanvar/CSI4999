@@ -20,6 +20,9 @@ def getserial():
 rpi_serial = getserial()
 print(rpi_serial)
 
+#000000009ae4879e
+
+
 # conn = http.client.HTTPConnection("localhost",5000)
 # conn.request("GET", '/setActive/124')
 # r1 = conn.getresponse()
