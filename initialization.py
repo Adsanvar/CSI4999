@@ -23,7 +23,7 @@ print(rpi_serial)
 #000000009ae4879e
 
 
-conn = http.client.HTTPConnection("localhost",5000)
+conn = http.client.HTTPConnection("172.20.10.2",5000)
 conn.request("GET", '/setActive/'+rpi_serial)
 r1 = conn.getresponse()
 print(r1.read())
