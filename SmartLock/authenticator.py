@@ -50,10 +50,8 @@ def login():
             
     #if signup button clicked send to signup page        
     if 'signup' in request.form:
-        #return redirect(url_for('auth.signup'))
-        msg = 'http://localhost:5000/verification/james'
-        sendMail('ertech404@gmail.com', msg)
-        return redirect(url_for('auth.vertification_post'))
+        return redirect(url_for('auth.signup'))
+       
                             
         
 
@@ -122,8 +120,14 @@ def signup():
                         if database.query_rpi(serial).active == True:
 
                             #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
-                            msg = 'http://localhost:5000/verification/'+uname
+                            msg = 'http://localhost:5000/verification/'+uname+'/'+serial
+                            msg = '\'{}\''.format(msg)
+                            print(msg)
+                            print(mail)
                             sendMail(mail, msg)
+                            # msg = 'http://localhost:5000/verification/james'
+                            # sendMail('ertech404@gmail.com', msg)
+                            # return redirect(url_for('auth.vertification_post'))
                             return redirect(url_for('auth.vertification_post'))
                             # if sendMail(mail, msg):
                             #     print(mail, "\t", msg)
@@ -170,14 +174,15 @@ def vertification_post():
         return render_template('vertification.html')
 
 #Route for verifying
-@auth.route('/verification/<key>', methods=['GET'])
-def verification_return(key):
+@auth.route('/verification/<key>/<serial>', methods=['GET'])
+def verification_return(key, serial):
     if database.user_query(key) == None:
         return redirect(url_for('auth.login_index'))
     else: 
         usr = database.user_query(key)
         database.verify_user(usr)
-        return redirect(url_for('auth.login'))
+        database.rpi_user(serial ,usr.id)
+        return redirect(url_for('auth.login_index'))
 
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')

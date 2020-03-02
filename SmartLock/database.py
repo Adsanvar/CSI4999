@@ -77,13 +77,19 @@ def query_rpi(sn):
 #Changes the user to verified=true -brandon (referenced from Adrian&Jared)
 #Modified by Adrian
 def verify_user(usr):
-    user.verified = True
+    usr.verified = True
     db.session.commit()
 
 #Changes the rpi status -jared (referenced from Adrian)
 #Modified by Adrian
 def activate_pi(pi):
     pi.active = True
+    db.session.commit()
+
+#Updates the rpi user_id
+def rpi_user(serial_number, usr_id):
+    rpi = RPI.query.filter_by(serial_number = serial_number).first()
+    rpi.user_id = usr_id
     db.session.commit()
 
 #Queries user pincode  -jared
