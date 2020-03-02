@@ -120,7 +120,8 @@ def signup():
                         if database.query_rpi(serial).active == True:
 
                             #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
-                            msg = 'http://localhost:5000/verification/'+uname+'/'+serial
+                            #msg = 'http://localhost:5000/verification/'+uname+'/'+serial
+                            msg = 'http://172.20.10.2:500/verification/'+uname+'/'+serial
                             msg = '\'{}\''.format(msg)
                             print(msg)
                             print(mail)
@@ -128,12 +129,12 @@ def signup():
                             # msg = 'http://localhost:5000/verification/james'
                             # sendMail('ertech404@gmail.com', msg)
                             # return redirect(url_for('auth.vertification_post'))
-                            return redirect(url_for('auth.vertification_post'))
+                            # return redirect(url_for('auth.vertification_post'))
                             # if sendMail(mail, msg):
-                            #     print(mail, "\t", msg)
-                            #     usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
-                            #     database.create_user(usr)
-                            #     return redirect(url_for('auth.vertification_post'))
+                                #print(mail, "\t", msg)
+                            usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
+                            database.create_user(usr)
+                            return redirect(url_for('auth.vertification_post'))
                         else:
                             lst.append('Smart Lock Is Not Active. Please Activate The Smart Lock.')
                             lst.append('inactive_smartlock')
