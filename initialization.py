@@ -17,10 +17,10 @@ def getserial():
   return serialNum
 
 #Set the serial number to a variable
-# rpi_serial = getserial()
-# print(rpi_serial)
+rpi_serial = getserial()
+print(rpi_serial)
 
-conn = http.client.HTTPConnection("localhost",5000)
-conn.request("GET", '/setActive/124')
-r1 = conn.getresponse()
-print(r1.read())
+# conn = http.client.HTTPConnection("localhost",5000)
+# conn.request("GET", '/setActive/124')
+# r1 = conn.getresponse()
+# print(r1.read())
