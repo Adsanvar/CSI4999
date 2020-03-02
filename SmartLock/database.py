@@ -82,8 +82,9 @@ def verify_user(usr):
 
 #Changes the rpi status -jared (referenced from Adrian)
 #Modified by Adrian
-def activate_pi(pi):
-    pi.active = True
+def activate_pi(sn, stat):
+    pi = RPI.query.filter_by(serial_number=sn).first()
+    pi.active = stat
     db.session.commit()
 
 #Updates the rpi user_id

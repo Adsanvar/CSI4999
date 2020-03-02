@@ -218,7 +218,7 @@ def logout():
 #Route to set active status -jared (referenced from Adrian)
 @auth.route('/setActive/<sn>', methods=['GET'])
 def setActive(sn):
-    database.active_status(sn, True)
+    database.activate_pi(sn, True)
     return "Success"
 
 #Route to get pi information and update rpi pincode if certain
