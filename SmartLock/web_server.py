@@ -134,6 +134,3 @@ def post_keypad():
     else:
         return redirect(url_for('home.keypad'))
 
-@home.route('/getPiInfo/<key>', methods=['GET'])
-def verification_return(key):
-    return database.query_pin_code(key)

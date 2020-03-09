@@ -293,3 +293,12 @@ def sendMail(to, message):
         s.quit()
     except:
         raise
+
+
+@auth.route('/getPiInfo/<key>', methods=['GET'])
+def getPiInfo(key):
+    return database.query_pin_code(key)
+
+@auth.route('/pilogin/<username>/<password>', methods=['GET'])
+def piLogin(username,password):
+    return 'Success'
