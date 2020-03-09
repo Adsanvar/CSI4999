@@ -121,7 +121,7 @@ def signup():
 
                             #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
                             #msg = 'http://localhost:5000/verification/'+uname+'/'+serial
-                            msg = 'http://172.20.10.2:500/verification/'+uname+'/'+serial
+                            msg = 'http://172.20.10.2:5000/verification/'+uname+'/'+serial
                             msg = '\'{}\''.format(msg)
                             print(msg)
                             print(mail)
