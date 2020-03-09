@@ -1,5 +1,11 @@
 #!/bin/bash
 
+## This should grab the IP address of the RPi and display - Heath
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
 python test.py
 
 #Eddystone protocol
