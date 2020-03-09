@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
 from flask_login import login_user, logout_user, login_required
-from . import db
+from . import db, bcrypt
 import SmartLock.database as database
 from validate_email import validate_email
 from email.mime.text import MIMEText
@@ -32,7 +32,9 @@ def login():
                 return redirect(url_for('auth.login'))
             else:
                 #authenticates user to db
-                if usr.username == name and usr.password == pas:
+                # Checks db.password hash with form password - Heath
+                if usr.username == name and bcrypt.check_password_hash(usr.password, pas): 
+                #if usr.username == name and usr.password == pas:
                     #Determines the role of the logged in user - Adrina
                     if usr.role == 'rpi':
                         login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
@@ -131,7 +133,8 @@ def signup():
                             # return redirect(url_for('auth.vertification_post'))
                             # if sendMail(mail, msg):
                                 #print(mail, "\t", msg)
-                            usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
+                            # created hashed password - Heath
+                            usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False)
                             database.create_user(usr)
                             return redirect(url_for('auth.vertification_post'))
                         else:

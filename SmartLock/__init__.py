@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager as manager
+from flask_bcrypt import Bcrypt ## Importing Bcrypt to hash passwords store in db - Heath
 
 ##Creates db -Adrian
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 try:
     ##Creates the Flask Application with the configurations -Adrian
     def create_app():
@@ -15,7 +17,7 @@ try:
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://adsanvar:Database13.@adsanvar.mysql.pythonanywhere-services.com/adsanvar$smart_lock'
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Thunder#55@localhost/smart_lock'
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Database13.@localhost/smart_lock'
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysql19@localhost/smart_lock'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ratatat@3@localhost/smart_lock'
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
         app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
         # (return app) -Adrian
@@ -25,6 +27,9 @@ try:
         LoginManager = manager()
         LoginManager.login_view = 'auth.login'
         LoginManager.init_app(app)
+
+        #initialized bcrypt - Heath
+        bcrypt.init_app(app)
 
         #blueprints for the pages and models - Adrian
         from SmartLock.authenticator import auth as a_bp
