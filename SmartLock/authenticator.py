@@ -120,9 +120,8 @@ def signup():
                         if database.query_rpi(serial).active == True:
 
                             #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
-                            #msg = 'http://localhost:5000/verification/'+uname+'/'+serial
-                            msg = 'http://172.20.10.2:5000/verification/'+uname+'/'+serial
-                            msg = '\'{}\''.format(msg)
+                            msg = 'http://localhost:5000/verification/'+uname+'/'+serial
+                            #msg = 'http://172.20.10.2:5000/verification/'+uname+'/'+serial
                             print(msg)
                             print(mail)
                             sendMail(mail, msg)
@@ -272,5 +271,22 @@ def checkActive(serial_number):
 #         raise
 #         return False
 
+# def sendMail(to, message):
+#     os.system("python sendmail.py {} {}".format(to, message))
+
 def sendMail(to, message):
-    os.system("python sendmail.py {} {}".format(to, message))
+    import smtplib, sys
+
+    try:
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+
+        s.starttls()
+        s.login("smartlock.vertification.noreply@gmail.com", "TESt123!")
+                
+        #s.sendmail("pitest873@gmail.com", sys.argv[1], sys.argv[2])
+        #msg = 'http://localhost:5000/verification/adrian/'
+        msg = "WELCOME TO SMART LOCK\n" + message
+        s.sendmail("smartlock.vertification.noreply@gmail.com", to, msg)
+        s.quit()
+    except:
+        raise
