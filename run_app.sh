@@ -1,10 +1,9 @@
 #!/bin/bash
 
 ## This should grab the IP address of the RPi and display - Heath
-_IP=$(hostname -I) || true
-if [ "$_IP" ]; then
-  printf "My IP address is %s\n" "$_IP"
-fi
+RPiIP=$(hostname -I) || true
+if [ "$RPiIP" ]; then
+  #printf "My IP address is %s\n" "$RPiIP"
 
 python test.py
 
@@ -23,3 +22,5 @@ export FLASK_RUN_PORT=5000
 printenv
 flask run -h 172.20.10.3
 #flask run -h 192.168.1.103
+
+fi
