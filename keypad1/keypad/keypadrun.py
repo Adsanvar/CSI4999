@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 # from GPIO import GPIOon, GPIOoff
 import time
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:pass@localhost/smart_lock'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:pass@localhost/smart_lock'
 db = SQLAlchemy(app)
 Base = automap_base()
 Base.prepare(db.engine, reflect=True) ## Connection information for database in object form which will reflect the database table attributes.
