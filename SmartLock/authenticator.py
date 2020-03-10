@@ -33,7 +33,8 @@ def login():
             else:
                 #authenticates user to db
                 # Checks db.password hash with form password - Heath
-                if usr.username == name and bcrypt.check_password_hash(usr.password, pas): 
+                # Also checks if the user is verified before logging in - Heath
+                if usr.username == name and bcrypt.check_password_hash(usr.password, pas) and database.user_query(name).verified == True: 
                 #if usr.username == name and usr.password == pas:
                     #Determines the role of the logged in user - Adrina
                     if usr.role == 'rpi':
