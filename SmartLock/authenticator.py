@@ -37,10 +37,7 @@ def login():
                 if usr.username == name and bcrypt.check_password_hash(usr.password, pas) and database.user_query(name).verified == True: 
                 #if usr.username == name and usr.password == pas:
                     #Determines the role of the logged in user - Adrina
-                    if usr.role == 'rpi':
-                        login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
-                        return redirect(url_for('home.keypad'))
-                    if usr.role == 'Admin': 
+                    if usr.role == 'Member': 
                         #route to dashboard and update the login session
                         login_user(usr)
                         #led.on()
