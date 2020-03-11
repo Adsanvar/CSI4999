@@ -55,8 +55,12 @@ def login():
     if 'signup' in request.form:
         return redirect(url_for('auth.signup'))
        
-                            
+    if 'forgot' in request.form:
+        return redirect(url_for('auth.changePassword'))                           
         
+@auth.route('/changePassword')
+def changePassword():
+    return render_template('changePassword.html')
 
 
 #route for the signup - Adrian
