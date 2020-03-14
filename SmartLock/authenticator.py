@@ -233,19 +233,19 @@ def getPiInformation(sn):
     rpi = database.query_serial(sn)
     user = database.query_user()
     if rpi.serial_number == None or rpi.active == False:
-        return "404"
+        return "PI NOT ACTIVE", 400
     elif rpi.serial_number != None and rpi.active != False:
         #if initial check of sn and status is successful,
         # check for verification in the rpi db -jared
         if user.verified == 0:
-            return "404"
+            return "Please Verify Your Acount", 400
         elif user.verified == 1:
             #if user is verified, retrieve the pin code from the
             #user table in the remote db and copy to the rpi db -jared
             copied_pin = database.query_pin_code(sn)
             rpi.pin_code = copied_pin
             db.session.commit()
-            return 'RPI initialized'
+            return 'RPI initialized', 200
 
 #check if the serial number is active or not
 def checkActive(serial_number):
@@ -304,3 +304,17 @@ def getPiInfo(key):
 @auth.route('/pilogin/<username>/<password>', methods=['GET'])
 def piLogin(username,password):
     return 'Success'
+
+# Mobile Login API Call - Adrian
+# Query Database for user, Check if object in db, logic for login
+@auth.route('/mobilelogin/<username>/<password>', methods=['GET'])
+def mobilelogin(username, password):
+    usr = database.user_query(username)
+    if usr == None:
+        return 'Failed', 400
+    else:
+        if usr.username == username and bcrypt.check_password_hash(usr.password, password) and database.user_query(username).verified == True: 
+            return 'Success', 200
+        else:
+            return 'Failed', 400
+    
