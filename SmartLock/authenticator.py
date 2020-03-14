@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
+from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for, abort
 from flask_login import login_user, logout_user, login_required
 from . import db, bcrypt
 import SmartLock.database as database
@@ -300,9 +300,21 @@ def sendMail(to, message):
 def getPiInfo(key):
     return database.query_pin_code(key)
 
-@auth.route('/pilogin/<username>/<password>', methods=['GET'])
-def piLogin(username,password):
-    return 'Success'
+@auth.route('/piLogin/<username>/<password>/<key>', methods=['GET'])
+def piLogin(username,password,key):
+    #obtaines user from database thru ORM
+    usr = database.user_query(username)
+    #checks if usr returned is null if so redirect to the login
+    if usr == None:
+        return abort(400)
+    else:
+        if usr.username == username and bcrypt.check_password_hash(usr.password, password): 
+            login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
+            return database.query_pin_code(key)
+            
+        else: 
+            return abort(400)
+
 
 # Mobile Login API Call - Adrian
 # Query Database for user, Check if object in db, logic for login
