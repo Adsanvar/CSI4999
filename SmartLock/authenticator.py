@@ -37,7 +37,7 @@ def login():
                 if usr.username == name and bcrypt.check_password_hash(usr.password, pas) and database.user_query(name).verified == True: 
                 #if usr.username == name and usr.password == pas:
                     #Determines the role of the logged in user - Adrina
-                    if usr.role == 'Member': 
+                    if usr.role == 'Member':
                         #route to dashboard and update the login session
                         login_user(usr)
                         #led.on()

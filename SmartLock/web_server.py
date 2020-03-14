@@ -5,8 +5,6 @@ from . import db
 import SmartLock.database as database
 #from gpiozero import LED
 #from time import sleep
-#test led on RPI - Adrian
-#led = LED(17) 
 
 home = Blueprint('home', __name__)
 

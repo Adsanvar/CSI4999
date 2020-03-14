@@ -20,11 +20,9 @@ class RPI(db.Model):
     serial_number = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
     active = db.Column(db.Boolean(1))
-    user_id = db.Column(db.Integer())
-
 
     def __repr__(self):
-        return self.mac_address
+        return self.serial_number
 
 class Entry_log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,6 +68,11 @@ def update_pi(pi, pin_code):
     pi.pin_code = pin_code
     db.session.commit()
 
+def update_pi_active(serial_number, status):
+    pi = RPI.query.filter_by(mac_address=serial_number).first()
+    pi.active = status
+    db.session.commit()
+
 #Queries pi - Adrian
 def query_rpi(sn):
     return RPI.query.filter_by(serial_number = sn).first()
@@ -98,3 +101,8 @@ def rpi_user(serial_number, usr_id):
 def query_pin_code(sn):
     rpi = query_rpi(sn)
     return rpi.pin_code 
+def query_rpi():
+    return RPI.query.filter_by(id=1).first()
+
+def query_rpi_serial_number(serial_number):
+    return RPI.query.filter_by(mac_address=serial_number).first()
