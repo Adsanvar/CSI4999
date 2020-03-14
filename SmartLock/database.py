@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
     verified = db.Column(db.Boolean(1))#brandons
+
     def __repr__(self):
         return self.username
 
@@ -20,6 +21,7 @@ class RPI(db.Model):
     serial_number = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
     active = db.Column(db.Boolean(1))
+    user_id = db.Column(db.Integer())
 
     def __repr__(self):
         return self.serial_number

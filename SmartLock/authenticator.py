@@ -40,7 +40,6 @@ def login():
                     if usr.role == 'Member':
                         #route to dashboard and update the login session
                         login_user(usr)
-                        #led.on()
                         return redirect(url_for('home.dashboard'))
                 else:
                     return redirect(url_for('auth.login'))
