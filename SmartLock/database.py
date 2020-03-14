@@ -11,7 +11,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
     verified = db.Column(db.Boolean(1))#brandons
-
+    
     def __repr__(self):
         return self.username
 
@@ -70,11 +70,6 @@ def update_pi(pi, pin_code):
     pi.pin_code = pin_code
     db.session.commit()
 
-def update_pi_active(serial_number, status):
-    pi = RPI.query.filter_by(mac_address=serial_number).first()
-    pi.active = status
-    db.session.commit()
-
 #Queries pi - Adrian
 def query_rpi(sn):
     return RPI.query.filter_by(serial_number = sn).first()
@@ -103,8 +98,3 @@ def rpi_user(serial_number, usr_id):
 def query_pin_code(sn):
     rpi = query_rpi(sn)
     return rpi.pin_code 
-def query_rpi():
-    return RPI.query.filter_by(id=1).first()
-
-def query_rpi_serial_number(serial_number):
-    return RPI.query.filter_by(mac_address=serial_number).first()
