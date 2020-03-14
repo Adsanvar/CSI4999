@@ -76,41 +76,41 @@ def post_dashboard():
             flash('Every input is required')
             return redirect(url_for('home.dashboard'))
 
-#This route is the keypad page - Adrian
-@home.route("/keypad")
-@login_required
-def keypad():
-    #TODO: Update to the proper keypad.html file
-    return render_template('pinpad_test.html') 
+# #This route is the keypad page - Adrian
+# @home.route("/keypad")
+# @login_required
+# def keypad():
+#     #TODO: Update to the proper keypad.html file
+#     return render_template('pinpad_test.html') 
 
-#This route is the keypad landing page for post commands
-@home.route("/keypad", methods=['POST'])
-@login_required
-def post_keypad():
-    #Jared
-    #if keypad enter button is pressed
-    if 'submitpin' in request.form:
-        #TODO error detection for keypad inputs to be entered here
-        print('IN SUBMIT')
-        #scrape input from the pin textbox
-        pin = request.form.get('userpin')
+# #This route is the keypad landing page for post commands
+# @home.route("/keypad", methods=['POST'])
+# @login_required
+# def post_keypad():
+#     #Jared
+#     #if keypad enter button is pressed
+#     if 'submitpin' in request.form:
+#         #TODO error detection for keypad inputs to be entered here
+#         print('IN SUBMIT')
+#         #scrape input from the pin textbox
+#         pin = request.form.get('userpin')
 
-        rpi = database.query_rpi() # query rpi from db -Adrian
+#         rpi = database.query_rpi() # query rpi from db -Adrian
 
-        #if no input is detected
-        if rpi == None:
-            return redirect(url_for('home.keypad'))
-        else:
-            #authenticate entered pin with the pin code in the db
-            if rpi.pin_code == pin: #-Adrian
-                #open door
-                #led.on() 
-                #sleep(10)
-                #led.off()
-                #TODO interface code between rpi and door lock
-                return redirect(url_for('home.keypad'))
-            else:
-                return redirect(url_for('home.keypad'))
-    else:
-        return redirect(url_for('home.keypad'))
+#         #if no input is detected
+#         if rpi == None:
+#             return redirect(url_for('home.keypad'))
+#         else:
+#             #authenticate entered pin with the pin code in the db
+#             if rpi.pin_code == pin: #-Adrian
+#                 #open door
+#                 #led.on() 
+#                 #sleep(10)
+#                 #led.off()
+#                 #TODO interface code between rpi and door lock
+#                 return redirect(url_for('home.keypad'))
+#             else:
+#                 return redirect(url_for('home.keypad'))
+#     else:
+#         return redirect(url_for('home.keypad'))
 
