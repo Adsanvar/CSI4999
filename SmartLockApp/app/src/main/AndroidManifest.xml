@@ -23,16 +23,17 @@
         android:usesCleartextTraffic="true">
         <!--Remove android:usesCleartextTraffic="true" when ssl is implemented-->
 
+        <activity android:name=".DeviceScanActivity"/>
 
-        <activity android:name=".DeviceScanActivity"></activity>
-        <activity android:name=".Home" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Home" android:theme="@style/Theme.AppCompat.NoActionBar" android:configChanges="orientation" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
