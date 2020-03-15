@@ -295,11 +295,6 @@ def sendMail(to, message):
     except:
         raise
 
-
-@auth.route('/getPiInfo/<key>', methods=['GET'])
-def getPiInfo(key):
-    return database.query_pin_code(key)
-
 @auth.route('/piLogin/<username>/<password>/<key>', methods=['GET'])
 def piLogin(username,password,key):
     #obtaines user from database thru ORM
