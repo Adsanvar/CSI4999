@@ -6,7 +6,7 @@ from . import db
 import SmartLock.database as database
 from gpiozero import LED
 from time import sleep
-from rpi import GPIOon, GPIOoff, switchOn, switchoff 
+from SmartLock.controller import GPIOon, GPIOoff
 
 
 home = Blueprint('home', __name__)
