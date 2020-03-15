@@ -1,9 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 ##Creates db -Adrian
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 
+try:
 ##Creates the Flask Application with the configurations -Adrian
 def create_app():
 
@@ -16,6 +19,8 @@ def create_app():
 
     # (return app) -Adrian
     db.init_app(app)
+
+    bcrypt.init_app(app)
     
     #blueprints for the pages and models - Adrian
     from SmartLock.authenticator import auth as a_bp
@@ -25,3 +30,6 @@ def create_app():
     app.register_blueprint(h_bp)
 
     return app
+    
+except:
+    raise
