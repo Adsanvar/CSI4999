@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `rpi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE  IF NOT EXISTS `rpi` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci */;
 USE `rpi`;
 -- MySQL dump 10.13  Distrib 8.0.13, for macos10.14 (x86_64)
 --
@@ -23,7 +23,7 @@ USE `rpi`;
 
 DROP TABLE IF EXISTS `rpi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8 ;
+ SET character_set_client = utf8mb4;
 CREATE TABLE `rpi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pin_code` varchar(45) NOT NULL,
