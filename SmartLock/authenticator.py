@@ -26,9 +26,10 @@ def login():
             name = request.form.get('username')
             pas = request.form.get('password')
             #Send http request
-
-            conn = http.client.HTTPConnection("localhost",5000)
-            conn.request("GET", '/getPiInfo/'+rpi_serial)
+            #http://192.168.1.65:5000/
+            conn = http.client.HTTPConnection("192.168.1.65",5000)
+            #conn.request("GET", '/getPiInfo/'+getserial())
+            conn.request("GET", '/getPiInfo/'+"124")
             r1 = conn.getresponse()
             print(r1.read())
 
@@ -48,9 +49,6 @@ def login():
             #empty
             return redirect(url_for('auth.login'))
             
-    #if signup button clicked send to signup page        
-    if 'signup' in request.form:
-        return redirect(url_for('auth.signup'))
 
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')
@@ -98,5 +96,4 @@ def getserial():
         f.close()
     except:
         raise
-    
     return serialNum
