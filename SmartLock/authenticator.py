@@ -32,7 +32,7 @@ def login():
             conn.request("GET", '/piLogin/'+name +'/'+pas +'/'+ "124")
             r1 = conn.getresponse()
             print(r1.read())
-            return r1.read()
+            return r1.read().decode('utf8')
             # #checks if usr returned is null if so redirect to the login
             # if r1.read() == None:
             #     return redirect(url_for('auth.login'))
