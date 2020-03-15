@@ -35,11 +35,6 @@ def login():
                     if usr.role == 'rpi':
                         login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
                         return redirect(url_for('home.keypad'))
-                    if usr.role == 'Admin': 
-                        #route to dashboard and update the login session
-                        login_user(usr)
-                        #led.on()
-                        return redirect(url_for('home.dashboard'))
                 else:
                     return redirect(url_for('auth.login'))
         else:
@@ -50,50 +45,11 @@ def login():
     if 'signup' in request.form:
         return redirect(url_for('auth.signup'))
 
-
-#route for the signup - Adrian
-@auth.route('/signup')
-def signup_index():
-    return render_template('signup.html')
-
-#route for the sign up post command - Adrian
-@auth.route('/signup', methods=['POST'])
-def signup():
-    #Authentication Code Goes Here - Adrian
-
-    #checks to see if the the username field is empty
-    if request.form.get('signup_username') and request.form.get('signup_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
-        #Non-empty
-        uname = request.form.get('signup_username')
-        pas = request.form.get('signup_password')
-        name = request.form.get('firstname')
-        last = request.form.get('lastname')
-        mail = request.form.get('email')
-        #obtaines user from database thru ORM
-        usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail)
-        database.create_user(usr)
-
-        return redirect(url_for('auth.login'))
-    else:
-        #empty
-        return redirect(url_for('auth.signup'))
-
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')
-@login_required
 def rpi_config(pas):
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
-
     rpi = database.query_rpi()
     database.update_pi(rpi, pas)
 
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
-
-#route to logout the user from the session - Adrian 
-@auth.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('home.index'))
 
