@@ -1,9 +1,9 @@
-body{
+/* body{
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   background: #34495e;
-}
+}*/
 .box{
   width: 300px;
   padding: 40px;
@@ -53,4 +53,40 @@ body{
 }
 .box input[type = "submit"]:hover{
   background: #2ecc71;
+} 
+
+body {
+	text-align:center;
+	background-color:#333333;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+#keypad {margin:auto; margin-top:20px;}
+
+#keypad tr td {
+	vertical-align:middle;
+	text-align:center;
+	border:1px solid #000000;
+	font-size:18px;
+	font-weight:bold;
+	width:400px;
+	height:200px;
+	cursor:pointer;
+	background-color:#666666;
+	color:#CCCCCC;}
+#keypad tr td:hover {background-color:#999999; color:#FFFF00;}
+
+.display {
+	width:130px;
+	margin:10px auto auto auto;
+	background-color:#000000;
+	color:#00FF00;
+	font-size:18px;
+	border:1px solid #999999;
+}
+#message {
+	text-align:center;
+	color:#009900;
+	font-size:14px;
+	font-weight:bold;
+	display:none;
 }
