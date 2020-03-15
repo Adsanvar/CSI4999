@@ -1,5 +1,6 @@
 package com.adrian.sandoval.smartlockapp;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -44,12 +45,12 @@ public class Home extends AppCompatActivity {
 private Button btnLogin;
 private EditText txtUsername, txtPassword;
 private ImageView logo;
-private Context context;
 private RequestQueue queue = null;
 private Handler handler =null;
 private Integer WAIT_PERIOD = null;
 private String sending_url = null;
 private Boolean authenticated = null;
+private Animation animation_1, animation_2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ private Boolean authenticated = null;
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
         logo = findViewById(R.id.logo);
-        context = this;
         authenticated = false;
 
         sending_url = "http://192.168.1.65:5000/";
@@ -77,11 +77,17 @@ private Boolean authenticated = null;
         handler = new Handler();
         WAIT_PERIOD = 1500;
 
+        animation_1 = AnimationUtils.loadAnimation(this, R.anim.rotate);
+
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                login(txtUsername.getText().toString(), txtPassword.getText().toString());
+                login(txtUsername.getText().toString(), txtPassword.getText().toString(), v.getContext());
+
+                btnLogin.startAnimation(animation_1);
+
 
             }
         });
@@ -89,132 +95,63 @@ private Boolean authenticated = null;
     }
 
 
-//
-//    final Animation animation = AnimationUtils.loadAnimation(context, R.anim.blink_anim);
-//                Log.d("Authenticate", authenticated.toString());
-//                if(authenticated)
-//    {
-//        Intent intent = new Intent(context, MainActivity.class);
-//        context.startActivity(intent);
-//        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-//
-//    }else{
-//
-//        Toast.makeText(context, "Invalid Credential", Toast.LENGTH_LONG).show();
-//        btnLogin.setText("Error");
-//        btnLogin.setTextColor(getResources().getColor(R.color.white));
-//        btnLogin.startAnimation(animation);
-//        btnLogin.setBackground(getResources().getDrawable(R.drawable.login_failed_button));
-//
-//    }
-//
-//                handler.postDelayed(new Runnable() {
-//        @Override
-//        public void run() {
-//
-//            btnLogin.setBackground(getResources().getDrawable(R.drawable.login_button));
-//            btnLogin.setText("Login");
-//            btnLogin.setTextColor(getResources().getColor(R.color.white));
-//            btnLogin.clearAnimation();
-//            animation.cancel();
-//
-//        }
-//    }, WAIT_PERIOD);
+    public void login(String usrname, String pas, final Context context) {
+        String req = sending_url + "mobilelogin/" + usrname + "/" + pas;
+        animation_2 = AnimationUtils.loadAnimation(context, R.anim.blink_anim);
 
+        //new Home.SendRequest().execute(req);
 
-    public void login(String usrname, String pas)
-    {
-        String req = sending_url + "mobilelogin/"+usrname+"/"+pas;
-
-        new Home.SendRequest().execute(req);
-
-    }
-
-    protected class SendRequest extends AsyncTask<String, Integer, String> {
-        String resp = null;
-
-        protected  String doInBackground(final String... urls)
-        {
-
-            for(int i =0; i < urls.length; i++)
-            {
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, urls[i],
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-                                //mresponse.setText("Response is: "+ response);
-                                if(response.equals("Success"))
-                                {
-                                    authenticated = true;
-                                    Log.d("CONNECTION", authenticated.toString());
-
-                                    Intent intent = new Intent(context, MainActivity.class);
-                                    context.startActivity(intent);
-
-                                }else{ authenticated = false; }
-
-                                //Toast.makeText(context, "Response: " + resp.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }, new Response.ErrorListener() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, req,
+                new Response.Listener<String>() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //mresponse.setText("That didn't work!: " + error.toString());
-                        Log.d("Connection", error.toString());
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        //mresponse.setText("Response is: "+ response);
+                        if (response.equals("Success")) {
+                            btnLogin.clearAnimation();
+                            animation_1.cancel();
+                            btnLogin.clearAnimation();
+                            animation_2.cancel();
+                            Log.d("CONNECTION", authenticated.toString());
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            context.startActivity(intent);
+
+                        }
+
                     }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //mresponse.setText("That didn't work!: " + error.toString());
+                Log.d("Connection", error.toString());
 
-                queue.add(stringRequest);
+                    animation_1.cancel();
+                    btnLogin.clearAnimation();
+                    Toast.makeText(context, "Invalid Credential", Toast.LENGTH_LONG).show();
+                    btnLogin.setText("Error");
+                    btnLogin.setTextColor(getResources().getColor(R.color.white));
+                    btnLogin.startAnimation(animation_2);
+                    btnLogin.setBackground(getResources().getDrawable(R.drawable.login_failed_button));
+
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        btnLogin.setBackground(getResources().getDrawable(R.drawable.login_button));
+                        btnLogin.setText("Login");
+                        btnLogin.setTextColor(getResources().getColor(R.color.white));
+                        btnLogin.clearAnimation();
+                        animation_2.cancel();
+
+                    }
+                }, WAIT_PERIOD);
             }
+        });
 
-            return resp;
-
-        }
-
-
-        //When post has executed
-//        @Override
-//        protected  void onPostExecute(final String resp)
-//        {
-
-//
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                    final Animation animation = AnimationUtils.loadAnimation(context, R.anim.blink_anim);
-//                    Log.d("Authenticate", authenticated.toString());
-//                    if(authenticated)
-//                    {
-//                        Intent intent = new Intent(context, MainActivity.class);
-//                        context.startActivity(intent);
-//                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-//
-//                    }else{
-//
-//                        Toast.makeText(context, "Invalid Credential", Toast.LENGTH_LONG).show();
-//                        btnLogin.setText("Error");
-//                        btnLogin.setTextColor(getResources().getColor(R.color.white));
-//                        btnLogin.startAnimation(animation);
-//                        btnLogin.setBackground(getResources().getDrawable(R.drawable.login_failed_button));
-//
-//                    }
-//
-////                btnLogin.setBackground(getResources().getDrawable(R.drawable.login_button));
-////                btnLogin.setText("Login");
-////                btnLogin.setTextColor(getResources().getColor(R.color.white));
-////                btnLogin.clearAnimation();
-////                animation.cancel();
-//
-//                }
-//            }, WAIT_PERIOD);
-
-
-
-
-        //}
+        queue.add(stringRequest);
     }
-
 
 }
 

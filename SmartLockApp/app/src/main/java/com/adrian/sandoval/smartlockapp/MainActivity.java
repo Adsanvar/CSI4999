@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         }
 
 
-        mbutton = this.findViewById(R.id.login_btn);
+        mbutton = this.findViewById(R.id.btnUnlock);
         dis = this.findViewById(R.id.distance_id);
         mUrl = this.findViewById(R.id.url_id);
         mresponse = this.findViewById(R.id.response_id);
