@@ -29,22 +29,22 @@ def login():
             #http://192.168.1.65:5000/
             conn = http.client.HTTPConnection("192.168.1.65",5000)
             #conn.request("GET", '/getPiInfo/'+getserial())
-            conn.request("GET", '/getPiInfo/'+"124")
+            conn.request("GET", '/piLogin/'+name +'/'+pas +'/'+ "124")
             r1 = conn.getresponse()
             print(r1.read())
-
-            #checks if usr returned is null if so redirect to the login
-            if usr == None:
-                return redirect(url_for('auth.login'))
-            else:
-                #authenticates user to db
-                if usr.username == name and usr.password == pas:
-                    #Determines the role of the logged in user - Adrina
-                    if usr.role == 'rpi':
-                        login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
-                        return redirect(url_for('home.keypad'))
-                else:
-                    return redirect(url_for('auth.login'))
+            return r1.read()
+            # #checks if usr returned is null if so redirect to the login
+            # if r1.read() == None:
+            #     return redirect(url_for('auth.login'))
+            # else:
+            #     #authenticates user to db
+            #     if usr.username == name and usr.password == pas:
+            #         #Determines the role of the logged in user - Adrina
+            #         if usr.role == 'rpi':
+            #             login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
+            #             return redirect(url_for('home.keypad'))
+            #     else:
+            #         return redirect(url_for('auth.login'))
         else:
             #empty
             return redirect(url_for('auth.login'))
