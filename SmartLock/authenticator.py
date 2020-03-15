@@ -3,13 +3,15 @@ from flask import Flask, render_template, request, flash, Blueprint, redirect, u
 from flask_login import login_user, logout_user, login_required
 from . import db
 import SmartLock.database as database
+from SmartLock.controller import GPIOon, GPIOoff
+import http.client
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
 #Standard login function that loads the index.html - Adrian
-@auth.route('/login')
-def login_index():
+@auth.route('/', methods=['GET'])
+def index():
     return render_template('index.html')
 
 #route for the login - Adrian
@@ -23,8 +25,13 @@ def login():
             #Non-empty
             name = request.form.get('username')
             pas = request.form.get('password')
-            #obtaines user from database thru ORM
-            usr = database.user_query(name)
+            #Send http request
+
+            conn = http.client.HTTPConnection("localhost",5000)
+            conn.request("GET", '/getPiInfo/'+rpi_serial)
+            r1 = conn.getresponse()
+            print(r1.read())
+
             #checks if usr returned is null if so redirect to the login
             if usr == None:
                 return redirect(url_for('auth.login'))
@@ -53,3 +60,43 @@ def rpi_config(pas):
 
     return redirect(url_for('home.dashboard'))
 
+#This route is the keypad landing page for post commands
+@auth.route("/keypad", methods=['POST'])
+def post_keypad():
+    #Jared
+    #if keypad enter button is pressed
+    if 'submitpin' in request.form:
+        #TODO error detection for keypad inputs to be entered here
+        print('IN SUBMIT')
+        #scrape input from the pin textbox
+        pin = request.form.get('userpin')
+
+        rpi = database.query_rpi() # query rpi from db -Adrian
+
+        #if no input is detected
+        if rpi == None:
+            return redirect(url_for('home.keypad'))
+        else:
+            #authenticate entered pin with the pin code in the db
+            if rpi.pin_code == pin: #-Adrian
+                #open door
+                GPIOon()
+                #TODO interface code between rpi and door lock
+                return redirect(url_for('home.keypad'))
+            else:
+                return redirect(url_for('home.keypad'))
+    else:
+        return redirect(url_for('home.keypad'))
+
+def getserial():
+    serialNum = "0000000000000000"
+    try:
+        f = open('/proc/cpuinfo','r')
+        for line in f:
+            if line[0:6]=='Serial':
+                serialNum = line[10:26]
+        f.close()
+    except:
+        raise
+    
+    return serialNum
