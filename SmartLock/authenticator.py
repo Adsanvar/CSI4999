@@ -1,7 +1,7 @@
 import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
 from flask_login import login_user, logout_user, login_required
-from . import db
+from . import db, bcrypt
 import SmartLock.database as database
 from SmartLock.controller import GPIOon, GPIOoff
 import http.client
@@ -29,7 +29,9 @@ def login():
             #http://192.168.1.65:5000/
             conn = http.client.HTTPConnection("192.168.1.65",5000)
             #conn.request("GET", '/getPiInfo/'+getserial())
-            conn.request("GET", '/piLogin/'+name +'/'+pas +'/'+ "124")
+            conn.request("GET", '/piLogin/'+name +'/'+pas +'/'+ bcrypt.generate_password_hash("124").decode('utf-8'))
+            
+
             r1 = conn.getresponse()
             print(r1.read())
             return r1.read().decode('utf8')
