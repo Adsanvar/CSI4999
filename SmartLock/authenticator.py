@@ -44,7 +44,6 @@ def login():
                 result = r2.read().decode('utf8')
                 print(result)
                 pi = database.query_rpi()
-                print(pi.id)
                 if pi == None:
                     rpi = database.RPI(pin_code=bcrypt.generate_password_hash(result))
                     database.create_rpi(rpi)
