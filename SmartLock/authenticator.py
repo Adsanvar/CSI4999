@@ -34,6 +34,7 @@ def login():
 
             r1 = conn.getresponse()
             res = r1.read().decode('utf8')
+            print(res)
 
             if res == 'Success':
                 #conn2 = http.client.HTTPConnection("http://adsanvar.pythonanywhere.com",5000)
