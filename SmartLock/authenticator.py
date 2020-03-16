@@ -70,6 +70,7 @@ def login():
             r1 = conn.getresponse()
             #print(r1.read())
             parser.feed(r1.read().decode('utf8'))
+            print(type(parser.feed(r1.read().decode('utf8'))))
             
             return r1.read().decode('utf8')
             # #checks if usr returned is null if so redirect to the login
