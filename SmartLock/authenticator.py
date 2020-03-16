@@ -1,15 +1,18 @@
 import os, threading, webbrowser, subprocess
 from flask import Flask, render_template, request, flash, Blueprint, redirect, url_for
 from flask_login import login_user, logout_user, login_required
-from . import db
+from . import db, bcrypt
 import SmartLock.database as database
+from SmartLock.controller import GPIOon, GPIOoff
+import http.client
+import numpy as np
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
 #Standard login function that loads the index.html - Adrian
-@auth.route('/login')
-def login_index():
+@auth.route('/', methods=['GET'])
+def index():
     return render_template('index.html')
 
 #route for the login - Adrian
@@ -23,77 +26,66 @@ def login():
             #Non-empty
             name = request.form.get('username')
             pas = request.form.get('password')
-            #obtaines user from database thru ORM
-            usr = database.user_query(name)
-            #checks if usr returned is null if so redirect to the login
-            if usr == None:
-                return redirect(url_for('auth.login'))
+            #Send http request
+            #http://192.168.1.65:5000/
+            conn = http.client.HTTPConnection("192.168.1.65",5000)
+            #conn.request("GET", '/getPiInfo/'+getserial())
+            conn.request("GET", '/piLogin/'+name +'/'+pas)
+
+            r1 = conn.getresponse()
+            res = r1.read().decode('utf8')
+
+            if res == 'Success':
+                conn2 = http.client.HTTPConnection("192.168.1.65",5000)
+                serial = getserial()
+                conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
+
+                r2 = conn2.getresponse()
+                result = r2.read().decode('utf8')
+                #hashing doesn't not work in MariaDB
+                #bcrypt.generate_password_hash(result).decode('utf-8')
+                pi = database.query_rpi()
+                database.update_pi(pi, result)
+
+                return redirect(url_for('auth.keypad'))
             else:
-                #authenticates user to db
-                if usr.username == name and usr.password == pas:
-                    #Determines the role of the logged in user - Adrina
-                    if usr.role == 'rpi':
-                        login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
-                        return redirect(url_for('home.keypad'))
-                    if usr.role == 'Admin': 
-                        #route to dashboard and update the login session
-                        login_user(usr)
-                        #led.on()
-                        return redirect(url_for('home.dashboard'))
-                else:
-                    return redirect(url_for('auth.login'))
+                return render_template('index.html', info = 'Invalid Credentials')
+
         else:
             #empty
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.index'))
             
-    #if signup button clicked send to signup page        
-    if 'signup' in request.form:
-        return redirect(url_for('auth.signup'))
-
-
-#route for the signup - Adrian
-@auth.route('/signup')
-def signup_index():
-    return render_template('signup.html')
-
-#route for the sign up post command - Adrian
-@auth.route('/signup', methods=['POST'])
-def signup():
-    #Authentication Code Goes Here - Adrian
-
-    #checks to see if the the username field is empty
-    if request.form.get('signup_username') and request.form.get('signup_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
-        #Non-empty
-        uname = request.form.get('signup_username')
-        pas = request.form.get('signup_password')
-        name = request.form.get('firstname')
-        last = request.form.get('lastname')
-        mail = request.form.get('email')
-        #obtaines user from database thru ORM
-        usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail)
-        database.create_user(usr)
-
-        return redirect(url_for('auth.login'))
-    else:
-        #empty
-        return redirect(url_for('auth.signup'))
 
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')
-@login_required
 def rpi_config(pas):
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
-
     rpi = database.query_rpi()
     database.update_pi(rpi, pas)
 
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
 
-#route to logout the user from the session - Adrian 
-@auth.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('home.index'))
+#This route is the keypad landing page for post commands
+@auth.route("/keypad", methods=['GET'])
+def keypad():
+    return render_template('keypad.html')
 
+#This route is the keypad landing page for post commands
+@auth.route("/keypad", methods=['POST'])
+def post_keypad():
+    pin=request.form['code']
+    rpi = database.query_rpi()
+    if rpi.pin_code == pin:
+        GPIOon()
+    return redirect(url_for('auth.keypad'))
+
+def getserial():
+    serialNum = "0000000000000000"
+    try:
+        f = open('/proc/cpuinfo','r')
+        for line in f:
+            if line[0:6]=='Serial':
+                serialNum = line[10:26]
+        f.close()
+    except:
+        raise
+    return serialNum

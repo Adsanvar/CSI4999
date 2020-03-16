@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+	<head>
+		<meta charset="utf-8">
+		<title>KeyPad</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	</head>
+
+	<body onload="emptyCode();">
+
+		<script>
+			function addCode(key){
+				var code = document.forms[0].code;
+				if(code.value.length < 4){
+					code.value = code.value + key;
+				}
+				if(code.value.length == 4){
+					setTimeout(submitForm,1000);
+				}
+			}
+
+			function submitForm(){
+				document.forms[0].submit();
+				
+			}
+
+			function emptyCode(){
+				document.forms[0].code.value = "";
+			}
+		</script>
+
+		<form class="pinpad" action="http://192.168.1.103:5000/keypad" method="post">
+			<table id="keypad" cellpadding="5" cellspacing="3">
+				<tr>
+					<td onclick="addCode('1');">1</td>
+					<td onclick="addCode('2');">2</td>
+					<td onclick="addCode('3');">3</td>
+				</tr>
+				<tr>
+					<td onclick="addCode('4');">4</td>
+					<td onclick="addCode('5');">5</td>
+					<td onclick="addCode('6');">6</td>
+				</tr>
+				<tr>
+					<td onclick="addCode('7');">7</td>
+					<td onclick="addCode('8');">8</td>
+					<td onclick="addCode('9');">9</td>
+				</tr>
+				<tr>
+					
+					<td onclick="addCode('0');">0</td>
+					
+				</tr>
+			</table>
+			<input type="text" name="code" value="" maxlength="4" class="display"/>
+		</form>
+	</body>
+
+</html>
