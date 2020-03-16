@@ -7,12 +7,15 @@ from SmartLock.controller import GPIOon, GPIOoff
 import http.client
 from html.parser import HTMLParser
 from html.entities import name2codepoint
+import numpy as np
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
 #used to parse out responses, this code is referenced from https://docs.python.org/3/library/html.parser.html - Adrian 
 class MyHTMLParser(HTMLParser):
+    raw = []
+
     def handle_starttag(self, tag, attrs):
         print("Start tag:", tag)
         for attr in attrs:
@@ -23,7 +26,9 @@ class MyHTMLParser(HTMLParser):
 
     def handle_data(self, data):
         print("Data     :", data)
-
+        raw.append(data)
+        return raw
+        
     def handle_comment(self, data):
         print("Comment  :", data)
 
