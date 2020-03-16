@@ -30,7 +30,7 @@ def login():
             #http://192.168.1.65:5000/
             conn = http.client.HTTPConnection("192.168.1.65",5000)
             #conn.request("GET", '/getPiInfo/'+getserial())
-            conn.request("GET", '/piLogin/'+name +'/'+pas+'/'+"124")
+            conn.request("GET", '/piLogin/'+name +'/'+pas)
 
             r1 = conn.getresponse()
             #print(r1.read())
