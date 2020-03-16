@@ -35,11 +35,10 @@ def login():
             r1 = conn.getresponse()
             #print(r1.read())
             if 'Bad Request' in r1.read().decode('utf8'):
-                print("error in request")
+                return redirect(url_for('auth.keypad'))
             else:
                 print(r1.read().decode('utf8'))
-                
-            return r1.read().decode('utf8')
+                return r1.read().decode('utf8')
 
             # if context.h1.string != 'Bad Request':
             #     print(r1.read().decode('utf8'))
