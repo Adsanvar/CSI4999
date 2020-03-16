@@ -2,38 +2,38 @@
 <!DOCTYPE html>
 	<head>
 		<meta charset="utf-8">
-		<title>َRaspberry Pi Login Form</title>
+		<title>KeyPad</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 	</head>
 
 	<body onload="emptyCode();">
 
 		<script>
-		function addCode(key){
-			var code = document.forms[0].code;
-			if(code.value.length < 4){
-				code.value = code.value + key;
-			}
-			if(code.value.length == 4){
-				document.getElementById("message");
-				if (message = "123"){
-					redirectTo: "keypadhtml.html";
+			function addCode(key){
+				var code = document.forms[0].code;
+				if(code.value.length < 4){
+					code.value = code.value + key;
 				}
-				setTimeout(submitForm,1000);
+				if(code.value.length == 4){
+					document.getElementById("message");
+					if (message = "123"){
+						redirectTo: "keypad.html";
+					}
+					setTimeout(submitForm,1000);
+				}
 			}
-		}
 
-		function submitForm(){
-			document.forms[0].submit();
-			
-		}
+			function submitForm(){
+				document.forms[0].submit();
+				
+			}
 
-		function emptyCode(){
-			document.forms[0].code.value = "";
-		}
+			function emptyCode(){
+				document.forms[0].code.value = "";
+			}
 		</script>
 
-		<form class="pinpad" action="http://localhost:4444" method="post">
+		<form class="pinpad" action="http://192.168.1.103:5000/keypad" method="post">
 			<table id="keypad" cellpadding="5" cellspacing="3">
 				<tr>
 					<td onclick="addCode('1');">1</td>
