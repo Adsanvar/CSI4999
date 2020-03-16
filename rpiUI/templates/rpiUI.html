@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html lang="en-US">
+<head>
+  
+  <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="rpiUICSS.css">
+    
+    
+
+</head>
+    <div id="login">
+      <form name='form-login'>
+        <span class="fontawesome-user"></span>
+          <input type="text" name="username" placeholder="Username" value="{{request.form.username}}">
+       
+        <span class="fontawesome-key"></span>
+          <input type="password" name="password" placeholder="Password" value="{{request.form.password}}">
+        
+        <input type="submit" value="Login">
+
+</form>
+</html>
