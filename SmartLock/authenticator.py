@@ -40,8 +40,9 @@ def login():
             print(context.h1.string)
 
             if context.h1.string != 'Bad Request':
-                
-            else
+                print(r1.read().decode('utf8'))
+                return redirect(url_for('auth.keypad'))
+            else:
                 return redirect(url_for('auth.login'))
 
             # #checks if usr returned is null if so redirect to the login
