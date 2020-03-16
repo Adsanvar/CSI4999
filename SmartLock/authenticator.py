@@ -35,7 +35,7 @@ def login():
             r1 = conn.getresponse()
             print(r1.read())
             if 'Bad Request' in r1.read().decode('utf8'):
-                return redirect(url_for('auth.index'))
+                return redirect(url_for('auth.index', info = 'Invalid Credentials'))
             elif 'Success' == r1.read().decode('utf8'):
                 conn.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
 
@@ -43,7 +43,7 @@ def login():
                 print(r2.read().decode('utf8'))
                 return redirect(url_for('auth.keypad'))
             else:
-                return redirect(url_for('auth.index'))
+                return redirect(url_for('auth.index', info='Error'))
 
             # if context.h1.string != 'Bad Request':
             #     print(r1.read().decode('utf8'))
