@@ -42,6 +42,12 @@ def login():
 
                 r2 = conn2.getresponse()
                 print(r2.read().decode('utf8'))
+
+                rpi = database.query_rpi()
+
+                if rpi == None:
+                    rpi = RPI(pin_code=bcrypt.generate_password_hash(r2.read().decode('utf8')))
+
                 return redirect(url_for('auth.keypad'))
             else:
                 return render_template('index.html', info = 'Invalid Credentials')
@@ -67,30 +73,11 @@ def keypad():
 #This route is the keypad landing page for post commands
 @auth.route("/keypad", methods=['POST'])
 def post_keypad():
-    #Jared
-    #if keypad enter button is pressed
-    if 'submitpin' in request.form:
-        #TODO error detection for keypad inputs to be entered here
-        print('IN SUBMIT')
-        #scrape input from the pin textbox
-        pin = request.form.get('userpin')
-
-        rpi = database.query_rpi() # query rpi from db -Adrian
-
-        #if no input is detected
-        if rpi == None:
-            return redirect(url_for('home.keypad'))
-        else:
-            #authenticate entered pin with the pin code in the db
-            if rpi.pin_code == pin: #-Adrian
-                #open door
-                GPIOon()
-                #TODO interface code between rpi and door lock
-                return redirect(url_for('home.keypad'))
-            else:
-                return redirect(url_for('home.keypad'))
-    else:
-        return redirect(url_for('home.keypad'))
+    pin=request.form['code']
+    rpi = database.query_rpi()
+    if rpi.pin_code == pin:
+        GPIOon()
+    return redirect(url_for('auth.keypad'))
 
 def getserial():
     serialNum = "0000000000000000"

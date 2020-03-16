@@ -6,7 +6,7 @@ class RPI(db.Model):
     pin_code = db.Column(db.String(45))
 
     def __repr__(self):
-        return self.mac_address
+        return self.id
 
 def create_rpi(rpi):
     db.session.add(rpi)
