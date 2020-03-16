@@ -5,7 +5,6 @@ from . import db, bcrypt
 import SmartLock.database as database
 from SmartLock.controller import GPIOon, GPIOoff
 import http.client
-from bs4 import BeautifulSoup
 import numpy as np
 
 #sets up the authenticator blueprint - Adrian
@@ -31,15 +30,23 @@ def login():
             #http://192.168.1.65:5000/
             conn = http.client.HTTPConnection("192.168.1.65",5000)
             #conn.request("GET", '/getPiInfo/'+getserial())
-            conn.request("GET", '/piLogin/'+name +'/'+pas +'/'+ "124")
+            conn.request("GET", '/piLogin/'+name +'/'+pas)
 
             r1 = conn.getresponse()
             #print(r1.read())
-            context = BeautifulSoup(r1.read().decode('utf8'))
-            
-            print(context.h1.string)
-            
+            if 'Bad Request' in r1.read().decode('utf8'):
+                print("error in request")
+            else:
+                print(r1.read().decode('utf8'))
+                
             return r1.read().decode('utf8')
+
+            # if context.h1.string != 'Bad Request':
+            #     print(r1.read().decode('utf8'))
+            #     return redirect(url_for('auth.keypad'))
+            # else:
+            #     return redirect(url_for('auth.login'))
+
             # #checks if usr returned is null if so redirect to the login
             # if r1.read() == None:
             #     return redirect(url_for('auth.login'))
@@ -64,6 +71,12 @@ def rpi_config(pas):
     database.update_pi(rpi, pas)
 
     return redirect(url_for('home.dashboard'))
+
+
+#This route is the keypad landing page for post commands
+@auth.route("/keypad", methods=['GET'])
+def keypad():
+    return render_template('keypad.html')
 
 #This route is the keypad landing page for post commands
 @auth.route("/keypad", methods=['POST'])
