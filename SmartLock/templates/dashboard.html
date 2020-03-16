@@ -2,25 +2,97 @@
     If Modified insert your comment and your name by function
 -->
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" ><!--dir="ltr"-->
   <head>
     <meta charset="utf-8">
-    <title>َDashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-  </head>
-  <body>
-
-<form class="box" action="http://adsanvar.pythonanywhere.com/dashboard" method="post">
-  <h1>HOME</h1>
-    <p style="color:white;" >Hello, {{ info }}</p>
-    <p style="color:white;" >Set RPI Pin Code</p>
-    <input type="password" name="old_rpi_password" placeholder="Old PIN" >
-    <input type="password" name="rpi_password" placeholder="New PIN" >
-    <input type="password" name="rpi_confirm_password" placeholder="Confirm PIN" >
-    <input type="submit" name="confirm" value="Confirm">
-    <input type="submit" name="logout" value="logout">
-</form>
-
-
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}"> -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+  <!-- <form class="box" action="http://adsanvar.pythonanywhere.com/dashboard" method="post"> -->
+  <!-- <form class="box" action="http://172.20.10.2:5000/dashboard" method="post"> -->
+      <form action="http://localhost:5000/dashboard" method="post">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SmartLock Dash</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+                <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="logout">Logout</button>
+                </form>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">SmartLock Dashboard</h1>
+                <p class="lead">Hello {{ info }}</p>
+                <a class="btn btn-primary" href="#" role="button">More</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                  <h3>Change Password</h3>
+                    <ul class="list-group">
+                      <div class="form-group">
+                        <input class="list-group-item" type="password" name="old_password" placeholder="Old Password" >
+                      </div>
+                      <div class="form-group">
+                        <input class="list-group-item" type="password" name="password" placeholder="New Password" >
+                      </div>
+                    <div class="form-group">
+                        <input class="list-group-item" type="password" name="confirm_password" placeholder="Confirm Password" >
+                    </div>
+                    <div class="form-group">
+                        <input class="list-group-item" type="submit" name="confirm2" value="Confirm">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <h3>Change Pin Code</h3>
+                  <ul class="list-group">
+                  <div class="form-group">
+                    <input class="list-group-item" type="password" name="old_rpi_pin" placeholder="Old Pin" >
+                  </div>
+                  <div class="form-group">
+                    <input class="list-group-item" type="password" name="rpi_pin" placeholder="New Pin" >
+                  </div>
+                  <div class="form-group">
+                    <input class="list-group-item" type="password" name="rpi_confirm_pin" placeholder="Confirm Pin" >
+                  </div>
+                  <div class="form-group">
+                    <input class="list-group-item" type="submit" name="confirm1" value="Confirm">
+                  </div>
+                    </ul>
+                    <p>
+                        <a href="#" class="btn btn-default btn-lg">More...</a>
+                    </p>
+                  </div>     
+            </div>
+        </div>
+        <footer>
+          <div class="container-fluid">
+              <p>©2020 SmartLock</p>
+              <p> Contact Us By Phone: 1-800-111-1111</p>
+              <p> Email: SmartLock.noplay@gmail.com</p>
+          </div>
+      </footer>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      </form>
+      </body>
 </html>

@@ -5,11 +5,12 @@ from flask_login import UserMixin
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(45))
-    password = db.Column(db.String(45))
+    password = db.Column(db.String(100))
     first_name = db.Column(db.String(45))#Adrian
     last_name = db.Column(db.String(45))#Adrian
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
+    verified = db.Column(db.Boolean(1))#brandons
     
     def __repr__(self):
         return self.username
@@ -17,12 +18,13 @@ class User(UserMixin, db.Model):
 #this is the model for the rpi table in the db -jared
 class RPI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    mac_address = db.Column(db.String(45))
+    serial_number = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
-
+    active = db.Column(db.Boolean(1))
+    user_id = db.Column(db.Integer())
 
     def __repr__(self):
-        return self.mac_address
+        return self.serial_number
 
 class Entry_log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,6 +43,10 @@ def user_query(usr):
 def user_id_query(id):
     return User.query.get(int(id))
 
+#Query User By Email
+def query_userByEmail(rEmail):
+    return User.query.filter_by(email = rEmail).first()
+
 #Create user call api - Adrian
 def create_user(usr):
     db.session.add(usr)
@@ -50,6 +56,7 @@ def create_entry_log(entry_log):
     db.session.add(entry_log)
     db.session.commit()
 
+#creates an RPI Object
 def create_rpi(rpi):
     db.session.add(rpi)
     db.session.commit()
@@ -64,5 +71,30 @@ def update_pi(pi, pin_code):
     db.session.commit()
 
 #Queries pi - Adrian
-def query_rpi():
-    return RPI.query.filter_by(id=1).first()
+def query_rpi(sn):
+    return RPI.query.filter_by(serial_number = sn).first()
+
+#Changes the user to verified=true -brandon (referenced from Adrian&Jared)
+#Modified by Adrian
+def verify_user(usr):
+    usr.verified = True
+    db.session.commit()
+
+#Changes the rpi status -jared (referenced from Adrian)
+#Modified by Adrian
+def activate_pi(sn, stat):
+    pi = RPI.query.filter_by(serial_number=sn).first()
+    pi.active = stat
+    db.session.commit()
+
+#Updates the rpi user_id
+def rpi_user(serial_number, usr_id):
+    rpi = RPI.query.filter_by(serial_number = serial_number).first()
+    rpi.user_id = usr_id
+    db.session.commit()
+
+#Queries user pincode  -jared
+#Modified by Adrian
+def query_pin_code(sn):
+    rpi = query_rpi(sn)
+    return rpi.pin_code 

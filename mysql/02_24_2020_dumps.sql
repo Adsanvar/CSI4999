@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.13, for macos10.14 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: smart_lock
 -- ------------------------------------------------------
--- Server version	8.0.13
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,14 +21,14 @@
 
 DROP TABLE IF EXISTS `entry_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entry_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `datetime` varchar(45) NOT NULL,
   `entry_type` varchar(45) NOT NULL,
   `user` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,13 +46,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `rpi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rpi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mac_address` varchar(45) NOT NULL,
-  `pin_code` varchar(45) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `serial_number` varchar(45) NOT NULL,
+  `pin_code` varchar(45) NOT NULL DEFAULT '0',
+  `active` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=UTF8MB4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +62,7 @@ CREATE TABLE `rpi` (
 
 LOCK TABLES `rpi` WRITE;
 /*!40000 ALTER TABLE `rpi` DISABLE KEYS */;
-INSERT INTO `rpi` VALUES (1,'123','123');
+INSERT INTO `rpi` VALUES (1,'123','123',1);
 /*!40000 ALTER TABLE `rpi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,19 +72,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `Username` varchar(45) NOT NULL,
   `Password` varchar(45) NOT NULL,
   `First_Name` varchar(45) NOT NULL,
   `Last_Name` varchar(45) NOT NULL,
   `Role` varchar(45) NOT NULL,
   `Email` varchar(45) NOT NULL,
+  `Verified` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `Username_UNIQUE` (`Username`),
   UNIQUE KEY `Email_UNIQUE` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=UTF8MB4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +94,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test','test','Adrian','Sandoval','Admin','test@gmail.com'),(2,'hometest','test','Test','Test','House_Owner','test1@gmail.com'),(3,'rpi','rpi','raspberry','pi','rpi','null');
+INSERT INTO `user` VALUES (1,'test','test','Adrian','Sandoval','Admin','test@gmail.com',1),(2,'hometest','test','Test','Test','House_Owner','test1@gmail.com',1),(3,'rpi','rpi','raspberry','pi','rpi','null',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -105,4 +107,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-02 21:51:40
+-- Dump completed on 2020-02-24 21:38:24
