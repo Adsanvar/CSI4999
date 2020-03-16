@@ -9,6 +9,9 @@ import http.client
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
+#the parser
+parser = MyHTMLParser()
+
 #Standard login function that loads the index.html - Adrian
 @auth.route('/', methods=['GET'])
 def index():
@@ -33,7 +36,9 @@ def login():
             
 
             r1 = conn.getresponse()
-            print(r1.read())
+            #print(r1.read())
+            parser(r1.read().decode('utf8'))
+            
             return r1.read().decode('utf8')
             # #checks if usr returned is null if so redirect to the login
             # if r1.read() == None:
@@ -99,3 +104,36 @@ def getserial():
     except:
         raise
     return serialNum
+
+#used to parse out responses, this code is referenced from https://docs.python.org/3/library/html.parser.html - Adrian 
+from html.parser import HTMLParser
+from html.entities import name2codepoint
+
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print("Start tag:", tag)
+        for attr in attrs:
+            print("     attr:", attr)
+
+    def handle_endtag(self, tag):
+        print("End tag  :", tag)
+
+    def handle_data(self, data):
+        print("Data     :", data)
+
+    def handle_comment(self, data):
+        print("Comment  :", data)
+
+    def handle_entityref(self, name):
+        c = chr(name2codepoint[name])
+        print("Named ent:", c)
+
+    def handle_charref(self, name):
+        if name.startswith('x'):
+            c = chr(int(name[1:], 16))
+        else:
+            c = chr(int(name))
+        print("Num ent  :", c)
+
+    def handle_decl(self, data):
+        print("Decl     :", data)
