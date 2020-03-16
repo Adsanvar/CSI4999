@@ -5,51 +5,11 @@ from . import db, bcrypt
 import SmartLock.database as database
 from SmartLock.controller import GPIOon, GPIOoff
 import http.client
-from html.parser import HTMLParser
-from html.entities import name2codepoint
+from bs4 import BeautifulSoup
 import numpy as np
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
-
-#used to parse out responses, this code is referenced from https://docs.python.org/3/library/html.parser.html - Adrian 
-class MyHTMLParser(HTMLParser):
-    def __init__(self):
-        self.reset()
-        self.HTMLDATA = []
-
-    def handle_starttag(self, tag, attrs):
-        print("Start tag:", tag)
-        for attr in attrs:
-            print("     attr:", attr)
-
-    def handle_endtag(self, tag):
-        print("End tag  :", tag)
-
-    def handle_data(self, data):
-        print("Data     :", data)
-        self.HTMLDATA.append(data)
-        
-    def handle_comment(self, data):
-        print("Comment  :", data)
-
-    def handle_entityref(self, name):
-        c = chr(name2codepoint[name])
-        print("Named ent:", c)
-
-    def handle_charref(self, name):
-        if name.startswith('x'):
-            c = chr(int(name[1:], 16))
-        else:
-            c = chr(int(name))
-        print("Num ent  :", c)
-
-    def handle_decl(self, data):
-        print("Decl     :", data)
-
-            
-#the parser
-parser = MyHTMLParser()
 
 #Standard login function that loads the index.html - Adrian
 @auth.route('/', methods=['GET'])
@@ -75,9 +35,9 @@ def login():
 
             r1 = conn.getresponse()
             #print(r1.read())
-            parser.feed(r1.read().decode('utf8'))
-            stuff = parser.HTMLDATA
-            print('This is: {}'.format(stuff))
+            context = BeautifulSoup(r1.read().decode('utf8'))
+            
+            print(context.h1.string)
             
             return r1.read().decode('utf8')
             # #checks if usr returned is null if so redirect to the login
