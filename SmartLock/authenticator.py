@@ -225,26 +225,20 @@ def setActive(sn):
     database.activate_pi(sn, True)
     return "Success"
 
-#Route to get pi information and update rpi pincode if certain
-#verification checks are met -jared (referenced from Adrian)
-@auth.route('/getPiInformation/<sn>', methods=['GET'])
-def getPiInformation(sn):
+#Route to get pin_code
+@auth.route('/getPin/<username>/<password>/<sn>', methods=['GET'])
+def getPiInformation(username,password,sn):
     rpi = database.query_serial(sn)
-    user = database.query_user()
+    user = database.user_query(username)
     if rpi.serial_number == None or rpi.active == False:
-        return "PI NOT ACTIVE", 400
+        return abort(400)
     elif rpi.serial_number != None and rpi.active != False:
         #if initial check of sn and status is successful,
         # check for verification in the rpi db -jared
         if user.verified == 0:
-            return "Please Verify Your Acount", 400
+            return abort(400)
         elif user.verified == 1:
-            #if user is verified, retrieve the pin code from the
-            #user table in the remote db and copy to the rpi db -jared
-            copied_pin = database.query_pin_code(sn)
-            rpi.pin_code = copied_pin
-            db.session.commit()
-            return 'RPI initialized', 200
+            return rpi.pin_code
 
 #check if the serial number is active or not
 def checkActive(serial_number):
@@ -295,17 +289,17 @@ def sendMail(to, message):
     except:
         raise
 
-@auth.route('/piLogin/<username>/<password>/<key>', methods=['GET'])
-def piLogin(username,password,key):
+@auth.route('/piLogin/<username>/<password>', methods=['GET'])
+def piLogin(username, password, key):
     #obtaines user from database thru ORM
     usr = database.user_query(username)
     #checks if usr returned is null if so redirect to the login
     if usr == None:
         return abort(400)
     else:
-        if usr.username == username and bcrypt.check_password_hash(usr.password, password): 
+        if usr.username == username and bcrypt.check_password_hash(usr.password, password) and usr.verified == True: 
             #login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
-            return database.query_pin_code(key)
+            return 'Success'
             
         else: 
             return abort(400)
