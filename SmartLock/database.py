@@ -3,7 +3,7 @@ from . import db
 #this is the model for the rpi table in the db -jared
 class RPI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    pin_code = db.Column(db.String(100))
+    pin_code = db.Column(db.String(150))
 
     def __repr__(self):
         return self.id
@@ -20,7 +20,9 @@ def update_pi(pi, pin_code):
 #Queries pi - Adrian
 def query_rpi():
     try:
-        return RPI.query.filter_by(id=1).first()
+        pi = RPI.query.all()
+        print(len(pi))
+        return pi
     except:
         raise
 
