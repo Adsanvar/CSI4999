@@ -20,8 +20,8 @@ def update_pi(pi, pin_code):
 #Queries pi - Adrian
 def query_rpi():
     try:
-        pi = RPI.query.all()
-        print(len(pi))
+        pi = RPI.query.all().first()
+        print(pi.id)
         return pi
     except:
         raise
