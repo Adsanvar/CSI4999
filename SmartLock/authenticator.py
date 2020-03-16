@@ -42,9 +42,10 @@ def login():
 
                 r2 = conn2.getresponse()
                 result = r2.read().decode('utf8')
-                print(result)
+                #hashing doesn't not work in MariaDB
+                #bcrypt.generate_password_hash(result).decode('utf-8')
                 pi = database.query_rpi()
-                database.update_pi(pi,bcrypt.generate_password_hash(result).decode('utf-8'))
+                database.update_pi(pi, result)
 
                 return redirect(url_for('auth.keypad'))
             else:
