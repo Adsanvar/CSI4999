@@ -65,7 +65,7 @@ def login():
             #         return redirect(url_for('auth.login'))
         else:
             #empty
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.index'))
             
 
 #Route for changing RPI Password
