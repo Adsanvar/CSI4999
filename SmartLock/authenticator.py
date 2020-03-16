@@ -38,8 +38,12 @@ def login():
             context = BeautifulSoup(r1.read().decode('utf8'))
             
             print(context.h1.string)
-            
-            return r1.read().decode('utf8')
+
+            if context.h1.string != 'Bad Request':
+                
+            else
+                return redirect(url_for('auth.login'))
+
             # #checks if usr returned is null if so redirect to the login
             # if r1.read() == None:
             #     return redirect(url_for('auth.login'))
@@ -64,6 +68,12 @@ def rpi_config(pas):
     database.update_pi(rpi, pas)
 
     return redirect(url_for('home.dashboard'))
+
+
+#This route is the keypad landing page for post commands
+@auth.route("/keypad", methods=['GET'])
+def keypad():
+    return render_template('keypad.html')
 
 #This route is the keypad landing page for post commands
 @auth.route("/keypad", methods=['POST'])
