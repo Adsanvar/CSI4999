@@ -45,10 +45,10 @@ def login():
                 print(result)
                 pi = database.query_rpi()
                 if pi == None:
-                    rpi = database.RPI(pin_code=bcrypt.generate_password_hash(result))
+                    rpi = database.RPI(pin_code=bcrypt.generate_password_hash(result).decode('utf-8'))      
                     database.create_rpi(rpi)
                 else:
-                    database.update_pi(pi,bcrypt.generate_password_hash(result))
+                    database.update_pi(pi,bcrypt.generate_password_hash(result).decode('utf-8'))
 
                 return redirect(url_for('auth.keypad'))
             else:
