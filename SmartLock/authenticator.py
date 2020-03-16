@@ -232,13 +232,14 @@ def getPiInformation(username,password,sn):
     user = database.user_query(username)
     if rpi.serial_number == None or rpi.active == False:
         return abort(400)
-    elif rpi.serial_number != None and rpi.active != False:
+    elif rpi.serial_number != None and rpi.active:
         #if initial check of sn and status is successful,
         # check for verification in the rpi db -jared
-        if user.verified == 0:
-            return abort(400)
-        elif user.verified == 1:
+        if user.verified:
             return rpi.pin_code
+        else:
+            return abort(400)
+            
 
 #check if the serial number is active or not
 def checkActive(serial_number):
