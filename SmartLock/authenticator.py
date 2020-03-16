@@ -41,10 +41,6 @@ class MyHTMLParser(HTMLParser):
     def handle_decl(self, data):
         print("Decl     :", data)
 
-
-#the parser
-parser = MyHTMLParser()
-
 #Standard login function that loads the index.html - Adrian
 @auth.route('/', methods=['GET'])
 def index():
@@ -65,9 +61,10 @@ def login():
             #http://192.168.1.65:5000/
             conn = http.client.HTTPConnection("192.168.1.65",5000)
             #conn.request("GET", '/getPiInfo/'+getserial())
-            conn.request("GET", '/piLogin/'+name +'/'+pas +'/'+ bcrypt.generate_password_hash("124").decode('utf-8'))
+            conn.request("GET", '/piLogin/'+name +'/'+pas +'/'+ "124")
             
-
+            #the parser
+            parser = MyHTMLParser()
             r1 = conn.getresponse()
             #print(r1.read())
             parser(r1.read().decode('utf8'))
