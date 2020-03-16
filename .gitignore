@@ -1,3 +1,7 @@
 .vscode 
 /SmartLock/__pycache__
+<<<<<<< HEAD
+__pycache__
+=======
 SmartLockApp
+>>>>>>> e9eb46851e4604fa1a10fe64d3eeb129020b58be
