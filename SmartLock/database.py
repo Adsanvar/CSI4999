@@ -19,4 +19,9 @@ def update_pi(pi, pin_code):
 
 #Queries pi - Adrian
 def query_rpi():
-    return RPI.query.filter_by(id=1).first()
+    try:
+        return RPI.query.filter_by(id=1).first()
+    except:
+        raise
+
+    

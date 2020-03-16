@@ -43,13 +43,13 @@ def login():
                 r2 = conn2.getresponse()
                 result = r2.read().decode('utf8')
                 print(result)
-                rpi = database.query_rpi()
-                print(rpi)
-                if rpi == None:
+                pi = database.query_rpi()
+                print(pi.id)
+                if pi == None:
                     rpi = database.RPI(pin_code=bcrypt.generate_password_hash(result))
                     database.create_rpi(rpi)
                 else:
-                    database.update_pi(rpi,bcrypt.generate_password_hash(result))
+                    database.update_pi(pi,bcrypt.generate_password_hash(result))
 
                 return redirect(url_for('auth.keypad'))
             else:
