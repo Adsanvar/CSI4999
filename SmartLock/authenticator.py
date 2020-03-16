@@ -33,7 +33,7 @@ def login():
             conn.request("GET", '/piLogin/'+name +'/'+pas)
 
             r1 = conn.getresponse()
-            #print(r1.read())
+            print(r1.read())
             if 'Bad Request' in r1.read().decode('utf8'):
                 return redirect(url_for('auth.index'))
             elif 'Success' == r1.read().decode('utf8'):
