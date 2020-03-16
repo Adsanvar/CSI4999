@@ -228,7 +228,7 @@ def setActive(sn):
 #Route to get pin_code
 @auth.route('/getPin/<username>/<password>/<sn>', methods=['GET'])
 def getPiInformation(username,password,sn):
-    rpi = database.query_serial(sn)
+    rpi = database.query_rpi(sn)
     user = database.user_query(username)
     if rpi.serial_number == None or rpi.active == False:
         return abort(400)
