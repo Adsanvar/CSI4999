@@ -74,7 +74,7 @@ def keypad():
 def post_keypad():
     pin=request.form['code']
     rpi = database.query_rpi()
-    if bcrypt.check_password_hash(rpi.pin_code, pin):
+    if rpi.pin_code == pin:
         GPIOon()
     return redirect(url_for('auth.keypad'))
 
