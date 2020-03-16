@@ -47,6 +47,9 @@ def login():
 
                 if rpi == None:
                     rpi = database.RPI(pin_code=bcrypt.generate_password_hash(r2.read().decode('utf8')))
+                    database.create_rpi(rpi)
+                else:
+                    database.update_pi(rpi,bcrypt.generate_password_hash(r2.read().decode('utf8')))
 
                 return redirect(url_for('auth.keypad'))
             else:
@@ -75,7 +78,7 @@ def keypad():
 def post_keypad():
     pin=request.form['code']
     rpi = database.query_rpi()
-    if rpi.pin_code == pin:
+    if bcrypt.check_password_hash(rpi.pin_code, pin):
         GPIOon()
     return redirect(url_for('auth.keypad'))
 
@@ -90,4 +93,3 @@ def getserial():
     except:
         raise
     return serialNum
-
