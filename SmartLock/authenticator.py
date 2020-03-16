@@ -5,11 +5,13 @@ from . import db, bcrypt
 import SmartLock.database as database
 from SmartLock.controller import GPIOon, GPIOoff
 import http.client
+from html.parser import HTMLParser
+from html.entities import name2codepoint
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
 
-
+#used to parse out responses, this code is referenced from https://docs.python.org/3/library/html.parser.html - Adrian 
 class MyHTMLParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
         print("Start tag:", tag)
@@ -135,9 +137,4 @@ def getserial():
     except:
         raise
     return serialNum
-
-#used to parse out responses, this code is referenced from https://docs.python.org/3/library/html.parser.html - Adrian 
-from html.parser import HTMLParser
-from html.entities import name2codepoint
-
 
