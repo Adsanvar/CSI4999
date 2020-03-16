@@ -35,10 +35,14 @@ def login():
             r1 = conn.getresponse()
             #print(r1.read())
             if 'Bad Request' in r1.read().decode('utf8'):
+                return redirect(url_for('auth.login'))
+            elif 'Success' == r1.read().decode('utf8'):
+                conn.request("GET", '/getPiInfo/'+"124")
+
+                r2 = conn.getresponse()
                 return redirect(url_for('auth.keypad'))
             else:
-                print(r1.read().decode('utf8'))
-                return r1.read().decode('utf8')
+                return redirect(url_for('auth.login'))
 
             # if context.h1.string != 'Bad Request':
             #     print(r1.read().decode('utf8'))
