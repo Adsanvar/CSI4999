@@ -41,15 +41,15 @@ def login():
                 conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
 
                 r2 = conn2.getresponse()
-                print(r2.read().decode('utf8'))
-
+                result = r2.read().decode('utf8')
+                print(result)
                 rpi = database.query_rpi()
-
+                print(rpi)
                 if rpi == None:
-                    rpi = database.RPI(pin_code=bcrypt.generate_password_hash(r2.read().decode('utf8')))
+                    rpi = database.RPI(pin_code=bcrypt.generate_password_hash(result))
                     database.create_rpi(rpi)
                 else:
-                    database.update_pi(rpi,bcrypt.generate_password_hash(r2.read().decode('utf8')))
+                    database.update_pi(rpi,bcrypt.generate_password_hash(result))
 
                 return redirect(url_for('auth.keypad'))
             else:
