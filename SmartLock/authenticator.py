@@ -78,11 +78,11 @@ def signupUserError(data):
     mode = w[6]
     #this mode is used to distinguish what to display on screen
     if mode == 'user':
-        return render_template('signup.html',firstname = first, lastname = last, email = email, serialnum = serial , info = error)
+        return render_template('signup.html',firstname = first, lastname = last, email = email, info = error)
     if mode == 'email_exists':
          return render_template('signup.html', info = error)
     if mode == 'email_failed':
-        return render_template('signup.html', username = uname, firstname = first, lastname = last, serialnum = serial , info = error)
+        return render_template('signup.html', username = uname, firstname = first, lastname = last, info = error)
     if mode == 'invalid_smartlock':
         return render_template('signup.html', info = error)
     if mode == 'inactive_smartlock':
@@ -94,63 +94,44 @@ def signup():
     #Authentication Code Goes Here - Adrian
 
     #checks to see if the the username field is empty -Adrian
-    if request.form.get('signup_username') and request.form.get('signup_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email') and request.form.get('serial_num'):
+    if request.form.get('signup_username') and request.form.get('signup_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
         #Non-empty
         uname = request.form.get('signup_username')
         pas = request.form.get('signup_password')
         name = request.form.get('firstname')
         last = request.form.get('lastname')
         mail = request.form.get('email')
-        serial = request.form.get('serial_num')
         #this array contains user's information
         lst = []
         lst.append(uname)
         lst.append(name)
         lst.append(last)
         lst.append(mail)
-        lst.append(serial)
 
         #check to make sure the user is unique -Adrian
         if database.user_query(uname) == None:
             #checks to make sure that the email is valid
             if database.query_userByEmail(mail) == None:
                 if validate_email(mail):
+                    #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
+                    #msg = 'http://localhost:5000/verification/'+uname+'/'+serial
+                    msg = 'http://adsanvar.pythonanywhere.com/verification/'+uname
+                    #msg = 'http://172.20.10.2:5000/verification/'+uname+'/'+serial
+                    sendMail(mail, msg)
+                    # msg = 'http://localhost:5000/verification/james'
+                    # sendMail('ertech404@gmail.com', msg)
+                    # return redirect(url_for('auth.vertification_post'))
+                    # return redirect(url_for('auth.vertification_post'))
+                    # if sendMail(mail, msg)
+                        #print(mail, "\t", msg)
+                    # created hashed password - Heath
+                    usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False)
+                    #usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
 
-                    #Checks to make sure the RPI
-                    # - Exists in our Database
-                    # - Is Active
-                    if database.query_rpi(serial) != None:
+                    database.create_user(usr)
+                    return redirect(url_for('auth.vertification_post'))
 
-                        if database.query_rpi(serial).active == True:
 
-                            #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
-                            msg = 'http://localhost:5000/verification/'+uname+'/'+serial
-                            #msg = 'http://172.20.10.2:5000/verification/'+uname+'/'+serial
-                            print(msg)
-                            print(mail)
-                            sendMail(mail, msg)
-                            # msg = 'http://localhost:5000/verification/james'
-                            # sendMail('ertech404@gmail.com', msg)
-                            # return redirect(url_for('auth.vertification_post'))
-                            # return redirect(url_for('auth.vertification_post'))
-                            # if sendMail(mail, msg):
-                                #print(mail, "\t", msg)
-                            # created hashed password - Heath
-                            usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False)
-                            #usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
-
-                            database.create_user(usr)
-                            return redirect(url_for('auth.vertification_post'))
-                        else:
-                            lst.append('Smart Lock Is Not Active. Please Activate The Smart Lock.')
-                            lst.append('inactive_smartlock')
-                            data = ','.join(lst)
-                            return redirect(url_for('auth.signupUserError', data = data))
-                    else:
-                        lst.append('Smart Lock Does Not Exist.')
-                        lst.append('invalid_smartlock')
-                        data = ','.join(lst)
-                        return redirect(url_for('auth.signupUserError', data = data))
                 else:
                     lst.append('Email Syntax Invalid. Please Re-enter Email.')
                     lst.append('email_failed')
@@ -181,14 +162,13 @@ def vertification_post():
         return render_template('vertification.html')
 
 #Route for verifying
-@auth.route('/verification/<key>/<serial>', methods=['GET'])
-def verification_return(key, serial):
+@auth.route('/verification/<key>', methods=['GET'])
+def verification_return(key):
     if database.user_query(key) == None:
         return redirect(url_for('auth.login_index'))
     else: 
         usr = database.user_query(key)
         database.verify_user(usr)
-        database.rpi_user(serial ,usr.id)
         return redirect(url_for('auth.login_index'))
 
 #Route for changing RPI Password
