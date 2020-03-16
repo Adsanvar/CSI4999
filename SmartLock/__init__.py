@@ -16,7 +16,8 @@ try:
         #this configures the databse for communication with flask -jared
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:pass@localhost/smart_lock'
         app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Database13.@localhost/rpi'
-
+        app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+        app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
         # (return app) -Adrian
         db.init_app(app)
 
