@@ -34,9 +34,9 @@ def login():
 
             r1 = conn.getresponse()
             res = r1.read().decode('utf8')
-            print(res)
+            print(type(res))
             
-            if res == 'Succes':
+            if res == 'Success':
                 print(True)
 
             if 'Bad Request' in r1.read().decode('utf8'):
