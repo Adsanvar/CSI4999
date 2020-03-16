@@ -28,7 +28,7 @@ def login():
             pas = request.form.get('password')
             #Send http request
             #http://192.168.1.65:5000/
-            conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com", 5000)
+            conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com", 80)
             #conn.request("GET", '/getPiInfo/'+getserial())
             conn.request("GET", '/piLogin/'+name +'/'+pas)
 
@@ -37,7 +37,7 @@ def login():
 
             if res == 'Success':
                 #conn2 = http.client.HTTPConnection("http://adsanvar.pythonanywhere.com",5000)
-                conn2 = http.client.HTTPConnection("adsanvar.pythonanywhere.com", 5000)
+                conn2 = http.client.HTTPConnection("adsanvar.pythonanywhere.com", 80)
                 serial = getserial()
                 conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
 
