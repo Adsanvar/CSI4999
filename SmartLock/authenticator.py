@@ -290,7 +290,7 @@ def sendMail(to, message):
         raise
 
 @auth.route('/piLogin/<username>/<password>', methods=['GET'])
-def piLogin(username, password, key):
+def piLogin(username, password):
     #obtaines user from database thru ORM
     usr = database.user_query(username)
     #checks if usr returned is null if so redirect to the login
