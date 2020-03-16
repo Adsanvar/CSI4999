@@ -34,17 +34,18 @@ def login():
 
             r1 = conn.getresponse()
             res = r1.read().decode('utf8')
-            print(type(res))
+
             
             if res == 'Success':
                 print(True)
 
             if 'Bad Request' in r1.read().decode('utf8'):
                 return render_template('index.html', info = 'Invalid Credentials')
-            elif 'Success' == r1.read().decode('utf8'):
-                conn.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
+            elif res == 'Success':
+                conn2 = http.client.HTTPConnection("192.168.1.65",5000)
+                conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
 
-                r2 = conn.getresponse()
+                r2 = conn2.getresponse()
                 print(r2.read().decode('utf8'))
                 return redirect(url_for('auth.keypad'))
             else:
