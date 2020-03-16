@@ -33,9 +33,14 @@ def login():
             conn.request("GET", '/piLogin/'+name +'/'+pas)
 
             r1 = conn.getresponse()
-            print(r1.read())
+            res = r1.read().decode('utf8')
+            print(res)
+            
+            if res == 'Succes':
+                print(True)
+
             if 'Bad Request' in r1.read().decode('utf8'):
-                return redirect(url_for('auth.index', info = 'Invalid Credentials'))
+                return render_template('index.html', info = 'Invalid Credentials')
             elif 'Success' == r1.read().decode('utf8'):
                 conn.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
 
@@ -43,7 +48,7 @@ def login():
                 print(r2.read().decode('utf8'))
                 return redirect(url_for('auth.keypad'))
             else:
-                return redirect(url_for('auth.index', info='Error'))
+                return render_template('index.html',info='Error')
 
             # if context.h1.string != 'Bad Request':
             #     print(r1.read().decode('utf8'))
