@@ -46,24 +46,6 @@ def login():
             else:
                 return render_template('index.html', info = 'Invalid Credentials')
 
-            # if context.h1.string != 'Bad Request':
-            #     print(r1.read().decode('utf8'))
-            #     return redirect(url_for('auth.keypad'))
-            # else:
-            #     return redirect(url_for('auth.login'))
-
-            # #checks if usr returned is null if so redirect to the login
-            # if r1.read() == None:
-            #     return redirect(url_for('auth.login'))
-            # else:
-            #     #authenticates user to db
-            #     if usr.username == name and usr.password == pas:
-            #         #Determines the role of the logged in user - Adrina
-            #         if usr.role == 'rpi':
-            #             login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
-            #             return redirect(url_for('home.keypad'))
-            #     else:
-            #         return redirect(url_for('auth.login'))
         else:
             #empty
             return redirect(url_for('auth.index'))
@@ -76,7 +58,6 @@ def rpi_config(pas):
     database.update_pi(rpi, pas)
 
     return redirect(url_for('home.dashboard'))
-
 
 #This route is the keypad landing page for post commands
 @auth.route("/keypad", methods=['GET'])
