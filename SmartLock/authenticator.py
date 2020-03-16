@@ -35,40 +35,26 @@ def login():
             r1 = conn.getresponse()
             res = r1.read().decode('utf8')
 
-            
             if res == 'Success':
-                print(True)
-
-            if 'Bad Request' in r1.read().decode('utf8'):
-                return render_template('index.html', info = 'Invalid Credentials')
-            elif res == 'Success':
                 conn2 = http.client.HTTPConnection("192.168.1.65",5000)
+                serial = getserial()
                 conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
 
                 r2 = conn2.getresponse()
                 print(r2.read().decode('utf8'))
+
+                rpi = database.query_rpi()
+
+                if rpi == None:
+                    rpi = database.RPI(pin_code=bcrypt.generate_password_hash(r2.read().decode('utf8')))
+                    database.create_rpi(rpi)
+                else:
+                    database.update_pi(rpi,bcrypt.generate_password_hash(r2.read().decode('utf8')))
+
                 return redirect(url_for('auth.keypad'))
             else:
-                return render_template('index.html',info='Error')
+                return render_template('index.html', info = 'Invalid Credentials')
 
-            # if context.h1.string != 'Bad Request':
-            #     print(r1.read().decode('utf8'))
-            #     return redirect(url_for('auth.keypad'))
-            # else:
-            #     return redirect(url_for('auth.login'))
-
-            # #checks if usr returned is null if so redirect to the login
-            # if r1.read() == None:
-            #     return redirect(url_for('auth.login'))
-            # else:
-            #     #authenticates user to db
-            #     if usr.username == name and usr.password == pas:
-            #         #Determines the role of the logged in user - Adrina
-            #         if usr.role == 'rpi':
-            #             login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
-            #             return redirect(url_for('home.keypad'))
-            #     else:
-            #         return redirect(url_for('auth.login'))
         else:
             #empty
             return redirect(url_for('auth.index'))
@@ -82,7 +68,6 @@ def rpi_config(pas):
 
     return redirect(url_for('home.dashboard'))
 
-
 #This route is the keypad landing page for post commands
 @auth.route("/keypad", methods=['GET'])
 def keypad():
@@ -91,30 +76,11 @@ def keypad():
 #This route is the keypad landing page for post commands
 @auth.route("/keypad", methods=['POST'])
 def post_keypad():
-    #Jared
-    #if keypad enter button is pressed
-    if 'submitpin' in request.form:
-        #TODO error detection for keypad inputs to be entered here
-        print('IN SUBMIT')
-        #scrape input from the pin textbox
-        pin = request.form.get('userpin')
-
-        rpi = database.query_rpi() # query rpi from db -Adrian
-
-        #if no input is detected
-        if rpi == None:
-            return redirect(url_for('home.keypad'))
-        else:
-            #authenticate entered pin with the pin code in the db
-            if rpi.pin_code == pin: #-Adrian
-                #open door
-                GPIOon()
-                #TODO interface code between rpi and door lock
-                return redirect(url_for('home.keypad'))
-            else:
-                return redirect(url_for('home.keypad'))
-    else:
-        return redirect(url_for('home.keypad'))
+    pin=request.form['code']
+    rpi = database.query_rpi()
+    if bcrypt.check_password_hash(rpi.pin_code, pin):
+        GPIOon()
+    return redirect(url_for('auth.keypad'))
 
 def getserial():
     serialNum = "0000000000000000"
@@ -127,4 +93,3 @@ def getserial():
     except:
         raise
     return serialNum
-

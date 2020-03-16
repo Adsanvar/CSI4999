@@ -3,10 +3,10 @@ from . import db
 #this is the model for the rpi table in the db -jared
 class RPI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    pin_code = db.Column(db.String(45))
+    pin_code = db.Column(db.String(100))
 
     def __repr__(self):
-        return self.mac_address
+        return self.id
 
 def create_rpi(rpi):
     db.session.add(rpi)
