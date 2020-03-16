@@ -26,11 +26,11 @@ DROP TABLE IF EXISTS `rpi`;
  SET character_set_client = utf8 ;
 CREATE TABLE `rpi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pin_code` varchar(150) NOT NULL,
+  `pin_code` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `pin_code_UNIQUE` (`pin_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `rpi` (
 
 LOCK TABLES `rpi` WRITE;
 /*!40000 ALTER TABLE `rpi` DISABLE KEYS */;
+INSERT INTO `rpi` VALUES (1,'0');
 /*!40000 ALTER TABLE `rpi` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-16  2:27:18
+-- Dump completed on 2020-03-16  3:20:15
