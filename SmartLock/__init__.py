@@ -1,11 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager as manager
+from flask_bcrypt import B
 from flask_bcrypt import Bcrypt ## Importing Bcrypt to hash passwords store in db - Heath
-
 ##Creates db -Adrian
 db = SQLAlchemy()
-bcrypt = Bcrypt()
+#bcrypt = Bcrypt()
 try:
     ##Creates the Flask Application with the configurations -Adrian
     def create_app():
@@ -30,7 +30,7 @@ try:
         LoginManager.init_app(app)
 
         #initialized bcrypt - Heath
-        bcrypt.init_app(app)
+        #bcrypt.init_app(app)
 
         #blueprints for the pages and models - Adrian
         from SmartLock.authenticator import auth as a_bp

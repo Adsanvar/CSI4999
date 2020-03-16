@@ -34,7 +34,8 @@ def login():
                 #authenticates user to db
                 # Checks db.password hash with form password - Heath
                 # Also checks if the user is verified before logging in - Heath
-                if usr.username == name and bcrypt.check_password_hash(usr.password, pas) and database.user_query(name).verified == True: 
+                if usr.username == name and usr.password == pas and database.user_query(name).verified == True: 
+                #if usr.username == name and bcrypt.check_password_hash(usr.password, pas) and database.user_query(name).verified == True: 
                 #if usr.username == name and usr.password == pas:
                     #Determines the role of the logged in user - Adrina
                     if usr.role == 'Member':
@@ -135,7 +136,9 @@ def signup():
                             # if sendMail(mail, msg):
                                 #print(mail, "\t", msg)
                             # created hashed password - Heath
-                            usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False)
+                            #usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False)
+                            usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
+
                             database.create_user(usr)
                             return redirect(url_for('auth.vertification_post'))
                         else:
