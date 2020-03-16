@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `rpi`;
  SET character_set_client = utf8 ;
 CREATE TABLE `rpi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pin_code` varchar(100) NOT NULL,
+  `pin_code` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `pin_code_UNIQUE` (`pin_code`)
