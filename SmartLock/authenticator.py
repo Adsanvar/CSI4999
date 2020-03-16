@@ -304,7 +304,7 @@ def piLogin(username,password,key):
         return abort(400)
     else:
         if usr.username == username and bcrypt.check_password_hash(usr.password, password): 
-            login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
+            #login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
             return database.query_pin_code(key)
             
         else: 
@@ -314,7 +314,7 @@ def piLogin(username,password,key):
 # Mobile Login API Call - Adrian
 # Query Database for user, Check if object in db, logic for login
 @auth.route('/mobilelogin/<username>/<password>', methods=['GET'])
-def mobilelogin(username, password):
+def mobilelogin(username,password):
     usr = database.user_query(username)
     if usr == None:
         return 'Failed', 400
@@ -323,4 +323,4 @@ def mobilelogin(username, password):
             return 'Success', 200
         else:
             return 'Failed', 400
-    
+
