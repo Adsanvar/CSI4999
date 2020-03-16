@@ -14,7 +14,9 @@ auth = Blueprint('auth', __name__)
 
 #used to parse out responses, this code is referenced from https://docs.python.org/3/library/html.parser.html - Adrian 
 class MyHTMLParser(HTMLParser):
-    raw = []
+    def __init__(self):
+        self.reset()
+        self.HTMLDATA = []
 
     def handle_starttag(self, tag, attrs):
         print("Start tag:", tag)
@@ -26,7 +28,7 @@ class MyHTMLParser(HTMLParser):
 
     def handle_data(self, data):
         print("Data     :", data)
-        raw.append(data)
+        self.HTMLDATA.append(data)
         
     def handle_comment(self, data):
         print("Comment  :", data)
@@ -74,7 +76,7 @@ def login():
             r1 = conn.getresponse()
             #print(r1.read())
             parser.feed(r1.read().decode('utf8'))
-            stuff = parser.raw
+            stuff = parser.HTMLDATA
             print('This is: {}'.format(stuff))
             
             return r1.read().decode('utf8')
