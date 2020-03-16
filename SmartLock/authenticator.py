@@ -30,15 +30,20 @@ def login():
             #http://192.168.1.65:5000/
             conn = http.client.HTTPConnection("192.168.1.65",5000)
             #conn.request("GET", '/getPiInfo/'+getserial())
-            conn.request("GET", '/piLogin/'+name +'/'+pas+'/'+"124")
+            conn.request("GET", '/piLogin/'+name +'/'+pas)
 
             r1 = conn.getresponse()
             #print(r1.read())
             if 'Bad Request' in r1.read().decode('utf8'):
+                return redirect(url_for('auth.login'))
+            elif 'Success' == r1.read().decode('utf8'):
+                conn.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
+
+                r2 = conn.getresponse()
+                print(r2.read().decode('utf8'))
                 return redirect(url_for('auth.keypad'))
             else:
-                print(r1.read().decode('utf8'))
-                return r1.read().decode('utf8')
+                return redirect(url_for('auth.login'))
 
             # if context.h1.string != 'Bad Request':
             #     print(r1.read().decode('utf8'))
