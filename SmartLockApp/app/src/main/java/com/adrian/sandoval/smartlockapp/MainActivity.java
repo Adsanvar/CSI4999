@@ -1,6 +1,5 @@
 package com.adrian.sandoval.smartlockapp;
 
-import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
@@ -10,15 +9,15 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.RemoteException;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.ThemedSpinnerAdapter;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,7 +35,6 @@ import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
 
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Collection;
 
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     //button
     Button mbutton = null;
 
-    TextView dis, mUrl, mresponse, inzonetxt = null;
+    private TextView dis, mUrl, mresponse, inzonetxt, txtSensativity = null;
 
     String sending_url = null;
 
@@ -67,6 +65,16 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     Integer WAIT_PERIOD = null;
 
     private static DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+    private SeekBar seekBar = null;
+
+    private Switch aSwitch = null;
+
+    private static int SENSINTIVITY;
+    private static int mLOW = -35;
+    private static int mMEDIUM = -55;
+    private static int mHIGH = -75;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         mUrl = this.findViewById(R.id.url_id);
         mresponse = this.findViewById(R.id.response_id);
         inzonetxt = this.findViewById(R.id.inzone_id);
+        seekBar = this.findViewById(R.id.seekBar);
+        txtSensativity = this.findViewById(R.id.txtSensativity);
+        aSwitch = this.findViewById(R.id.info_switch);
 
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 //                Intent intent = new Intent(v.getContext(), Home.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //                v.getContext().startActivity(intent);
-                login();
+                unlock();
             }
         });
 
@@ -116,12 +127,71 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         handler = new Handler();
         WAIT_PERIOD = 13*1000;
         REEQUEST_COMPLETE = true;
+        txtSensativity.setText(txtSensativity.getText().toString() + "\n" + "Low");
+        SENSINTIVITY = mLOW;
+
+        /*
+            Updates the TextView upon changing the seekBar
+         */
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d("SeekBar", Integer.toString(progress));
+                if(progress == 0)
+                {
+                    txtSensativity.setText("Sensitivity:" + "\n" + "Low");
+                    SENSINTIVITY = mLOW;
+                }
+                else if(progress == 1)
+                {
+                    txtSensativity.setText("Sensitivity:" + "\n" + "Medium");
+                    SENSINTIVITY = mMEDIUM;
+                }
+                else
+                {
+                    txtSensativity.setText("Sensitivity:"+ "\n" + "High");
+                    SENSINTIVITY = mHIGH;
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        /*
+            Toggles details
+         */
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    dis.setVisibility(View.VISIBLE);
+                    inzonetxt.setVisibility(View.VISIBLE);
+                    mresponse.setVisibility(View.VISIBLE);
+                    mUrl.setVisibility(View.VISIBLE);
+                }else
+                {
+                    dis.setVisibility(View.INVISIBLE);
+                    inzonetxt.setVisibility(View.INVISIBLE);
+                    mresponse.setVisibility(View.INVISIBLE);
+                    mUrl.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        });
 
     }
 
 
 
-    public void login()
+    public void unlock()
     {
         new SendRequest().execute(sending_url);
 
@@ -177,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     protected void passiveEntry()
     {
-        inzonetxt.setText("In Zone?, " + mInZone);
+        inzonetxt.setText("In Zone?\n" + mInZone);
         if(REEQUEST_COMPLETE == true)
         {
             if(mInZone == true)
@@ -192,16 +262,40 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     private void setmInZone(double dis)
     {
-//        if(dis > -63 )
+
+        if(SENSINTIVITY == mLOW)
+        {
+            Log.d("mLOW", Integer.toString(mLOW));
+            if(dis > mLOW)
+            {
+                Log.d("condition", Double.toString(dis));
+                mInZone = true;
+            }
+            else mInZone = false;
+        }
+        else if(SENSINTIVITY == mMEDIUM)
+        {
+            Log.d("mMEDIUM", Integer.toString(mMEDIUM));
+            if(dis > mMEDIUM)
+            {
+                mInZone = true;
+            }
+            else mInZone = false;
+        }
+        else {
+            Log.d("mHIGH", Integer.toString(mHIGH));
+            if(dis > mHIGH)
+            {
+                mInZone = true;
+            }
+            else mInZone = false;
+        }
+
+//        if(dis > 3.5)
 //        {
 //            mInZone = true;
 //        }
 //        else mInZone = false;
-        if(dis > 3.5)
-        {
-            mInZone = true;
-        }
-        else mInZone = false;
     }
 
 
@@ -235,10 +329,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                 sending_url = url +"5000/";
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away."+" Rssi: " +beacon.getRssi());
-                dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"\nRSSI: "+ beacon.getRssi());
-                mUrl.setText("Advertising: " +url);
-                setmInZone(beacon.getDistance());
-                //setmInZone(beacon.getRssi());
+                dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"m" +"\nRSSI: "+ beacon.getRssi());
+                mUrl.setText("Advertising:\n" +url);
+                //setmInZone(beacon.getDistance());
+                setmInZone(beacon.getRssi());
                 passiveEntry();
 
             }
