@@ -1,7 +1,9 @@
 #Get RPI serial number off of CPU -Jared
 #The following "getserial()" function is referenced from: 
 #https://www.raspberrypi-spy.co.uk/2012/09/getting-your-raspberry-pi-serial-number-using-python/
-import http.client, os, sys
+import http.client
+import os
+import sys
 
 #################################
 #			Step One			#
