@@ -91,7 +91,6 @@ for k in octet4hex:
 p_stack[2] = hex(len(p_stack[3:]))[2:]
 p_stack[10] = hex(len(p_stack[11:]))[2:]
 
-
 #34
 for i in range(len(p_stack), 34):
     p_stack.append('00')
