@@ -309,7 +309,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         mBeaconManager.bind(this);
     }
 
-
     public void onBeaconServiceConnect() {
         Region region = new Region("all-beacons-region", null, null, null);
         try {
@@ -343,6 +342,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     @Override
     public void onPause() {
         super.onPause();
+        Log.d("onPause", "True");
         mBeaconManager.unbind(this);
     }
 

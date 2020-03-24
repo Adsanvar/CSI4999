@@ -315,7 +315,6 @@ def piLogin(username,password,key):
         else: 
             return abort(400)
 
-
 # Mobile Login API Call - Adrian
 # Query Database for user, Check if object in db, logic for login
 @auth.route('/mobilelogin/<username>/<password>', methods=['GET'])
