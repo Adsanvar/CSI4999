@@ -97,8 +97,8 @@ for i in range(len(p_stack), 34):
 
 payload = ' '.join(p_stack)
 print(payload)
-os.system('sudo hcitool -i hci0 ' + payload)
-os.system('sudo hcitool -i hci0 cmd 0x08 0x0006 A0 00 A0 00 03 00 00 00 00 00 00 00 00 07 00')
-os.system('sudo hcitool -i hci0 cmd 0x08 0x000a 01')
+# os.system('sudo hcitool -i hci0 cmd ' + payload)
+# os.system('sudo hcitool -i hci0 cmd 0x08 0x0006 A0 00 A0 00 03 00 00 00 00 00 00 00 00 07 00')
+# os.system('sudo hcitool -i hci0 cmd 0x08 0x000a 01')
 
 
