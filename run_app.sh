@@ -8,7 +8,7 @@ ip=${stringarray[0]}
 
 python test.py "$ip"
 
-echo $ip
+echo $?
 
 
 # #Eddystone protocol
