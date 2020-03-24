@@ -6,9 +6,9 @@ RpiIp=$(hostname -I)
 stringarray=($RpiIp)
 ip=${stringarray[0]}
 
-python test.py "$ip"
+datum=$(python test.py "$ip")
 
-echo $?
+echo $datum
 
 
 # #Eddystone protocol
