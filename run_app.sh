@@ -8,7 +8,7 @@ ip=${stringarray[0]}
 
 datum=`python test.py "$ip"`
 
-printf "%s\n" "$datum"
+# printf "%s\n" "$datum"
 
 
 # #Eddystone protocol
