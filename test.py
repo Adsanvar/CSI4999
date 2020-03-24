@@ -1,7 +1,5 @@
 import sys
 
-print("HELLO FROM PYTHON SCRIPT. ", sys.argv[1])
-
 #Jared
 ip = sys.argv[1]
 
