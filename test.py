@@ -3,7 +3,6 @@ import sys
 print("HELLO FROM PYTHON SCRIPT. ", sys.argv[1])
 
 #Jared
-
 ip = sys.argv[1]
 
 #Splits the IP address string into a word array
@@ -18,10 +17,27 @@ octet1hex = []
 octet2hex = []
 octet3hex = []
 octet4hex = []
-formattedOct1 = []
-formattedOct2 = []
-formattedOct3 = []
-formattedOct4 = []
+
+#Changed to stack for better performance -Adrian
+#look at eddystone datum for more details on the bytes
+p_stack = []
+p_stack.append('0x08')
+p_stack.append('0x0008')
+p_stack.append('0') #length of remaining bytes
+p_stack.append('02')
+p_stack.append('01')
+p_stack.append('06')
+p_stack.append('03')
+p_stack.append('03')
+p_stack.append('aa')
+p_stack.append('fe')
+p_stack.append('0') #length of remaining bytes
+p_stack.append('16')
+p_stack.append('aa')
+p_stack.append('fe')
+p_stack.append('10')
+p_stack.append('F4')
+p_stack.append('02')
 
 #Breaks the wordstring array into separate arrays based on the IP address octets
 octet1 = wordString[0]
@@ -48,31 +64,51 @@ for j in octet4array:
 	octet4hex.append(hex(ord(j)))
 
 #Formats the hex arrays by removing the "0x" prefix
+#modified to add to overall stack -Adrian
 for k in octet1hex:
 	"{:0>2}".format(k)
-	formattedOct1.append(k[2:])
+	p_stack.append(k[2:])
+
+p_stack.append('2e')
+
 for k in octet2hex:
 	"{:0>2}".format(k)
-	formattedOct2.append(k[2:])
+	p_stack.append(k[2:])
+
+p_stack.append('2e')
+
 for k in octet3hex:
 	"{:0>2}".format(k)
-	formattedOct3.append(k[2:])
+	p_stack.append(k[2:])
+
+p_stack.append('2e')
+
 for k in octet4hex:
 	"{:0>2}".format(k)
-	formattedOct4.append(k[2:])
+	p_stack.append(k[2:])
 
-#Joins each object within the array to form a complete string
-octBytesA = ' '.join(formattedOct1)
-octBytesB = ' '.join(formattedOct2)
-octBytesC = ' '.join(formattedOct3)
-octBytesD = ' '.join(formattedOct4)
+#Sets the values of the lengths in the Eddystone Datum
+#converts length of stack to hex and sets it to the index
+#len -> hex -> remove first two chars '0x'
+p_stack[2] = hex(len(p_stack[3:]))[2:]
+p_stack[10] = hex(len(p_stack[11:]))[2:]
 
-#Creates a string using static payload values for the packet header which should not change
-#and dynamic values for the variable rpi IP address
-payload = '0x08 0x0008 18 02 01 06 03 03 aa fe 10 16 aa fe 10 00 ' + octBytesA + ' 2e ' + octBytesB + ' 2e ' + octBytesC + ' 2e ' + octBytesD
 
-#Creates a padding of payload bytes at the end of the beacon packet
-while len(payload) < 107:
-	payload = payload + ' 00'
+#34
+for i in range(len(p_stack), 34):
+    p_stack.append('00')
 
+payload = ' '.join(p_stack)
 print(payload)
+
+
+#fills in the remaining bytes with zeros
+# #Creates a padding of payload bytes at the end of the beacon packet
+# while len(payload) < 107:
+# 	payload = payload + ' 00'
+
+# #sudo hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 F4 02 31 39 32 2e 31 36 38 2e 31 2e 31 30 33 00 00 00 00
+# #sudo hcitool -i hci0 cmd 0x08 0x0008 1a 02 01 06 03 03 aa fe 12 16 aa fe 10 00 02 31 37 32 2e 32 30 2e 31 30 2e 33 3a 00 00 00 00 00
+# #sudo hcitool -i hci0 cmd 0x08 0x0008 1a 02 01 06 03 03 aa fe 12 16 aa fe 10 00 31 39 32 2e 31 36 38 2e 31 2e 31 30 33 00 00 00 00 00
+# #sudo hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 31 39 32 2e 31 36 38 2e 31 2e 31 30 33 3a 00 00 00 00
+# print(payload)
