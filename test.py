@@ -99,7 +99,8 @@ for i in range(len(p_stack), 34):
     p_stack.append('00')
 
 payload = ' '.join(p_stack)
-print(payload)
+
+sys.exit(payload)
 
 
 #fills in the remaining bytes with zeros
