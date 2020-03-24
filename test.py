@@ -98,15 +98,3 @@ for i in range(len(p_stack), 34):
 payload = ' '.join(p_stack)
 
 sys.exit(payload)
-
-
-#fills in the remaining bytes with zeros
-# #Creates a padding of payload bytes at the end of the beacon packet
-# while len(payload) < 107:
-# 	payload = payload + ' 00'
-
-# #sudo hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 F4 02 31 39 32 2e 31 36 38 2e 31 2e 31 30 33 00 00 00 00
-# #sudo hcitool -i hci0 cmd 0x08 0x0008 1a 02 01 06 03 03 aa fe 12 16 aa fe 10 00 02 31 37 32 2e 32 30 2e 31 30 2e 33 3a 00 00 00 00 00
-# #sudo hcitool -i hci0 cmd 0x08 0x0008 1a 02 01 06 03 03 aa fe 12 16 aa fe 10 00 31 39 32 2e 31 36 38 2e 31 2e 31 30 33 00 00 00 00 00
-# #sudo hcitool -i hci0 cmd 0x08 0x0008 1b 02 01 06 03 03 aa fe 13 16 aa fe 10 00 31 39 32 2e 31 36 38 2e 31 2e 31 30 33 3a 00 00 00 00
-# print(payload)

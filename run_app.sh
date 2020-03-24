@@ -25,5 +25,5 @@ export FLASK_APP=~/Documents/CSI4999/SmartLock
 export FLASK_ENV=development
 export DEBUG=1
 export FLASK_RUN_PORT=5000
-printenv
+#printenv
 flask run -h $ip
