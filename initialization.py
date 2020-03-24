@@ -1,8 +1,13 @@
 #Get RPI serial number off of CPU -Jared
 #The following "getserial()" function is referenced from: 
 #https://www.raspberrypi-spy.co.uk/2012/09/getting-your-raspberry-pi-serial-number-using-python/
-import http.client
+import http.client, os, sys
 
+#################################
+#			Step One			#
+#################################
+
+#Gets serial number from rpi
 def getserial():
   serialNum = "0000000000000000"
   try:
@@ -22,18 +27,26 @@ print(rpi_serial)
 
 #000000009ae4879e
 
-conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com", 80)
+#################################
+#			Step Two			#
+#################################
+
+#Tell the system that this RPI is Active
+conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
 conn.request("GET", '/setActive/'+rpi_serial)
 r1 = conn.getresponse()
 print(r1.read())
 
-#Jared
-import string
+#################################
+#			Step Three			#
+#################################
 
-RpiIP = '172.20.10.2'
+# Collect the IP Address and Start the Eddystone Beacon
+
+ip = sys.argv[1]
 
 #Splits the IP address string into a word array
-wordString = RpiIP.split('.')
+wordString = ip.split('.')
 
 #Initializes all of the arrays
 octet1array = []
@@ -44,10 +57,27 @@ octet1hex = []
 octet2hex = []
 octet3hex = []
 octet4hex = []
-formattedOct1 = []
-formattedOct2 = []
-formattedOct3 = []
-formattedOct4 = []
+
+#Changed to stack for better performance -Adrian
+#look at eddystone datum for more details on the bytes
+p_stack = []
+p_stack.append('0x08')
+p_stack.append('0x0008')
+p_stack.append('0') #length of remaining bytes
+p_stack.append('02')
+p_stack.append('01')
+p_stack.append('06')
+p_stack.append('03')
+p_stack.append('03')
+p_stack.append('aa')
+p_stack.append('fe')
+p_stack.append('0') #length of remaining bytes
+p_stack.append('16')
+p_stack.append('aa')
+p_stack.append('fe')
+p_stack.append('10')
+p_stack.append('F4')
+p_stack.append('02')
 
 #Breaks the wordstring array into separate arrays based on the IP address octets
 octet1 = wordString[0]
@@ -74,31 +104,42 @@ for j in octet4array:
 	octet4hex.append(hex(ord(j)))
 
 #Formats the hex arrays by removing the "0x" prefix
+#modified to add to overall stack -Adrian
 for k in octet1hex:
 	"{:0>2}".format(k)
-	formattedOct1.append(k[2:])
+	p_stack.append(k[2:])
+
+p_stack.append('2e')
+
 for k in octet2hex:
 	"{:0>2}".format(k)
-	formattedOct2.append(k[2:])
+	p_stack.append(k[2:])
+
+p_stack.append('2e')
+
 for k in octet3hex:
 	"{:0>2}".format(k)
-	formattedOct3.append(k[2:])
+	p_stack.append(k[2:])
+
+p_stack.append('2e')
+
 for k in octet4hex:
 	"{:0>2}".format(k)
-	formattedOct4.append(k[2:])
+	p_stack.append(k[2:])
 
-#Joins each object within the array to form a complete string
-octBytesA = ' '.join(formattedOct1)
-octBytesB = ' '.join(formattedOct2)
-octBytesC = ' '.join(formattedOct3)
-octBytesD = ' '.join(formattedOct4)
+#Sets the values of the lengths in the Eddystone Datum
+#converts length of stack to hex and sets it to the index
+#len -> hex -> remove first two chars '0x'
+p_stack[2] = hex(len(p_stack[3:]))[2:]
+p_stack[10] = hex(len(p_stack[11:]))[2:]
 
-#Creates a string using static payload values for the packet header which should not change
-#and dynamic values for the variable rpi IP address
-payload = '0x08 0x0008 18 02 01 06 03 03 aa fe 10 16 aa fe 10 00 ' + octBytesA + ' 2e ' + octBytesB + ' 2e ' + octBytesC + ' 2e ' + octBytesD
+#Adds remaining 00's to stack -Adrian
+for i in range(len(p_stack), 34):
+    p_stack.append('00')
 
-#Creates a padding of payload bytes at the end of the beacon packet
-while len(payload) < 107:
-	payload = payload + ' 00'
+payload = ' '.join(p_stack)
 
-print(payload)
+#Starts the Eddystone Beacon -Adrian
+os.system('sudo hcitool -i hci0 cmd ' + payload)
+os.system('sudo hcitool -i hci0 cmd 0x08 0x0006 A0 00 A0 00 03 00 00 00 00 00 00 00 00 07 00')
+os.system('sudo hcitool -i hci0 cmd 0x08 0x000a 01')

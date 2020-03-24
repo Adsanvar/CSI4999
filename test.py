@@ -91,12 +91,13 @@ for k in octet4hex:
 p_stack[2] = hex(len(p_stack[3:]))[2:]
 p_stack[10] = hex(len(p_stack[11:]))[2:]
 
-#34
+#Adds remaining 00's to stack -Adrian
 for i in range(len(p_stack), 34):
     p_stack.append('00')
 
 payload = ' '.join(p_stack)
-print(payload)
+
+#Starts the Eddystone Beacon -Adrian
 os.system('sudo hcitool -i hci0 cmd ' + payload)
 os.system('sudo hcitool -i hci0 cmd 0x08 0x0006 A0 00 A0 00 03 00 00 00 00 00 00 00 00 07 00')
 os.system('sudo hcitool -i hci0 cmd 0x08 0x000a 01')
