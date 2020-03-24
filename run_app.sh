@@ -6,9 +6,9 @@ RpiIp=$(hostname -I)
 stringarray=($RpiIp)
 ip=${stringarray[0]}
 
-ip=python test.py "$ip"
+ip='python test.py "$ip"'
 
-printf "the sting is %s\n" "$ip"
+printf "the string is %s\n" "$ip"
 
 # #Eddystone protocol
 # sudo hcitool -i hci0 cmd 0x08 0x0008 1a 02 01 06 03 03 aa fe 12 16 aa fe 10 00 02 31 37 32 2e 32 30 2e 31 30 2e 33 3a 00 00 00 00 00
