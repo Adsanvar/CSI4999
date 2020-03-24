@@ -34,7 +34,7 @@ print(rpi_serial)
 #################################
 
 #Tell the system that this RPI is Active
-conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
+conn = http.client.HTTPConnection("www.adsanvar.pythonanywhere.com")
 conn.request("GET", '/setActive/'+rpi_serial)
 r1 = conn.getresponse()
 print(r1.read())
