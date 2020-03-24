@@ -1,11 +1,12 @@
 #!/bin/bash
 
 ## This should grab the IP address of the RPi and display - Heath
-RpiIp=$(hostname -I) || true
-if [ "$RPiIP" ]; then
-  #printf "My IP address is %s\n" "$RpiIp"
+RpiIp=$(hostname -I)
 
-python test.py "$RPiIP"
+stringarray=($RpiIp)
+ip=${stringarray[0]}
+
+python test.py "$ip"
 
 #Eddystone protocol
 sudo hcitool -i hci0 cmd 0x08 0x0008 1a 02 01 06 03 03 aa fe 12 16 aa fe 10 00 02 31 37 32 2e 32 30 2e 31 30 2e 33 3a 00 00 00 00 00
@@ -20,10 +21,7 @@ export FLASK_ENV=development
 export DEBUG=1
 export FLASK_RUN_PORT=5000
 printenv
-flask run -h "$RpiIp"
-#flask run -h 192.168.1.103
-
-fi
+flask run -h $ip
 
 # import string
 
