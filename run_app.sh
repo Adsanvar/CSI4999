@@ -9,8 +9,8 @@ ip=${stringarray[0]}
 datum=`python test.py "$ip"`
 
 datum=$(python test.py "$ip" 2>&1 > /dev/null)
-expr $datum
-printf "%s\n" "$datum"
+
+echo "$datum" | bc
 
 
 #Eddystone protocol
