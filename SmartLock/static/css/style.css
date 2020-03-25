@@ -60,6 +60,7 @@ body {
 	background-color:#333333;
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 }
+
 #keypad {margin:auto; margin-top:20px;}
 
 #keypad tr td {
@@ -68,8 +69,8 @@ body {
 	border:1px solid #000000;
 	font-size:18px;
 	font-weight:bold;
-	width:400px;
-	height:200px;
+	width:200px;
+	height:100px;
 	cursor:pointer;
 	background-color:#666666;
 	color:#CCCCCC;}
