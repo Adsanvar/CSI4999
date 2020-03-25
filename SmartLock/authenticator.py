@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, flash, Blueprint, redirect, u
 from flask_login import login_user, logout_user, login_required
 from . import db, bcrypt
 import SmartLock.database as database
-# from SmartLock.controller import GPIOon, GPIOoff
+from SmartLock.controller import GPIOon, GPIOoff
 import http.client
 import numpy as np
 
