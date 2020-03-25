@@ -28,7 +28,7 @@ def login():
             pas = request.form.get('password')
             #Send http request
             #http://192.168.1.65:5000/
-            conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com", 80)
+            conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
             #conn.request("GET", '/getPiInfo/'+getserial())
             conn.request("GET", '/piLogin/'+name +'/'+pas)
 
