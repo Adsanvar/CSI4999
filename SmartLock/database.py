@@ -87,6 +87,12 @@ def activate_pi(sn, stat):
     pi = Rpi.query.filter_by(serial_number=sn).first()
     pi.active = stat
     db.session.commit()
+    
+#Sets the IP Address of the device - Adrian
+def setIp(sn, ip):
+    pi = Rpi.query.filter_by(serial_number=sn).first()
+    pi.ip = ip
+    db.session.commit()
 
 #Updates the rpi user_id
 def rpi_user(serial_number, usr_id):

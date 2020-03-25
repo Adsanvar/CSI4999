@@ -203,14 +203,11 @@ def logout():
     return redirect(url_for('home.index'))
 
 #Route to set active status -jared (referenced from Adrian)
-@auth.route('/setActive/<sn>', methods=['GET'])
-def setActive(sn):
+@auth.route('/setActive/<sn>/<ip>', methods=['GET'])
+def setActive(sn, ip):
     database.activate_pi(sn, True)
+    database.setIp(sn, ip)
     return "Success"
-
-@auth.route('/setIP/<ip>', methods=['GET'])
-def setIp(ip):
-    
 
 #Route to get pin_code
 @auth.route('/getPin/<username>/<password>/<sn>', methods=['GET'])
