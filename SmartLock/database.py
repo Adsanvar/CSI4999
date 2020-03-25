@@ -1,7 +1,7 @@
 from . import db
 
 #this is the model for the rpi table in the db -jared
-class RPI(db.Model):
+class Rpi(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pin_code = db.Column(db.String(150))
 
@@ -20,8 +20,8 @@ def update_pi(pi, pin_code):
 #Queries pi - Adrian
 def query_rpi():
     try:
-        print(db.session.query(RPI.id).count())
-        return RPI.query.filter_by(id=1).first()
+        print(db.session.query(Rpi.id).count())
+        return Rpi.query.filter_by(id=1).first()
     except:
         raise
 

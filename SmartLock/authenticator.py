@@ -38,9 +38,9 @@ def login():
 
             if res == 'Success':
                 #conn2 = http.client.HTTPConnection("http://adsanvar.pythonanywhere.com",5000)
-                conn2 = http.client.HTTPConnection("adsanvar.pythonanywhere.com", 80)
+                conn2 = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
                 serial = getserial()
-                conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+"124")
+                conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+getserial())
 
                 r2 = conn2.getresponse()
                 result = r2.read().decode('utf8')

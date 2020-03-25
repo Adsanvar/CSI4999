@@ -10,7 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fc0db16-8002-42d3-b9c5-692f1f9aac71" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../test.py" beforeDir="false" afterPath="$PROJECT_DIR$/../test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SmartLock/authenticator.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SmartLock/authenticator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SmartLock/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SmartLock/controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SmartLock/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SmartLock/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,10 +52,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="190" />
+    <option name="x" value="1989" />
     <option name="y" value="23" />
-    <option name="width" value="1162" />
-    <option name="height" value="972" />
+    <option name="width" value="1610" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -167,7 +170,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1989" y="23" width="1610" height="1057" extended-state="0" />
+    <frame x="1989" y="23" width="1610" height="1057" extended-state="1" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="1" />

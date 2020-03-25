@@ -9,6 +9,5 @@ def GPIOon():
     sleep(10)
     GPIOoff()
 
-
 def GPIOoff():
     gpio.off()
