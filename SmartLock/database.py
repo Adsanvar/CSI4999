@@ -16,7 +16,7 @@ class User(UserMixin, db.Model):
         return self.username
 
 #this is the model for the rpi table in the db -jared
-class RPI(db.Model):
+class Rpi(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     serial_number = db.Column(db.String(45))
     pin_code = db.Column(db.String(45))
@@ -72,7 +72,7 @@ def update_pi(pi, pin_code):
 
 #Queries pi - Adrian
 def query_rpi(sn):
-    return RPI.query.filter_by(serial_number = sn).first()
+    return Rpi.query.filter_by(serial_number = sn).first()
 
 #Changes the user to verified=true -brandon (referenced from Adrian&Jared)
 #Modified by Adrian
@@ -83,13 +83,13 @@ def verify_user(usr):
 #Changes the rpi status -jared (referenced from Adrian)
 #Modified by Adrian
 def activate_pi(sn, stat):
-    pi = RPI.query.filter_by(serial_number=sn).first()
+    pi = Rpi.query.filter_by(serial_number=sn).first()
     pi.active = stat
     db.session.commit()
 
 #Updates the rpi user_id
 def rpi_user(serial_number, usr_id):
-    rpi = RPI.query.filter_by(serial_number = serial_number).first()
+    rpi = Rpi.query.filter_by(serial_number = serial_number).first()
     rpi.user_id = usr_id
     db.session.commit()
 
