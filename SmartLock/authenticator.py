@@ -208,6 +208,10 @@ def setActive(sn):
     database.activate_pi(sn, True)
     return "Success"
 
+@auth.route('/setIP/<ip>', methods=['GET'])
+def setIp(ip):
+    
+
 #Route to get pin_code
 @auth.route('/getPin/<username>/<password>/<sn>', methods=['GET'])
 def getPiInformation(username,password,sn):

@@ -22,9 +22,10 @@ class Rpi(db.Model):
     pin_code = db.Column(db.String(45))
     active = db.Column(db.Boolean(1))
     user_id = db.Column(db.Integer())
+    ip = db.Column(db.String(45))
 
     def __repr__(self):
-        return self.serial_number
+        return self.id
 
 class Entry_log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
