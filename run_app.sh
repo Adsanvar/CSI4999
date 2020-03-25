@@ -6,7 +6,7 @@ RpiIp=$(hostname -I)
 stringarray=($RpiIp)
 ip=${stringarray[0]}
 
-python3 initialization.py "$ip"
+python3 ~/Documents/CSI4999/initialization.py "$ip"
 
 # datum=$(python test.py "$ip" 2>&1 > /dev/null)
 
