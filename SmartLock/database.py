@@ -84,21 +84,33 @@ def verify_user(usr):
 #Changes the rpi status -jared (referenced from Adrian)
 #Modified by Adrian
 def activate_pi(sn, stat):
-    pi = Rpi.query.filter_by(serial_number=sn).first()
-    pi.active = stat
-    db.session.commit()
+    try:
+        pi = Rpi.query.filter_by(serial_number=sn).first()
+        pi.active = stat
+        db.session.commit()
+    except: 
+        db.session.rollback()
+
     
 #Sets the IP Address of the device - Adrian
 def setIp(sn, ip):
-    pi = Rpi.query.filter_by(serial_number=sn).first()
-    pi.ip = ip
-    db.session.commit()
+    try:
+        pi = Rpi.query.filter_by(serial_number=sn).first()
+        pi.ip = ip
+        db.session.commit()
+    except: 
+        db.session.rollback()
+    
 
 #Updates the rpi user_id
 def rpi_user(serial_number, usr_id):
-    rpi = Rpi.query.filter_by(serial_number = serial_number).first()
-    rpi.user_id = usr_id
-    db.session.commit()
+    try:
+        rpi = Rpi.query.filter_by(serial_number = serial_number).first()
+        rpi.user_id = usr_id
+        db.session.commit()
+    except:
+        db.session.rollback()
+
 
 #Queries user pincode  -jared
 #Modified by Adrian

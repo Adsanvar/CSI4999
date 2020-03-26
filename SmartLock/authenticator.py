@@ -274,8 +274,8 @@ def sendMail(to, message):
     except:
         raise
 
-@auth.route('/piLogin/<username>/<password>', methods=['GET'])
-def piLogin(username, password):
+@auth.route('/piLogin/<username>/<password>/<serial>', methods=['GET'])
+def piLogin(username, password, serial):
     #obtaines user from database thru ORM
     usr = database.user_query(username)
     #checks if usr returned is null if so redirect to the login
@@ -284,6 +284,8 @@ def piLogin(username, password):
     else:
         if usr.username == username and bcrypt.check_password_hash(usr.password, password) and usr.verified == True: 
             #login_user(usr) #if usr is rpi redirect them to the keypad route in web_server.py
+            rpi = database.query_rpi(serial)
+            rpi.user_id = usr.id
             return 'Success'
             
         else: 
