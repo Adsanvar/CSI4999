@@ -58,6 +58,12 @@ def login():
             return redirect(url_for('auth.index'))
             
 
+@auth.route('/mobileUnlock/<pin>', methods=['GET'])
+def mobileUnlock(pin):
+    rpi = database.query_rpi()
+    if rpi.pin_code == pin:
+        GPIOon()
+
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')
 def rpi_config(pas):
