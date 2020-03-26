@@ -30,7 +30,7 @@ def login():
             #http://192.168.1.65:5000/
             conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
             #conn.request("GET", '/getPiInfo/'+getserial())
-            conn.request("GET", '/piLogin/'+name +'/'+pas)
+            conn.request("GET", '/piLogin/'+name +'/'+pas+'/'+getserial())
 
             r1 = conn.getresponse()
             res = r1.read().decode('utf8')
