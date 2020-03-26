@@ -41,9 +41,10 @@ conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
 conn.request("GET", '/setActive/'+rpi_serial+'/'+ip)
 r1 = conn.getresponse()
 print('Connection:')
-print(r1.read().decode('utf8'))
+val = r1.read().decode('utf8')
+print(val)
 
-if r1.read().decode('utf8') == 'Success':
+if val == 'Success':
 	#################################
 	#			Step Three			#
 	#################################
