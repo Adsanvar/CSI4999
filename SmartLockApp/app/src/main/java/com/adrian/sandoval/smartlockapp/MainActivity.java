@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
                 // This is a Eddystone-URL frame
                 String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
-                sending_url = url +"5000/";
+                sending_url = url +":5000/";
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away."+" Rssi: " +beacon.getRssi());
                 dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"m" +"\nRSSI: "+ beacon.getRssi());
