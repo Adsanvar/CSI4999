@@ -63,6 +63,7 @@ def mobileUnlock(pin):
     rpi = database.query_rpi()
     if rpi.pin_code == pin:
         GPIOon()
+    return 'Success'
 
 #Route for changing RPI Password
 @auth.route('/rpi/<pas>')
