@@ -345,8 +345,5 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         Log.d("onPause", "True");
         mBeaconManager.unbind(this);
     }
-
-
-
-
+    
 }
