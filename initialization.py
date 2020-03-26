@@ -146,4 +146,5 @@ if r1.read().decode('utf8') == 'Success':
 
 
 else:
+	print(r1.read().decode('utf8'))
 	print('Connection Error Please Check Your Wifi Setttings or Contact Customer Service.')
