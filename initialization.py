@@ -36,9 +36,12 @@ rpi_serial = getserial()
 #################################
 
 #Tell the system that this RPI is Active
+print("Connecting...")
 conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
 conn.request("GET", '/setActive/'+rpi_serial+'/'+ip)
 r1 = conn.getresponse()
+print('Connection:')
+print(r1.read().decode('utf8'))
 
 if r1.read().decode('utf8') == 'Success':
 	#################################
@@ -146,5 +149,4 @@ if r1.read().decode('utf8') == 'Success':
 
 
 else:
-	print(r1.read().decode('utf8'))
 	print('Connection Error Please Check Your Wifi Setttings or Contact Customer Service.')
