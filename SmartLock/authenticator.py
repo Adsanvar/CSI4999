@@ -59,7 +59,6 @@ def login():
 def changePassword():
     return render_template('changePassword.html')
 
-
 #route for the signup - Adrian
 @auth.route('/signup')
 def signup_index():

@@ -13,8 +13,8 @@
     </head>
     <body>
   <!-- <form class="box" action="http://adsanvar.pythonanywhere.com/dashboard" method="post"> -->
-  <!-- <form class="box" action="http://172.20.10.2:5000/dashboard" method="post"> -->
-      <form action="http://localhost:5000/dashboard" method="post">
+  <form class="box" action="{{ url_for('home.dashboard') }}" method="post">
+      <!-- <form action="http://localhost:5000/dashboard" method="post"> -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">SmartLock Dash</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
