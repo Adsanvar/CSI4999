@@ -9,7 +9,7 @@
 
 <!-- <form class="box" action="http://adsanvar.pythonanywhere.com/vertification" method="post"> -->
 <!-- <form class="box" action="http://localhost:5000/vertification" method="post">  -->
-  <form class="box" action="{{ url_for('auth.vertification') }}" method="post"> 
+  <form class="box" action="{{ url_for('auth.vertification_post') }}" method="post"> 
   <p style="color:white;">We've sent you a link to your email. Please verify that it is you :D</p>
   <input type="submit" name="vertification_login" value="Login">
 </form>
