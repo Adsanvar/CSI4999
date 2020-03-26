@@ -219,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                     public void onErrorResponse(VolleyError error) {
                         mresponse.setText("That didn't work!: " + error.toString());
                         Log.d("Connection", error.toString());
+                        Log.d("Connection", resp);
                     }
                 });
 
