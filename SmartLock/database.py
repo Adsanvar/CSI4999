@@ -47,58 +47,82 @@ def user_id_query(id):
 #Query User By Email
 def query_userByEmail(rEmail):
     return User.query.filter_by(email = rEmail).first()
-
 #Create user call api - Adrian
 def create_user(usr):
-    db.session.add(usr)
-    db.session.commit()
+    try:
+        db.session.add(usr)
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 def create_entry_log(entry_log):
-    db.session.add(entry_log)
-    db.session.commit()
+    try:
+        db.session.add(entry_log)
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 #creates an RPI Object
 def create_rpi(rpi):
-    db.session.add(rpi)
-    db.session.commit()
+    try:
+        db.session.add(rpi)
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 def update_pass(usr, password):
-    usr.password = password
-    db.session.commit()
+    try:
+        usr.password = password
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 #Update pi's password - Adrian
 def update_pi(pi, pin_code):
-    pi.pin_code = pin_code
-    db.session.commit()
-
+    try:
+        pi.pin_code = pin_code
+        db.session.commit()
+    except:
+        db.session.rollback()
 #Queries pi - Adrian
 def query_rpi(sn):
     return Rpi.query.filter_by(serial_number = sn).first()
-
 #Changes the user to verified=true -brandon (referenced from Adrian&Jared)
 #Modified by Adrian
 def verify_user(usr):
-    usr.verified = True
-    db.session.commit()
+    try:
+        usr.verified = True
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 #Changes the rpi status -jared (referenced from Adrian)
 #Modified by Adrian
 def activate_pi(sn, stat):
-    pi = Rpi.query.filter_by(serial_number=sn).first()
-    pi.active = stat
-    db.session.commit()
-    
+    try:
+        pi = Rpi.query.filter_by(serial_number=sn).first()
+        pi.active = stat
+        db.session.commit()
+    except:
+        db.session.rollback()
 #Sets the IP Address of the device - Adrian
 def setIp(sn, ip):
-    pi = Rpi.query.filter_by(serial_number=sn).first()
-    pi.ip = ip
-    db.session.commit()
+    try:
+        pi = Rpi.query.filter_by(serial_number=sn).first()
+        pi.ip = ip
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 #Updates the rpi user_id
 def rpi_user(serial_number, usr_id):
-    rpi = Rpi.query.filter_by(serial_number = serial_number).first()
-    rpi.user_id = usr_id
-    db.session.commit()
+    try:
+        rpi = Rpi.query.filter_by(serial_number = serial_number).first()
+        rpi.user_id = usr_id
+        db.session.commit()
+    except:
+        db.session.rollback()
+
 
 #Queries user pincode  -jared
 #Modified by Adrian
