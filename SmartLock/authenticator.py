@@ -58,7 +58,7 @@ def login():
             return redirect(url_for('auth.index'))
             
 
-@auth.route('/mobileUnlock/<pin>', methods=['GET'])
+@auth.route('/mobileUnlock/<pin>', methods=['POST'])
 def mobileUnlock(pin):
     rpi = database.query_rpi()
     if rpi.pin_code == pin:
