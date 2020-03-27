@@ -64,6 +64,7 @@ private Animation animation_1, animation_2 = null;
         authenticated = false;
 
         sending_url = "http://adsanvar.pythonanywhere.com/";
+        sending_url = "http://192.168.1.74:5000/";
 
 
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadein);
