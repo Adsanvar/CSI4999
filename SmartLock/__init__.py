@@ -13,9 +13,9 @@ try:
         #allows us to use Login Manager and other tools suchas Flash from flask_login - Adrian
         app.config['SECRET_KEY'] = 'test_secret_key'
         #this configures the databse for communication with flask -jared
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://adsanvar:Database13.@adsanvar.mysql.pythonanywhere-services.com/adsanvar$smart_lock'
+        #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://adsanvar:Database13.@adsanvar.mysql.pythonanywhere-services.com/adsanvar$smart_lock'
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Thunder#55@localhost/smart_lock'
-        #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Database13.@localhost/smart_lock'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Database13.@localhost/smart_lock'
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ratatat@3@localhost/smart_lock'
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:pass@localhost/smart_lock'
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
