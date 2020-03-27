@@ -139,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         txtSensativity.setText(txtSensativity.getText().toString() + "\n" + "Low");
         SENSINTIVITY = mLOW;
 
+        //get User Information
+        getUserInformation(this);
+
         /*
             Updates the TextView upon changing the seekBar
          */
@@ -196,8 +199,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             }
         });
 
-        //get User Information
-        getUserInformation(this);
+
 
     }
 
