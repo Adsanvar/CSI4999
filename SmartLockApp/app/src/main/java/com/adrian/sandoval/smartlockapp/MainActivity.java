@@ -210,16 +210,13 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
                                 //mresponse.setText("Response is: "+ response);
                                 resp = response;
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        mresponse.setText("That didn't work!: " + error.toString());
-                        Log.d("Connection", error.toString());
-                        Log.d("Connection", resp);
+                        mresponse.setText("Response Status:\n" + error.toString());
                     }
                 });
 
@@ -235,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mresponse.setText(mresponse.getText() + "\nTask Completed");
+                    mresponse.setText("Response Status:\nTask Completed");
                     REEQUEST_COMPLETE = true;
 
                 }
@@ -259,7 +256,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         }
 
     }
-
 
     private void setmInZone(double dis)
     {
@@ -303,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     @Override
     public void onResume() {
         super.onResume();
+//        mBeaconManager.unbind(this);
         mBeaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
         // Detect the URL frame:
         mBeaconManager.getBeaconParsers().add(new BeaconParser().
@@ -310,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         mBeaconManager.bind(this);
     }
 
+    @Override
     public void onBeaconServiceConnect() {
         Region region = new Region("all-beacons-region", null, null, null);
         try {
@@ -339,11 +337,16 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         }
     }
 
-
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("onPause", "True");
+        mBeaconManager.unbind(this);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
         mBeaconManager.unbind(this);
     }
     
