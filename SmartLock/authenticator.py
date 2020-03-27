@@ -307,7 +307,7 @@ def mobilelogin(username, password):
 #Gets pin code and ip address of the user's rpi when called (used for mobile) -Adrian
 @auth.route('/getUserInfo/<usr>', methods=['GET'])
 def getUserInfo(usr):
-    data = database.get_pin_by_association(usr)
+    data = database.get_mobile_information(usr)
     return data
 
 @auth.route('/setSensitivity/<usr>/<sen>', methods=['GET'])
