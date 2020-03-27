@@ -131,7 +131,7 @@ def query_pin_code(sn):
     return rpi.pin_code 
 
 #Queries rpi pin code by usr association
-def get_mobile_information(usr):
+def get_mobile_information(user):
     usr = user_query(user)
     pi = Rpi.query.filter_by(user_id = usr.id).first()
     data = pi.pin_code + ','+pi.ip+','+usr.
