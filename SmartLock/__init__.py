@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager as manager
 from flask_bcrypt import Bcrypt ## Importing Bcrypt to hash passwords store in db - Heath
-
 ##Creates db -Adrian
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -18,7 +17,7 @@ try:
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Thunder#55@localhost/smart_lock'
         app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Database13.@localhost/smart_lock'
         #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Ratatat@3@localhost/smart_lock'
-        # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:pass@localhost/smart_lock'
+        #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:pass@localhost/smart_lock'
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
         app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
         # (return app) -Adrian
