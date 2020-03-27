@@ -367,15 +367,14 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
      * Gets information for authentication
      * @param context
      */
-    protected void getUserInformation(Context context)
+    protected void getUserInformation(final Context context)
     {
-        final Context context1 = context;
         final String info = test + "getUserInfo/"+username;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, info, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(context1, "inGetUserInfo", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "inGetUserInfo", Toast.LENGTH_LONG).show();
                 String[] tokens = response.split(",");
                 PIN = tokens[0];
                 IP = tokens[1];
@@ -385,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context1, "Unable To Acquire User Info", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Unable To Acquire User Info", Toast.LENGTH_LONG).show();
             }
         });
 

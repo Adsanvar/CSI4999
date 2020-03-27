@@ -114,6 +114,7 @@ private Animation animation_1, animation_2 = null;
                             btnLogin.clearAnimation();
                             animation_2.cancel();
                             authenticated = true;
+                            Toast.makeText(context, response, Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             intent.putExtra("Username", usrname);
