@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
     verified = db.Column(db.Boolean(1))#brandons
+    sensitivity = db.Column(db.String(45))
     
     def __repr__(self):
         return self.username
@@ -130,7 +131,8 @@ def query_pin_code(sn):
     return rpi.pin_code 
 
 #Queries rpi pin code by usr association
-def get_pin_by_association(usr):
-    pi = Rpi.query.filter_by(user_id=usr).first()
-    data = pi.pin_code + ','+pi.ip
+def get_mobile_information(usr):
+    usr = user_query(user)
+    pi = Rpi.query.filter_by(user_id = usr.id).first()
+    data = pi.pin_code + ','+pi.ip+','+usr.
     return data
