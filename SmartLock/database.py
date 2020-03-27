@@ -132,8 +132,17 @@ def query_pin_code(sn):
     return rpi.pin_code 
 
 #Queries rpi pin code by usr association
-def get_pin_by_association(user):
+def get_mobile_information(user):
     usr = user_query(user)
     pi = Rpi.query.filter_by(user_id = usr.id).first()
-    data = pi.pin_code + ','+pi.ip
+    data = pi.pin_code + ','+pi.ip+','+usr.sensitivity
     return data
+
+#sets the user's sensitivity for the mobile app
+def setSensitivity(user, sensitivity):
+    try:
+        usr = user_query(user)
+        usr.sensitivity = sensitivity
+        db.session.commit()
+    except:
+        db.session.rollback()
