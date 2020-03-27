@@ -159,7 +159,7 @@ private Animation animation_1, animation_2 = null;
         StringRequest stringRequest1 = new StringRequest(Request.Method.GET, req, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Toast.makeText(context1, "inGetUserInfo", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context1, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 context1.startActivity(intent);
