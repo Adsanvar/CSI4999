@@ -96,9 +96,8 @@ private Animation animation_1, animation_2 = null;
     }
 
 
-    public void login(String usrname, String pas, final Context context) {
+    public void login(final String usrname, String pas, final Context context) {
         final String req = sending_url + "mobilelogin/" + usrname + "/" + pas;
-        final String info = sending_url + "getUserInfo/"+usrname;
         animation_2 = AnimationUtils.loadAnimation(context, R.anim.blink_anim);
 
         //new Home.SendRequest().execute(req);
@@ -115,7 +114,11 @@ private Animation animation_1, animation_2 = null;
                             btnLogin.clearAnimation();
                             animation_2.cancel();
                             authenticated = true;
-                            getUserInformation(context, info);
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            intent.putExtra("Username", usrname);
+                            context.startActivity(intent);
+
                         }
 
                     }
@@ -152,29 +155,6 @@ private Animation animation_1, animation_2 = null;
         queue.add(stringRequest);
     }
 
-
-    protected void getUserInformation(Context context, String req)
-    {
-        final Context context1 = context;
-        StringRequest stringRequest1 = new StringRequest(Request.Method.GET, req, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(context1, "inGetUserInfo", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(context1, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                context1.startActivity(intent);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context1, "Unable To Acquire User Info", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        queue.add(stringRequest1);
-
-    }
 
 }
 

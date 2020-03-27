@@ -75,6 +75,13 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     private static int mMEDIUM = -55;
     private static int mHIGH = -75;
 
+    private String username = null;
+    private String PIN = null;
+    private String IP = null;
+
+    //private online_url = "http://adsanvar.pythonanywhere.com/";
+    private String test = "http://192.168.1.74:5000/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             }
         }
 
+        username = getIntent().getStringExtra("Username");
+        getUserInformation(this);
 
         mbutton = this.findViewById(R.id.btnUnlock);
         dis = this.findViewById(R.id.distance_id);
@@ -324,14 +333,18 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
                 // This is a Eddystone-URL frame
                 String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
-                sending_url = url +":5000/mobileUnlock/0";
                 Log.d(TAG, "I see a beacon transmitting a url: " + url +
                         " approximately " + beacon.getDistance() + " meters away."+" Rssi: " +beacon.getRssi());
                 dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"m" +"\nRSSI: "+ beacon.getRssi());
-                mUrl.setText("Advertising:\n" +url);
-                //setmInZone(beacon.getDistance());
-                setmInZone(beacon.getRssi());
-                passiveEntry();
+                if (url.equals("http://"+IP))
+                {
+                    sending_url = url +":5000/mobileUnlock/"+PIN;
+                    mUrl.setText("Advertising:\n" +url);
+                    //setmInZone(beacon.getDistance());
+                    setmInZone(beacon.getRssi());
+                    passiveEntry();
+                }
+
 
             }
         }
@@ -349,5 +362,36 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         super.onDestroy();
         mBeaconManager.unbind(this);
     }
-    
+
+    /**
+     * Gets information for authentication
+     * @param context
+     */
+    protected void getUserInformation(Context context)
+    {
+        final Context context1 = context;
+        final String info = test + "getUserInfo/"+username;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, info, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(context1, "inGetUserInfo", Toast.LENGTH_LONG).show();
+                String[] tokens = response.split(",");
+                PIN = tokens[0];
+                IP = tokens[1];
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context1, "Unable To Acquire User Info", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        queue.add(stringRequest);
+
+    }
+
+
 }
