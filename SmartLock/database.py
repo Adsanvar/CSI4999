@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(45))#Adrian
     role = db.Column(db.String(45))#Adrian
     verified = db.Column(db.Boolean(1))#brandons
+    sensitivity = db.Column(db.String(45))
     
     def __repr__(self):
         return self.username
