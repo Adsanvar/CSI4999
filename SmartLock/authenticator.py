@@ -310,3 +310,7 @@ def getUserInfo(usr):
     data = database.get_pin_by_association(usr)
     return data
 
+@auth.route('/setSensitivity/<usr>/<sen>', methods=['GET'])
+def setSensitivity(usr, sen):
+    database.setSensitivity(usr,sen)
+    return 'Success'
