@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         }
 
         username = getIntent().getStringExtra("Username");
-        getUserInformation(this);
 
         mbutton = this.findViewById(R.id.btnUnlock);
         dis = this.findViewById(R.id.distance_id);
@@ -196,6 +196,9 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             }
         });
 
+        //get User Information
+        getUserInformation(this);
+
     }
 
 
@@ -225,7 +228,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        mresponse.setText("Response Status:\n" + error.toString());
+                        if(error instanceof TimeoutError){
+                            //do nothing
+                        }else
+                        {
+                            mresponse.setText("Response Status:\n" + error.toString());
+                        }
                     }
                 });
 
@@ -246,8 +254,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
                 }
             }, WAIT_PERIOD);
-
-
 
         }
     }
@@ -374,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(context, "inGetUserInfo", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, response, Toast.LENGTH_LONG).show();
                 String[] tokens = response.split(",");
                 PIN = tokens[0];
                 IP = tokens[1];
@@ -384,6 +390,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.d("RESPONSE", error.toString());
                 Toast.makeText(context, "Unable To Acquire User Info", Toast.LENGTH_LONG).show();
             }
         });

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -64,7 +65,7 @@ private Animation animation_1, animation_2 = null;
         authenticated = false;
 
         //sending_url = "http://adsanvar.pythonanywhere.com/";
-        sending_url = "http://192.168.1.103:5000/";
+        sending_url = "http://192.168.1.74:5000/";
 
 
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadein);
@@ -80,7 +81,6 @@ private Animation animation_1, animation_2 = null;
 
         animation_1 = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +88,6 @@ private Animation animation_1, animation_2 = null;
                 login(txtUsername.getText().toString(), txtPassword.getText().toString(), v.getContext());
 
                 btnLogin.startAnimation(animation_1);
-
 
             }
         });
@@ -106,7 +105,6 @@ private Animation animation_1, animation_2 = null;
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
                         //mresponse.setText("Response is: "+ response);
                         if (response.equals("Success")) {
                             btnLogin.clearAnimation();
@@ -114,7 +112,6 @@ private Animation animation_1, animation_2 = null;
                             btnLogin.clearAnimation();
                             animation_2.cancel();
                             authenticated = true;
-                            Toast.makeText(context, response, Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             intent.putExtra("Username", usrname);
@@ -126,8 +123,12 @@ private Animation animation_1, animation_2 = null;
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //mresponse.setText("That didn't work!: " + error.toString());
-                Log.d("Connection", error.toString());
+                if(error instanceof TimeoutError){
+                    //do nothing
+                }else
+                {
+                    //mresponse.setText("That didn't work!: " + error.toString());
+                    Log.d("Connection", error.toString());
 
                     animation_1.cancel();
                     btnLogin.clearAnimation();
@@ -138,18 +139,20 @@ private Animation animation_1, animation_2 = null;
                     btnLogin.setBackground(getResources().getDrawable(R.drawable.login_failed_button));
                     authenticated = false;
 
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        btnLogin.setBackground(getResources().getDrawable(R.drawable.login_button));
-                        btnLogin.setText("Login");
-                        btnLogin.setTextColor(getResources().getColor(R.color.white));
-                        btnLogin.clearAnimation();
-                        animation_2.cancel();
+                            btnLogin.setBackground(getResources().getDrawable(R.drawable.login_button));
+                            btnLogin.setText("Login");
+                            btnLogin.setTextColor(getResources().getColor(R.color.white));
+                            btnLogin.clearAnimation();
+                            animation_2.cancel();
 
-                    }
-                }, WAIT_PERIOD);
+                        }
+                    }, WAIT_PERIOD);
+                }
+
             }
         });
 

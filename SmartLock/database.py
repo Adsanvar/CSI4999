@@ -105,6 +105,7 @@ def activate_pi(sn, stat):
         db.session.commit()
     except:
         db.session.rollback()
+
 #Sets the IP Address of the device - Adrian
 def setIp(sn, ip):
     try:
@@ -130,7 +131,8 @@ def query_pin_code(sn):
     return rpi.pin_code 
 
 #Queries rpi pin code by usr association
-def get_pin_by_association(usr):
-    pi = Rpi.query.filter_by(user_id=usr).first()
+def get_pin_by_association(user):
+    usr = user_query(user)
+    pi = Rpi.query.filter_by(user_id = usr.id).first()
     data = pi.pin_code + ','+pi.ip
     return data
