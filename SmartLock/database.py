@@ -123,9 +123,14 @@ def rpi_user(serial_number, usr_id):
     except:
         db.session.rollback()
 
-
 #Queries user pincode  -jared
 #Modified by Adrian
 def query_pin_code(sn):
     rpi = query_rpi(sn)
     return rpi.pin_code 
+
+#Queries rpi pin code by usr association
+def get_mobile_info_by_association(usr):
+    pi = Rpi.query.filter_by(user_id=usr).first()
+    data = pi.pin_code + ','+pi.ip
+    return data

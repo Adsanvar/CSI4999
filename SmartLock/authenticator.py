@@ -294,7 +294,7 @@ def piLogin(username, password, serial):
 # Mobile Login API Call - Adrian
 # Query Database for user, Check if object in db, logic for login
 @auth.route('/mobilelogin/<username>/<password>', methods=['GET'])
-def mobilelogin(username,password):
+def mobilelogin(username, password):
     usr = database.user_query(username)
     if usr == None:
         return 'Failed', 400
@@ -303,4 +303,10 @@ def mobilelogin(username,password):
             return 'Success', 200
         else:
             return 'Failed', 400
+
+#Gets pin code and ip address of the user's rpi when called (used for mobile) -Adrian
+@auth.route('/getUserInfo/<usr>', methods=['GET'])
+def getUserInfo(usr):
+    data = database.get_pin_by_association(usr)
+    return data
 
