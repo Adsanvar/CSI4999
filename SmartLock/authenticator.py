@@ -310,3 +310,7 @@ def getUserInfo(usr):
     data = database.get_mobile_information(usr)
     return data
 
+@auth.route('/setSensitivity/<usr>/<sen>', methods=['GET'])
+def setSensitivity(usr, sen):
+    database.setSensitivity(usr,sen)
+    return 'Success'
