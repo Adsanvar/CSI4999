@@ -124,15 +124,12 @@ private Animation animation_1, animation_2 = null;
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(error instanceof TimeoutError){
-                    //do nothing
-                }else
-                {
                     //mresponse.setText("That didn't work!: " + error.toString());
                     Log.d("Connection", error.toString());
 
                     animation_1.cancel();
                     btnLogin.clearAnimation();
-                    Toast.makeText(context, "Invalid Credential", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Timed Out", Toast.LENGTH_LONG).show();
                     btnLogin.setText("Error");
                     btnLogin.setTextColor(getResources().getColor(R.color.white));
                     btnLogin.startAnimation(animation_2);

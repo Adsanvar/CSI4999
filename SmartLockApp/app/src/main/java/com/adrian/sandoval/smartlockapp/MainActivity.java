@@ -4,17 +4,20 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.RemoteException;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     private TextView dis, mUrl, mresponse, inzonetxt, txtSensativity = null;
 
+    private ImageView logout =null;
+
     String sending_url = null;
 
     RequestQueue queue = null;
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     Handler handler =null;
 
     Integer WAIT_PERIOD = null;
+    Integer DELAY = null;
 
     private static DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
@@ -72,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     private Switch aSwitch = null;
 
     private static int SENSINTIVITY;
+    private static int SENSINTIVITY_VALUE;
     private static int mLOW = -35;
     private static int mMEDIUM = -55;
     private static int mHIGH = -75;
@@ -80,8 +87,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     private String PIN = null;
     private String IP = null;
 
-    //private online_url = "http://adsanvar.pythonanywhere.com/";
-    private String test = "http://192.168.1.74:5000/";
+    private Boolean LOGGEDOUT =null;
+
+    ///private String online_url = "http://adsanvar.pythonanywhere.com/";
+    private String online_url = "http://192.168.1.74:5000/";
 
 
     @Override
@@ -121,6 +130,18 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         seekBar = this.findViewById(R.id.seekBar);
         txtSensativity = this.findViewById(R.id.txtSensativity);
         aSwitch = this.findViewById(R.id.info_switch);
+        logout = this.findViewById(R.id.iv_logout);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                LOGGEDOUT = true;
+                getApplicationContext().startActivity(intent);
+                finish();
+            }
+        });
 
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,10 +159,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         REEQUEST_COMPLETE = true;
         txtSensativity.setText(txtSensativity.getText().toString() + "\n" + "Low");
         SENSINTIVITY = mLOW;
-
-        //get User Information
-        getUserInformation(this);
-
+        LOGGEDOUT = false;
         /*
             Updates the TextView upon changing the seekBar
          */
@@ -153,16 +171,19 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                 {
                     txtSensativity.setText("Sensitivity:" + "\n" + "Low");
                     SENSINTIVITY = mLOW;
+                    setSensitivity(getApplicationContext(), Integer.toString(progress));
                 }
                 else if(progress == 1)
                 {
                     txtSensativity.setText("Sensitivity:" + "\n" + "Medium");
                     SENSINTIVITY = mMEDIUM;
+                    setSensitivity(getApplicationContext(), Integer.toString(progress));
                 }
                 else
                 {
                     txtSensativity.setText("Sensitivity:"+ "\n" + "High");
                     SENSINTIVITY = mHIGH;
+                    setSensitivity(getApplicationContext(), Integer.toString(progress));
                 }
             }
 
@@ -199,11 +220,38 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             }
         });
 
+        DELAY = 2000;
+
+        //get User Information
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+               getUserInformation(getApplicationContext());
+
+            }
+        }, DELAY);
+        //getUserInformation(this);
 
 
     }
 
-
+//                new AlertDialog.Builder(context)
+//            .setTitle("Unable To Acquire User Settings?")
+//                        .setMessage("Would Like To Retry?")
+//
+//    // Specifying a listener allows you to take an action before dismissing the dialog.
+//    // The dialog is automatically dismissed when a dialog button is clicked.
+//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//        public void onClick(DialogInterface dialog, int which) {
+//            // Continue with delete operation
+//            getUserInformation(context);
+//        }
+//    })
+//
+//            // A null listener allows the button to dismiss the dialog and take no further action.
+//            .setNegativeButton(android.R.string.no, null)
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                        .show();
 
     public void unlock()
     {
@@ -337,25 +385,29 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-        for (Beacon beacon: beacons) {
-            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
-                // This is a Eddystone-URL frame
-                String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
-                Log.d(TAG, "I see a beacon transmitting a url: " + url +
-                        " approximately " + beacon.getDistance() + " meters away."+" Rssi: " +beacon.getRssi());
-                dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"m" +"\nRSSI: "+ beacon.getRssi());
-                if (url.equals("http://"+IP))
-                {
-                    sending_url = url +":5000/mobileUnlock/"+PIN;
-                    mUrl.setText("Advertising:\n" +url);
-                    //setmInZone(beacon.getDistance());
-                    setmInZone(beacon.getRssi());
-                    passiveEntry();
+        if(!LOGGEDOUT)
+        {
+            for (Beacon beacon: beacons) {
+                if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
+                    // This is a Eddystone-URL frame
+                    String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
+                    Log.d(TAG, "I see a beacon transmitting a url: " + url +
+                            " approximately " + beacon.getDistance() + " meters away."+" Rssi: " +beacon.getRssi());
+                    dis.setText("Distance: " + decimalFormat.format(beacon.getDistance()) +"m" +"\nRSSI: "+ beacon.getRssi());
+                    if (url.equals("http://"+IP))
+                    {
+                        sending_url = url +":5000/mobileUnlock/"+PIN;
+                        mUrl.setText("Advertising:\n" +url);
+                        //setmInZone(beacon.getDistance());
+                        setmInZone(beacon.getRssi());
+                        passiveEntry();
+                    }
+
+
                 }
-
-
             }
         }
+
     }
 
     @Override
@@ -372,12 +424,45 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     }
 
     /**
+     * Set Sensitivity of the User
+     * @param context
+     * @param sensitivity
+     */
+    protected void setSensitivity(final Context context, String sensitivity)
+    {
+        final String info = online_url + "setSensitivity/"+username+"/"+sensitivity;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, info, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(context, "Update: "+response, Toast.LENGTH_LONG).show();
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if(error instanceof TimeoutError){
+                    //do nothing
+                }else
+                {   Log.d("RESPONSE", error.toString());
+                    Toast.makeText(context, "Unable To Update User Info", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        queue.add(stringRequest);
+
+    }
+    /**
      * Gets information for authentication
      * @param context
      */
     protected void getUserInformation(final Context context)
     {
-        final String info = test + "getUserInfo/"+username;
+        final String info = online_url + "getUserInfo/"+username;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, info, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -386,12 +471,15 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                 String[] tokens = response.split(",");
                 PIN = tokens[0];
                 IP = tokens[1];
+                SENSINTIVITY_VALUE = Integer.parseInt(tokens[2]);
+                seekBar.setProgress(SENSINTIVITY_VALUE);
 
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Log.d("RESPONSE", error.toString());
                 Toast.makeText(context, "Unable To Acquire User Info", Toast.LENGTH_LONG).show();
             }

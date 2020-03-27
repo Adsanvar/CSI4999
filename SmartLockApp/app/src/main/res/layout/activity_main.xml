@@ -122,4 +122,16 @@
 
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/iv_logout"
+        android:layout_width="49dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="44dp"
+        android:rotation="-180"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logout" />
+
 </android.support.constraint.ConstraintLayout>
