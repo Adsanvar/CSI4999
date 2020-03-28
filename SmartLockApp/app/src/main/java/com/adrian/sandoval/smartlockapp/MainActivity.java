@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     private Boolean LOGGEDOUT =null;
 
-    ///private String online_url = "http://adsanvar.pythonanywhere.com/";
-    private String online_url = "http://192.168.1.74:5000/";
+    private String online_url = "http://adsanvar.pythonanywhere.com/";
+    //private String online_url = "http://192.168.1.74:5000/";
 
 
     @Override
