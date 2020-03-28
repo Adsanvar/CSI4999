@@ -124,7 +124,7 @@ def signup():
                     # if sendMail(mail, msg)
                         #print(mail, "\t", msg)
                     # created hashed password - Heath
-                    usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False)
+                    usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False, sensitivity=0)
                     #usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
 
                     database.create_user(usr)
