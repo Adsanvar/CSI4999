@@ -171,27 +171,22 @@ def verification_return(key):
         return redirect(url_for('auth.login_index'))
 
 #Route for changing RPI Password
-@auth.route('/rpi/<pas>')
+@auth.route('/rpi/<sn>/<pas>')
 @login_required
-def rpi_config(pas):
+def rpi_config(sn, pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
 
-    rpi = database.query_rpi()
-    database.update_pi(rpi, pas)
+    database.update_pi(sn, pas)
 
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
 
 #Route for changing User Password
-@auth.route('/userpass/<pas>')
+@auth.route('/userpass/<usr>/<pas>')
 @login_required
-def userpass(pas):
+def userpass(usr, pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE User'))
-
-    userpass = database.query_user()
-    database.update_pass(userpass, pas)
-
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
+    database.update_pass(usr, bcrypt.generate_password_hash(pas).decode('utf-8'))
     return redirect(url_for('home.dashboard'))
 
 #route to logout the user from the session - Adrian 

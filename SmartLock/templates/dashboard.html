@@ -31,6 +31,7 @@
                 </form>
             </div>
         </nav>
+        
         <div class="jumbotron">
             <div class="container">
                 <h1 class="display-4">SmartLock Dashboard</h1>
@@ -43,11 +44,12 @@
                 <div class="col-md-6">
                   <h3>Change Password</h3>
                     <ul class="list-group">
+                      <form action="{{ url_for('home.post_dashboard') }}" method="post">
                       <div class="form-group">
                         <input class="list-group-item" type="password" name="old_password" placeholder="Old Password" >
                       </div>
                       <div class="form-group">
-                        <input class="list-group-item" type="password" name="password" placeholder="New Password" >
+                        <input class="list-group-item" type="password" name="new_password" placeholder="New Password" >
                       </div>
                     <div class="form-group">
                         <input class="list-group-item" type="password" name="confirm_password" placeholder="Confirm Password" >
@@ -55,23 +57,27 @@
                     <div class="form-group">
                         <input class="list-group-item" type="submit" name="confirm2" value="Confirm">
                     </div>
+                  </form>
+                  </ul>
                 </div>
                 <div class="col-md-6">
                   <h3>Change Pin Code</h3>
                   <ul class="list-group">
-                  <div class="form-group">
-                    <input class="list-group-item" type="password" name="old_rpi_pin" placeholder="Old Pin" >
-                  </div>
-                  <div class="form-group">
-                    <input class="list-group-item" type="password" name="rpi_pin" placeholder="New Pin" >
-                  </div>
-                  <div class="form-group">
-                    <input class="list-group-item" type="password" name="rpi_confirm_pin" placeholder="Confirm Pin" >
-                  </div>
-                  <div class="form-group">
-                    <input class="list-group-item" type="submit" name="confirm1" value="Confirm">
-                  </div>
-                    </ul>
+                    <form action="{{ url_for('home.post_dashboard') }}" method="post">
+                      <div class="form-group">
+                        <input class="list-group-item" type="password" name="old_rpi_pin" placeholder="Old Pin" >
+                      </div>
+                      <div class="form-group">
+                        <input class="list-group-item" type="password" name="rpi_pin" placeholder="New Pin" >
+                      </div>
+                      <div class="form-group">
+                        <input class="list-group-item" type="password" name="rpi_confirm_pin" placeholder="Confirm Pin" >
+                      </div>
+                      <div class="form-group">
+                        <input class="list-group-item" type="submit" name="confirm1" value="Confirm">
+                      </div>
+                    </form>
+                  </ul>
                     <p>
                         <a href="#" class="btn btn-default btn-lg">More...</a>
                     </p>

@@ -68,26 +68,32 @@ def create_rpi(rpi):
     try:
         db.session.add(rpi)
         db.session.commit()
+        
     except:
         db.session.rollback()
 
-def update_pass(usr, password):
+def update_pass(usrname, password):
     try:
+        usr = user_query(usrname)
         usr.password = password
         db.session.commit()
+        print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     except:
         db.session.rollback()
 
 #Update pi's password - Adrian
-def update_pi(pi, pin_code):
+def update_pi(sn, pin_code):
     try:
+        pi = query_rpi(sn)
         pi.pin_code = pin_code
         db.session.commit()
+        print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     except:
         db.session.rollback()
 #Queries pi - Adrian
 def query_rpi(sn):
     return Rpi.query.filter_by(serial_number = sn).first()
+
 #Changes the user to verified=true -brandon (referenced from Adrian&Jared)
 #Modified by Adrian
 def verify_user(usr):
