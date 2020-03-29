@@ -17,7 +17,7 @@ python3 ~/Documents/CSI4999/initialization.py "$ip"
 # #some with eddystone
 # sudo hcitool -i hci0 cmd 0x08 0x000a 01
 
-chromium-browser --start-fullscreen --kiosk http://"$ip":5000
+python3 ~/Documents/CSI4999/startBrowser.py "$ip"
 
 export FLASK_APP=~/Documents/CSI4999/SmartLock
 export FLASK_ENV=production
