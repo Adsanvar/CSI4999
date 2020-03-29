@@ -36,14 +36,14 @@ rpi_serial = getserial()
 #################################
 
 #Tell the system that this RPI is Active
-print("Connecting...")
-conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
-conn.request("GET", '/setActive/'+rpi_serial+'/'+ip)
-r1 = conn.getresponse()
-print('Connection:')
-val = r1.read().decode('utf8')
-print(val)
-
+# print("Connecting...")
+# conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
+# conn.request("GET", '/setActive/'+rpi_serial+'/'+ip)
+# r1 = conn.getresponse()
+# print('Connection:')
+# val = r1.read().decode('utf8')
+# print(val)
+val = 'Success'
 if val == 'Success':
 	#################################
 	#			Step Three			#
