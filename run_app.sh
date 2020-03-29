@@ -19,8 +19,8 @@ python3 ~/Documents/CSI4999/initialization.py "$ip"
 
 export IP_VAR="$ip"
 export FLASK_APP=~/Documents/CSI4999/SmartLock
-export FLASK_ENV=development
-export DEBUG=1
+export FLASK_ENV=production
+export DEBUG=0
 export FLASK_RUN_PORT=5000
 #printenv
 flask run -h $ip

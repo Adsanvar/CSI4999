@@ -31,7 +31,6 @@ try:
         app.register_blueprint(h_bp)
 
         ip = os.getenv('IP_VAR')
-        print(ip)
         threading.Timer(8, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
 
         return app
