@@ -32,7 +32,7 @@ try:
 
         ip = os.getenv('IP_VAR')
         print(ip)
-        #threading.Timer(10, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
+        threading.Timer(8, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
 
         return app
 
