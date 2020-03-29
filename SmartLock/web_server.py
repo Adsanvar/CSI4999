@@ -33,22 +33,25 @@ def post_dashboard():
         #TODO: Query old RPI, by user_id. Then compare the pin codes
         #obtain input
 
-        old_pin = request.form.get('old_rpi_password')
+        old_pin = request.form.get('old_rpi_pin')
         rpi = database.query_rpi(current_user.id)
-
-        if old_pin == rpi.pin_code : #make sure they match, redirect to rpi_config with pas as a parameter - Adrian
-            new_pin = request.form.get('rpi_password')
-            confrim_pin = request.form.get('rpi_confirm_password')
-            if new_pin == confrim_pin:
-                print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('PIN confirmed'))
-                return redirect(url_for('auth.rpi_config', sn=rpi.serial_number , pas=confrim_pin))
-            else:
-                print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
+        new_pin = request.form.get('rpi_pin')
+        confrim_pin = request.form.get('rpi_confirm_pin')
+        if old_pin != new_pin:
+            if old_pin == rpi.pin_code : 
+                #make sure they match, redirect to rpi_config with pas as a parameter - Adrian
+                if new_pin == confrim_pin:
+                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('PIN confirmed'))
+                    return redirect(url_for('auth.rpi_config', sn=rpi.serial_number , pas=confrim_pin))
+                else:
+                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
+                    return redirect(url_for('home.dashboard'))
+            else: #if failed redirect to dashboard
+                print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Pin not confirmed'))
                 return redirect(url_for('home.dashboard'))
-        else: #if failed redirect to dashboard
-            print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('pass not confirmed'))
-            return redirect(url_for('home.dashboard'))
-  
+        else:#if failed redirect to dashboard
+                flash('Pin will not be changed')
+                return redirect(url_for('home.dashboard'))
     #if confirm button is activated proceed with change of password
     if 'confirm2' in request.form:
         old_pass = request.form.get('old_password')
