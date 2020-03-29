@@ -23,30 +23,30 @@ def login():
         #checks to see if the the username field is empty
         if request.form.get('username'):
             #Non-empty
-            # name = request.form.get('username')
-            # pas = request.form.get('password')
-            # #Send http request
-            # #http://192.168.1.65:5000/
-            # conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
-            # #conn.request("GET", '/getPiInfo/'+getserial())
-            # conn.request("GET", '/piLogin/'+name +'/'+pas+'/'+getserial())
+            name = request.form.get('username')
+            pas = request.form.get('password')
+            #Send http request
+            #http://192.168.1.65:5000/
+            conn = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
+            #conn.request("GET", '/getPiInfo/'+getserial())
+            conn.request("GET", '/piLogin/'+name +'/'+pas+'/'+getserial())
 
-            # r1 = conn.getresponse()
-            # res = r1.read().decode('utf8')
-            # print(res)
-            res = 'Success'
+            r1 = conn.getresponse()
+            res = r1.read().decode('utf8')
+            print(res)
+
             if res == 'Success':
                 #conn2 = http.client.HTTPConnection("http://adsanvar.pythonanywhere.com",5000)
-                # conn2 = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
-                # serial = getserial()
-                # conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+getserial())
+                conn2 = http.client.HTTPConnection("adsanvar.pythonanywhere.com")
+                serial = getserial()
+                conn2.request("GET", '/getPin/'+name +'/'+pas+'/'+getserial())
 
-                # r2 = conn2.getresponse()
-                # result = r2.read().decode('utf8')
-                # #hashing doesn't not work in MariaDB
-                # #bcrypt.generate_password_hash(result).decode('utf-8')
-                # pi = database.query_rpi()
-                # database.update_pi(pi, result)
+                r2 = conn2.getresponse()
+                result = r2.read().decode('utf8')
+                #hashing doesn't not work in MariaDB
+                #bcrypt.generate_password_hash(result).decode('utf-8')
+                pi = database.query_rpi()
+                database.update_pi(pi, result)
 
                 return redirect(url_for('auth.keypad'))
             else:
