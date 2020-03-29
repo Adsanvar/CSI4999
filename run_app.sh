@@ -17,8 +17,7 @@ python3 ~/Documents/CSI4999/initialization.py "$ip"
 # #some with eddystone
 # sudo hcitool -i hci0 cmd 0x08 0x000a 01
 
-python3 ~/Documents/CSI4999/startBrowser.py "$ip"
-
+export IP_VAR="$ip"
 export FLASK_APP=~/Documents/CSI4999/SmartLock
 export FLASK_ENV=production
 export DEBUG=0

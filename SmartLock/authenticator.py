@@ -13,6 +13,8 @@ auth = Blueprint('auth', __name__)
 #Standard login function that loads the index.html - Adrian
 @auth.route('/', methods=['GET'])
 def index():
+    ip = os.getenv('VAR_IP')
+    threading.Timer(1.25, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
     return render_template('index.html')
 
 #route for the login - Adrian
