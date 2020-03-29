@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+import os, threading, webbrowser, subprocess
 
 ##Creates db -Adrian
 db = SQLAlchemy()
@@ -28,6 +29,9 @@ try:
 
         app.register_blueprint(a_bp)
         app.register_blueprint(h_bp)
+
+        ip = os.getenv('VAR_IP')
+        threading.Timer(1.25, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
 
         return app
 
