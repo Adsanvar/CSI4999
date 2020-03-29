@@ -34,9 +34,10 @@ def post_dashboard():
         #obtain input
 
         old_pin = request.form.get('old_rpi_pin')
-        rpi = database.query_rpi(current_user.id)
+        rpi = database.query_rpi_by_id(current_user.id)
         new_pin = request.form.get('rpi_pin')
         confrim_pin = request.form.get('rpi_confirm_pin')
+
         if old_pin != new_pin:
             if old_pin == rpi.pin_code : 
                 #make sure they match, redirect to rpi_config with pas as a parameter - Adrian

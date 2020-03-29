@@ -90,9 +90,14 @@ def update_pi(sn, pin_code):
         print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     except:
         db.session.rollback()
+
 #Queries pi - Adrian
 def query_rpi(sn):
     return Rpi.query.filter_by(serial_number = sn).first()
+
+#Queries pi - Adrian
+def query_rpi_by_id(id):
+    return Rpi.query.filter_by(user_id = id).first()
 
 #Changes the user to verified=true -brandon (referenced from Adrian&Jared)
 #Modified by Adrian
@@ -112,6 +117,7 @@ def activate_pi(sn, stat):
         db.session.commit()
     except:
         db.session.rollback()
+
 #Sets the IP Address of the device - Adrian
 def setIp(sn, ip):
     try:
