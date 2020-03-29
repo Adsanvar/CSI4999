@@ -30,7 +30,7 @@ try:
         app.register_blueprint(a_bp)
         app.register_blueprint(h_bp)
 
-        ip = os.getenv('VAR_IP')
+        ip = os.getenv('IP_VAR')
         print(ip)
         #threading.Timer(10, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
 
