@@ -55,10 +55,6 @@ def login():
     if 'forgot' in request.form:
         return redirect(url_for('auth.changePassword'))                           
         
-@auth.route('/changePassword')
-def changePassword():
-    return render_template('changePassword.html')
-
 #route for the signup - Adrian
 @auth.route('/signup')
 def signup_index():
@@ -175,9 +171,7 @@ def verification_return(key):
 @login_required
 def rpi_config(sn, pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
-
     database.update_pi(sn, pas)
-
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
 
@@ -188,6 +182,96 @@ def userpass(usr, pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE User'))
     database.update_pass(usr, bcrypt.generate_password_hash(pas).decode('utf-8'))
     return redirect(url_for('home.dashboard'))
+
+# lines 188-275 are the forgot password, in detail the changePassword.html is the place where the user enters his
+# email. forgotpass.html is the place where user enters the confirm password. 
+@auth.route('/changePassword')
+def changePassword_index():
+    return render_template('changePassword.html')
+# much like the signup page this emails the user
+@auth.route('/changePassword', methods=['POST'])
+def changePassword():
+    if 'confirm' in request.form:
+        if request.form.get('email'):
+            #Non-empty
+            mail = request.form.get('email')
+            #this array contains user's information
+            lst = []
+            lst.append(mail)
+            usr = database.query_userByEmail(mail)
+            #checks to make sure that the email is valid
+            if usr != None:
+                if validate_email(mail):
+                    uname = usr.username
+                    #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
+                    msg = 'http://localhost:5000/forgotpass/'+uname
+                    #msg = 'http://172.20.10.2:5000/forgotpass/'+uname
+                    print(msg)
+                    print(mail)
+                    sendMail(mail, msg)
+                        # msg = 'http://localhost:5000/verification/james'
+                        # sendMail('ertech404@gmail.com', msg)
+                        # return redirect(url_for('auth.vertification_post'))
+                        # return redirect(url_for('auth.vertification_post'))
+                        # if sendMail(mail, msg):
+                        #print(mail, "\t", msg)
+                            # created hashed password - Heath
+                        # usr = database.User(username=uname, email=mail)
+                        #  database.create_user(usr)
+                    return redirect(url_for('auth.forgotpass_post'))
+                ##### ONCE creating forgotpassError underneath this will need to be implemented
+                else:
+                    #    lst.append('Email Syntax Invalid. Please Re-enter Email.')
+                    #    lst.append('email_failed')
+                    #    data = ','.join(lst)
+                    return redirect(url_for('auth.signupUserError', data = data))
+            
+            else:
+                return redirect(url_for('auth.signupUserError', data = data))
+        else:
+            #empty
+            return redirect(url_for('auth.changePassword'))
+#like verification this the route handling the the screen
+@auth.route('/forgotpass', methods=['POST','GET'])
+def forgotpass_post():
+    if request.method == 'POST':
+        if request.form.get('confirm'):
+            return redirect(url_for('auth.login_index'))
+    else:
+        return render_template('forgotpass.html')
+# this the route handling the input of the passwords 
+@auth.route('/forgotpass/<uname>', methods=['GET'])
+def forgotpass_return(uname):
+    if database.user_query(uname) == None:
+        return redirect(url_for('auth.signup_index'))
+    else: 
+        usr = database.user_query(uname)
+        new_pass = request.form.get('password')
+        confrim_pass = request.form.get('confirm_password')
+        print( new_pass,confrim_pass)
+        original_pass = usr.password
+            #user can not change password to same password
+            if original_pass != new_pass: 
+                #make sure they match database, redirect to userpass with pas as a parameter - Brandon
+                if new_pass == confrim_pass:
+                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password confirmed'))
+                    #current_user returns username by data representation of model
+                    return redirect(url_for('auth.changepass', usr=uname, pas=confrim_pass))
+                else:
+                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
+                    return redirect(url_for('auth.forgotpass'))
+
+            else:#if failed redirect to dashboard
+                flash('Password will not be changed')
+                return redirect(url_for('auth.forgotpass'))
+
+        return redirect(url_for('auth.login_index'))
+#Route for changing forgotten password
+@auth.route('/changepass/<usr>/<pas>')
+def changepass(usr, pas):
+    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE User'))
+    database.update_pass(usr, bcrypt.generate_password_hash(pas).decode('utf-8'))
+    return redirect(url_for('auth.login_index'))
 
 #route to logout the user from the session - Adrian 
 @auth.route('/logout')
