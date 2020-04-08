@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>َRaspberry Pi Login Form</title>
+    <title>َSmartLock - Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
   </head>
   <body>
@@ -10,12 +10,20 @@
 <!-- <form class="box" action="http://adsanvar.pythonanywhere.com/login" method="post"> -->
 <!-- <form class="box" action="http://localhost:5000/login" method="post"> -->
 <form class="box" action="{{ url_for('auth.login') }}" method="post">  
-  <h1>Pi Login</h1>
+  <h1>Login</h1>
   <input type="text" name="username" placeholder="Username">
   <input type="password" name="password" placeholder="Password">
   <input type="submit" name="login" value="Login">
   <input type="submit" name="signup" value="Signup">
   <input type="submit" name="forgot" value="Forgotten Password?">
+    <!-- Flashes when email is sent -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            <p class="alert-{{category}}">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %} 
 </form>
 
 

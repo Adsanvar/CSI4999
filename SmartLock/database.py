@@ -44,7 +44,7 @@ def user_query(usr):
 #get user by ID #Adrian
 def user_id_query(id):
     return User.query.get(int(id))
-
+    
 #Query User By Email
 def query_userByEmail(rEmail):
     return User.query.filter_by(email = rEmail).first()
@@ -72,6 +72,7 @@ def create_rpi(rpi):
     except:
         db.session.rollback()
 
+#change user password
 def update_pass(usrname, password):
     try:
         usr = user_query(usrname)

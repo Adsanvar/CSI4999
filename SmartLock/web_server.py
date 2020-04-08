@@ -13,6 +13,12 @@ home = Blueprint('home', __name__)
 def index(): 
     return render_template('index.html')
    
+@home.route('/', methods=['GET'])
+def index_changed_password():
+    flash('Password Successfully Changed', 'success')
+    return render_template('index.html')
+
+
 #This routes is the dashboard page -Adrian
 @home.route('/dashboard')
 @login_required
@@ -52,7 +58,7 @@ def post_dashboard():
                 return redirect(url_for('home.dashboard'))
         else:#if failed redirect to dashboard
                 flash('Pin will not be changed')
-                return redirect(url_for('home.dashboard'))
+                return redirect(url_for('home.dashboard'))       
     #if confirm button is activated proceed with change of password
     if 'confirm2' in request.form:
         old_pass = request.form.get('old_password')

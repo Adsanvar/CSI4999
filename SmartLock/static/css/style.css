@@ -54,3 +54,9 @@ body{
 .box input[type = "submit"]:hover{
   background: #2ecc71;
 }
+
+.alert-success
+{
+  background: #2ecc71;
+  color: white;
+}

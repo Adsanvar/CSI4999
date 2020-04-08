@@ -8,10 +8,16 @@ import os
 
 #sets up the authenticator blueprint - Adrian
 auth = Blueprint('auth', __name__)
+USER = ''
 
 #Standard login function that loads the index.html - Adrian
 @auth.route('/login')
 def login_index():
+    return render_template('index.html')
+
+@auth.route('/login')
+def login_from_pass():
+    flash('Email Sent', 'success')
     return render_template('index.html')
 
 #route for the login - Adrian
@@ -51,9 +57,10 @@ def login():
     #if signup button clicked send to signup page        
     if 'signup' in request.form:
         return redirect(url_for('auth.signup'))
-       
+
     if 'forgot' in request.form:
-        return redirect(url_for('auth.changePassword'))                           
+        return redirect(url_for('auth.forgotpass'))   
+                               
         
 #route for the signup - Adrian
 @auth.route('/signup')
@@ -110,7 +117,8 @@ def signup():
                 if validate_email(mail):
                     #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
                     #msg = 'http://localhost:5000/verification/'+uname+'/'+serial
-                    msg = 'http://adsanvar.pythonanywhere.com/verification/'+uname
+                    msg = "Hi " + name + ' ' + last + ",\nWELCOME TO SMART LOCK!\n Please Verify That It Is You." 
+                    msg = msg +'http://adsanvar.pythonanywhere.com/verification/'+uname
                     #msg = 'http://172.20.10.2:5000/verification/'+uname+'/'+serial
                     sendMail(mail, msg)
                     # msg = 'http://localhost:5000/verification/james'
@@ -183,91 +191,98 @@ def userpass(usr, pas):
     database.update_pass(usr, bcrypt.generate_password_hash(pas).decode('utf-8'))
     return redirect(url_for('home.dashboard'))
 
-# lines 188-275 are the forgot password, in detail the changePassword.html is the place where the user enters his
-# email. forgotpass.html is the place where user enters the confirm password. 
-@auth.route('/changePassword')
-def changePassword_index():
-    return render_template('changePassword.html')
-# much like the signup page this emails the user
 @auth.route('/changePassword', methods=['POST'])
-def changePassword():
+def changePassword_post():
+    usr = request.form.get('user')
+    if database.user_query(usr) != None:
+        account = database.user_query(usr)
+        new = request.form.get('newPass')
+        confirm = request.form.get('confirmPass')
+        mail = request.form.get('email')
+        if account.email == mail:
+            if new == confirm:
+                database.update_pass(account.username, bcrypt.generate_password_hash(confirm).decode('utf-8'))
+                return redirect(url_for('home.index_changed_password'))
+            else:
+                return render_template('changePassword.html', user = usr)
+        else:
+            return redirect(url_for('auth.login_index'))
+        
+        return render_template('changePassword.html')
+    else:
+        return redirect(url_for('auth.login_index'))
+
+#Redirect to change the password
+@auth.route('/changePassword/<key>/<usr>', methods=['GET'])
+def changePassword(key, usr):
+    key = key.replace('-', '/')
+    if bcrypt.check_password_hash(key, 'Reset'):
+        return render_template('changePassword.html', user = usr)
+    else:
+        return redirect(url_for('home.index'))
+
+@auth.route('/forgotpass', methods=["GET"])
+def forgotpassIndex():
+    return render_template('forgotpass.html')
+
+@auth.route('/forgotpass', methods=['POST'])
+def forgotpass():
     if 'confirm' in request.form:
         if request.form.get('email'):
             #Non-empty
             mail = request.form.get('email')
-            #this array contains user's information
-            lst = []
-            lst.append(mail)
             usr = database.query_userByEmail(mail)
             #checks to make sure that the email is valid
             if usr != None:
                 if validate_email(mail):
                     uname = usr.username
-                    #subject = 'Welcome To SmartLock, Please Vertify Your Email.'
-                    msg = 'http://localhost:5000/forgotpass/'+uname
-                    #msg = 'http://172.20.10.2:5000/forgotpass/'+uname
-                    print(msg)
-                    print(mail)
+                    msg = 'We Got You Covered, click on the link below to reset your password.\n'
+                    has = bcrypt.generate_password_hash('Reset').decode('utf-8')
+                    has = has.replace('/', '-')
+                    msg = msg + 'http://localhost:5000/changePassword/'+has+'/'+uname
                     sendMail(mail, msg)
-                        # msg = 'http://localhost:5000/verification/james'
-                        # sendMail('ertech404@gmail.com', msg)
-                        # return redirect(url_for('auth.vertification_post'))
-                        # return redirect(url_for('auth.vertification_post'))
-                        # if sendMail(mail, msg):
-                        #print(mail, "\t", msg)
-                            # created hashed password - Heath
-                        # usr = database.User(username=uname, email=mail)
-                        #  database.create_user(usr)
-                    return redirect(url_for('auth.forgotpass_post'))
-                ##### ONCE creating forgotpassError underneath this will need to be implemented
+                    return redirect(url_for('auth.login_from_pass'))
                 else:
-                    #    lst.append('Email Syntax Invalid. Please Re-enter Email.')
-                    #    lst.append('email_failed')
-                    #    data = ','.join(lst)
-                    return redirect(url_for('auth.signupUserError', data = data))
-            
+                    return redirect(url_for('auth.login_index'))
             else:
-                return redirect(url_for('auth.signupUserError', data = data))
+                return redirect(url_for('auth.login_index'))
         else:
-            #empty
-            return redirect(url_for('auth.changePassword'))
-#like verification this the route handling the the screen
-@auth.route('/forgotpass', methods=['POST','GET'])
-def forgotpass_post():
-    if request.method == 'POST':
-        if request.form.get('confirm'):
             return redirect(url_for('auth.login_index'))
-    else:
-        return render_template('forgotpass.html')
-# this the route handling the input of the passwords 
-@auth.route('/forgotpass/<uname>', methods=['GET'])
-def forgotpass_return(uname):
-    if database.user_query(uname) == None:
-        return redirect(url_for('auth.signup_index'))
-    else: 
-        usr = database.user_query(uname)
-        new_pass = request.form.get('password')
-        confrim_pass = request.form.get('confirm_password')
-        print( new_pass,confrim_pass)
-        original_pass = usr.password
-            #user can not change password to same password
-            if original_pass != new_pass: 
-                #make sure they match database, redirect to userpass with pas as a parameter - Brandon
-                if new_pass == confrim_pass:
-                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password confirmed'))
-                    #current_user returns username by data representation of model
-                    return redirect(url_for('auth.changepass', usr=uname, pas=confrim_pass))
-                else:
-                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
-                    return redirect(url_for('auth.forgotpass'))
 
-            else:#if failed redirect to dashboard
-                flash('Password will not be changed')
-                return redirect(url_for('auth.forgotpass'))
+    return redirect(url_for('auth.login_index'))
 
-        return redirect(url_for('auth.login_index'))
+# # this the route handling the input of the passwords 
+# @auth.route('/forgotpass/<uname>', methods=['GET'])
+# def forgotpass_return(uname):
+#     if database.user_query(uname) == None:
+#         return redirect(url_for('auth.signup_index'))
+#     else: 
+#         usr = database.user_query(uname)
+#         new_pass = request.form.get('password')
+#         confrim_pass = request.form.get('confirm_password')
+#         print( new_pass,confrim_pass)
+#         original_pass = usr.password
+#             #user can not change password to same password
+#             if original_pass != new_pass: 
+#                 #make sure they match database, redirect to userpass with pas as a parameter - Brandon
+#                 if new_pass == confrim_pass:
+#                     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password confirmed'))
+#                     #current_user returns username by data representation of model
+#                     return redirect(url_for('auth.changepass', usr=uname, pas=confrim_pass))
+#                 else:
+#                     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
+#                     return redirect(url_for('auth.forgotpass'))
+
+#             else:#if failed redirect to dashboard
+#                 flash('Password will not be changed')
+#                 return redirect(url_for('auth.forgotpass'))
+
+#         return redirect(url_for('auth.login_index'))
+
+
 #Route for changing forgotten password
 @auth.route('/changepass/<usr>/<pas>')
+@login_required
 def changepass(usr, pas):
     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE User'))
     database.update_pass(usr, bcrypt.generate_password_hash(pas).decode('utf-8'))
@@ -346,8 +361,8 @@ def sendMail(to, message):
                 
         #s.sendmail("pitest873@gmail.com", sys.argv[1], sys.argv[2])
         #msg = 'http://localhost:5000/verification/adrian/'
-        msg = "WELCOME TO SMART LOCK\n" + message
-        s.sendmail("smartlock.vertification.noreply@gmail.com", to, msg)
+
+        s.sendmail("smartlock.vertification.noreply@gmail.com", to, message)
         s.quit()
     except:
         raise

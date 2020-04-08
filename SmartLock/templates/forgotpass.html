@@ -7,44 +7,27 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    </head>
+  </head>
     <body>
-  <!-- <form class="box" action="http://adsanvar.pythonanywhere.com/dashboard" method="post"> -->
-  <form class="box" action="{{ url_for('home.dashboard') }}" method="post">
-      <!-- <form action="http://localhost:5000/dashboard" method="post"> -->
+  <form class="box" action="{{ url_for('auth.forgotpass') }}" method="post">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">SmartLock Dash</a>
+            <a class="navbar-brand" href="{{url_for('auth.login')}}">SmartLock</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-              </ul>
-                <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="logout">Logout</button>
-                </form>
-            </div>
         </nav>
         <div class="jumbotron">
             <div class="container">
                 <div class="col-md-6">
-                  <h3>Forgoten Password</h3>
+                <h2>Forgot Password</h2>
+                  <h3>Enter Email</h3>
                     <ul class="list-group">
                       <div class="form-group">
-                        <input class="list-group-item" type="password" name="old_password" placeholder="Old Password" >
-                      </div>
-                      <div class="form-group">
-                        <input class="list-group-item" type="password" name="password" placeholder="New Password" >
+                        <input class="list-group-item" name="email" placeholder="Email" >
                       </div>
                     <div class="form-group">
-                        <input class="list-group-item" type="password" name="confirm_password" placeholder="Confirm Password" >
-                    </div>
-                    <div class="form-group">
-                        <button class="list-group-item" type="submit" name="confirm2">Confirm</button>
-                    </div>
+                        <button class="list-group-item" type="submit" name="confirm">Confirm</button>
+                    </div> 
                 </div>
             </div>
         </div>
