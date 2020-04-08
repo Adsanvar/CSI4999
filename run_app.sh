@@ -27,7 +27,7 @@ python3 ~/Documents/CSI4999/initialization.py "$ip"
 # sudo hcitool -i hci0 cmd 0x08 0x000a 01
 
 #updates the boot up to run the scrip automatically next time
-sudo nano /etc/xdg/lxsession/LXDE-pi/auto
+#sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 sudo grep -qxF '@lxterminal -e "~/Destkop/run_app.sh"'  /etc/xdg/lxsession/LXDE-pi/autostart || echo '@lxterminal -e "~/Destkop/run_app.sh"' >> /etc/xdg/lxsession/LXDE-pi/autostart
 
 export IP_VAR="$ip"
