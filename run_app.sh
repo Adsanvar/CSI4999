@@ -3,11 +3,11 @@
 #waits for 15s while pi connects to internet
 timer=15
 echo "Application Will Start In: "
-while [$timer -ne 0]
+while (( $timer != 0))
 do
     echo $timer
-    sleep 1
-    timer=`expr $timer - 1`
+    sleep 1s
+    timer=$(( timer-1 ))
 done
 
 ## This should grab the IP address of the RPi and display - Heath
@@ -29,7 +29,7 @@ python3 ~/Documents/CSI4999/initialization.py "$ip"
 
 #updates the boot up to run the scrip automatically next time
 #sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
-grep -qxF '@lxterminal -e "~/Destkop/run_app.sh"'  sudo /etc/xdg/lxsession/LXDE-pi/autostart || echo '@lxterminal -e "~/Destkop/run_app.sh"' >> sudo /etc/xdg/lxsession/LXDE-pi/autostart
+sudo grep -qxF '@lxterminal -e "~/Destkop/run_app.sh"' /etc/xdg/lxsession/LXDE-pi/autostart || sudo echo '@lxterminal -e "~/Destkop/run_app.sh"' >> sudo /etc/xdg/lxsession/LXDE-pi/autostart
 
 export IP_VAR="$ip"
 export FLASK_APP=~/Documents/CSI4999/SmartLock
