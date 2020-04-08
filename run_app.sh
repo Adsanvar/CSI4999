@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
 #waits for 15s while pi connects to internet
-timer = 15
+timer=15
 echo "Application Will Start In: "
 while [$timer != 0]
 do
     echo $timer
     sleep 1
-    timer = `expr $timer - 1`
+    timer=`expr $timer - 1`
 done
 
 ## This should grab the IP address of the RPi and display - Heath
