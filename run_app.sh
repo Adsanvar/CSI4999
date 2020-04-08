@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #waits for 15s while pi connects to internet
 timer=15
