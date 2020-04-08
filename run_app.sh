@@ -29,7 +29,7 @@ python3 ~/Documents/CSI4999/initialization.py "$ip"
 
 #updates the boot up to run the scrip automatically next time
 #sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
-sudo grep -qxF '@lxterminal -e "~/Destkop/run_app.sh"' /etc/xdg/lxsession/LXDE-pi/autostart || sudo echo '@lxterminal -e "~/Destkop/run_app.sh"' >> sudo /etc/xdg/lxsession/LXDE-pi/autostart
+sudo grep -qxF '@lxterminal -e "~/Destkop/run_app.sh"' /etc/xdg/lxsession/LXDE-pi/autostart || sudo echo '@lxterminal -e "~/Destkop/run_app.sh"' >> /etc/xdg/lxsession/LXDE-pi/autostart
 
 export IP_VAR="$ip"
 export FLASK_APP=~/Documents/CSI4999/SmartLock
