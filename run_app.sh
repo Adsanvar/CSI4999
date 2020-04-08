@@ -2,10 +2,11 @@
 
 #waits for 15s while pi connects to internet
 timer = 15
+echo "Application Will Start In: "
 while [$timer != 0]
 do
-    echo "Application Will Start In: " $timer
-    sleep 1s
+    echo $timer
+    sleep 1
     timer = `expr $timer - 1`
 done
 
