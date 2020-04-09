@@ -33,7 +33,7 @@ python3 ~/Documents/CSI4999/initialization.py "$ip"
 val=$(tail -n 1 /etc/xdg/lxsession/LXDE-pi/autostart)
 if [ $val == "point-rpi" ]
 then
-    sudo sh -c "echo '~/Destkop/run_app.sh' >> /etc/xdg/lxsession/LXDE-pi/autostart"
+    sudo sh -c "echo '~/Desktop/run_app.sh' >> /etc/xdg/lxsession/LXDE-pi/autostart"
 fi
 
 export IP_VAR="$ip"
