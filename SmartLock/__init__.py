@@ -30,8 +30,9 @@ try:
         app.register_blueprint(a_bp)
         app.register_blueprint(h_bp)
 
+        #loads up chrome broswer to the ip address
         ip = os.getenv('IP_VAR')
-        threading.Timer(10, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
+        threading.Timer(15, os.system('chromium-browser --start-fullscreen --kiosk http://'+ip+':5000')).start()
 
         return app
 
