@@ -8,10 +8,9 @@
     <meta charset="utf-8">
     <title>َSign Up Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash.css')}}">
   </head>
   <body>
-<!-- <form class="box" action="http://adsanvar.pythonanywhere.com/signup" method="post"> -->
-<!-- <form class="box" action="http://localhost:5000/signup" method="post">  -->
   <form class="box" action="{{ url_for('auth.signup') }}" method="post"> 
   <h1>Sign Up</h1>
   <input type="text" name="signup_username" placeholder="Username" value='{{username}}' required>
@@ -21,6 +20,13 @@
   <input type="text" name="email" placeholder="Email" value='{{email}}' required>
   <input type="submit" name="confirm" value="Confirm" required>
   <p style="color:rgb(252, 0, 0);" >{{ info }}</p>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+          <p class="alert-{{category}}">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}  
   </form>
 
 

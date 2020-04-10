@@ -15,11 +15,6 @@ USER = ''
 def login_index():
     return render_template('index.html')
 
-@auth.route('/login')
-def login_from_pass():
-    flash('Email Sent', 'success')
-    return render_template('index.html')
-
 #route for the login - Adrian
 @auth.route('/login', methods=['POST'])
 def login():
@@ -35,6 +30,7 @@ def login():
             usr = database.user_query(name)
             #checks if usr returned is null if so redirect to the login
             if usr == None:
+                flash('Oops, we cannot find you', 'error')
                 return redirect(url_for('auth.login'))
             else:
                 #authenticates user to db
@@ -49,9 +45,11 @@ def login():
                         login_user(usr)
                         return redirect(url_for('home.dashboard'))
                 else:
+                    flash('Oops, invalid credentials', 'error')
                     return redirect(url_for('auth.login'))
         else:
             #empty
+            flash('Please Enter Credentials', 'error')
             return redirect(url_for('auth.login'))
             
     #if signup button clicked send to signup page        
@@ -66,29 +64,6 @@ def login():
 @auth.route('/signup')
 def signup_index():
     return render_template('signup.html')
-
-#Route to specify what caused the error and load appropiate fields
-@auth.route('/signupUserError/<data>', methods = ['GET'])
-def signupUserError(data):
-    w = data.split(',')
-    uname = w[0]
-    first = w[1]
-    last = w[2]
-    email = w[3]
-    serial = w[4]
-    error = w[5]
-    mode = w[6]
-    #this mode is used to distinguish what to display on screen
-    if mode == 'user':
-        return render_template('signup.html',firstname = first, lastname = last, email = email, info = error)
-    if mode == 'email_exists':
-         return render_template('signup.html', info = error)
-    if mode == 'email_failed':
-        return render_template('signup.html', username = uname, firstname = first, lastname = last, info = error)
-    if mode == 'invalid_smartlock':
-        return render_template('signup.html', info = error)
-    if mode == 'inactive_smartlock':
-        return render_template('signup.html', info = error)
 
 #route for the sign up post command - Adrian
 @auth.route('/signup', methods=['POST'])
@@ -132,25 +107,18 @@ def signup():
                     #usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
 
                     database.create_user(usr)
-                    return redirect(url_for('auth.vertification_post'))
-
+                    flash('Please Verify Your Email', 'success')
+                    return redirect(url_for('auth.login_from_pass'))
 
                 else:
-                    lst.append('Email Syntax Invalid. Please Re-enter Email.')
-                    lst.append('email_failed')
-                    data = ','.join(lst)
-                    return redirect(url_for('auth.signupUserError', data = data))
+                    flash('Email Syntax Invalid. Please Re-enter Email.', 'error')
+                    return render_template('signup.html', username = uname, firstname = name, lastname = last)
             else:
-                lst.append('This Email Appears To Be Taken. If You Forgot Your Password Please Reset.')
-                lst.append('email_exists')
-                data = ','.join(lst)
-                return redirect(url_for('auth.signupUserError', data = data))
+                flash('This Email Appears To Be Taken. If You Forgot Your Password Please Reset.', 'error')
+                return render_template('signup.html')
         else:
-            #Adds datum to route for user friend field updates 
-            lst.append('Username is already taken. Please Choose Another Username.')
-            lst.append('user')
-            data = ','.join(lst)
-            return redirect(url_for('auth.signupUserError', data = data))
+            flash('Username is already taken. Please Choose Another Username.', 'error')
+            return render_template('signup.html',firstname = name, lastname = last, email = mail)
     else:
         #empty
         return redirect(url_for('auth.signup'))
@@ -241,7 +209,8 @@ def forgotpass():
                     has = has.replace('/', '-')
                     msg = msg + 'http://localhost:5000/changePassword/'+has+'/'+uname
                     sendMail(mail, msg)
-                    return redirect(url_for('auth.login_from_pass'))
+                    flash('Email Sent', 'success')
+                    return redirect(url_for('auth.login_index'))
                 else:
                     return redirect(url_for('auth.login_index'))
             else:
@@ -250,35 +219,6 @@ def forgotpass():
             return redirect(url_for('auth.login_index'))
 
     return redirect(url_for('auth.login_index'))
-
-# # this the route handling the input of the passwords 
-# @auth.route('/forgotpass/<uname>', methods=['GET'])
-# def forgotpass_return(uname):
-#     if database.user_query(uname) == None:
-#         return redirect(url_for('auth.signup_index'))
-#     else: 
-#         usr = database.user_query(uname)
-#         new_pass = request.form.get('password')
-#         confrim_pass = request.form.get('confirm_password')
-#         print( new_pass,confrim_pass)
-#         original_pass = usr.password
-#             #user can not change password to same password
-#             if original_pass != new_pass: 
-#                 #make sure they match database, redirect to userpass with pas as a parameter - Brandon
-#                 if new_pass == confrim_pass:
-#                     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Password confirmed'))
-#                     #current_user returns username by data representation of model
-#                     return redirect(url_for('auth.changepass', usr=uname, pas=confrim_pass))
-#                 else:
-#                     print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
-#                     return redirect(url_for('auth.forgotpass'))
-
-#             else:#if failed redirect to dashboard
-#                 flash('Password will not be changed')
-#                 return redirect(url_for('auth.forgotpass'))
-
-#         return redirect(url_for('auth.login_index'))
-
 
 #Route for changing forgotten password
 @auth.route('/changepass/<usr>/<pas>')

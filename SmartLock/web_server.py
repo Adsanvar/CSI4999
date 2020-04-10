@@ -38,27 +38,32 @@ def post_dashboard():
     if 'confirm1' in request.form: #if confirm button is clicked the dashboard
         #TODO: Query old RPI, by user_id. Then compare the pin codes
         #obtain input
+        if request.form.get('old_rpi_pin'):
 
-        old_pin = request.form.get('old_rpi_pin')
-        rpi = database.query_rpi_by_id(current_user.id)
-        new_pin = request.form.get('rpi_pin')
-        confrim_pin = request.form.get('rpi_confirm_pin')
+            old_pin = request.form.get('old_rpi_pin')
+            rpi = database.query_rpi_by_id(current_user.id)
+            new_pin = request.form.get('rpi_pin')
+            confrim_pin = request.form.get('rpi_confirm_pin')
 
-        if old_pin != new_pin:
-            if old_pin == rpi.pin_code : 
-                #make sure they match, redirect to rpi_config with pas as a parameter - Adrian
-                if new_pin == confrim_pin:
-                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('PIN confirmed'))
-                    return redirect(url_for('auth.rpi_config', sn=rpi.serial_number , pas=confrim_pin))
-                else:
-                    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Confirmation Failed'))
+            if old_pin != new_pin:
+                if old_pin == rpi.pin_code : 
+                    #make sure they match, redirect to rpi_config with pas as a parameter - Adrian
+                    if new_pin == confrim_pin:
+                        flash('PIN SUCESSFULLY CHANGED', 'success')
+                        return redirect(url_for('auth.rpi_config', sn=rpi.serial_number , pas=confrim_pin))
+                    else:
+                        flash('Oops, Looks like your confirmation PIN doesn\'t match', 'error')
+                        return redirect(url_for('home.dashboard'))
+                else: #if failed redirect to dashboard
+                    flash('Oops, Looks like you mistyped your old PIN', 'error')
                     return redirect(url_for('home.dashboard'))
-            else: #if failed redirect to dashboard
-                print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('Pin not confirmed'))
-                return redirect(url_for('home.dashboard'))
-        else:#if failed redirect to dashboard
-                flash('Pin will not be changed')
-                return redirect(url_for('home.dashboard'))       
+            else:#if failed redirect to dashboard
+                    flash('You Cannot Have The Same PIN', 'error')
+                    return redirect(url_for('home.dashboard'))
+        else:
+            flash('Enter A PIN', 'error')
+            return redirect(url_for('home.dashboard'))
+
     #if confirm button is activated proceed with change of password
     if 'confirm2' in request.form:
         old_pass = request.form.get('old_password')

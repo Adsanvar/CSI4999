@@ -1,0 +1,11 @@
+.alert-success
+{
+  color: #2ecc71;
+  text-align: center;
+}
+
+.alert-error
+{
+  color: red;
+  text-align: center;
+}
