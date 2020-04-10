@@ -157,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         queue = Volley.newRequestQueue(this);
         handler = new Handler();
         BASETIME = 13;
+        //sets the request time based on the setting
+        setTimer(BASETIME);
         REEQUEST_COMPLETE = true;
         txtSensativity.setText(txtSensativity.getText().toString() + "\n" + "Low");
         SENSINTIVITY = mLOW;
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                     txtSensativity.setText("Sensitivity:" + "\n" + "Low");
                     SENSINTIVITY = mLOW;
                     BASETIME = 13;
+                    setTimer(BASETIME);
                     setSensitivity(getApplicationContext(), Integer.toString(progress));
                 }
                 else if(progress == 1)
@@ -180,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                     txtSensativity.setText("Sensitivity:" + "\n" + "Medium");
                     SENSINTIVITY = mMEDIUM;
                     BASETIME = 20;
+                    setTimer(BASETIME);
                     setSensitivity(getApplicationContext(), Integer.toString(progress));
                 }
                 else
@@ -187,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                     txtSensativity.setText("Sensitivity:"+ "\n" + "High");
                     SENSINTIVITY = mHIGH;
                     BASETIME = 30;
+                    setTimer(BASETIME);
                     setSensitivity(getApplicationContext(), Integer.toString(progress));
                 }
             }
@@ -235,9 +240,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             }
         }, DELAY);
         //getUserInformation(this);
-
-        //sets the request time based on the setting
-        WAIT_PERIOD = BASETIME*1000;
 
     }
 
@@ -309,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                     REEQUEST_COMPLETE = true;
 
                 }
-            }, WAIT_PERIOD);
+            }, WAIT_PERIOD + 2000);
 
         }
     }
@@ -366,6 +368,11 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 //        else mInZone = false;
     }
 
+    protected  void setTimer(int time)
+    {
+        WAIT_PERIOD = time * 1000;
+    }
+
 
     @Override
     public void onResume() {
@@ -405,6 +412,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                         sending_url = url +":5000/mobileUnlock/"+PIN+"/"+WAIT_PERIOD;
                         mUrl.setText("Advertising:\n" +url);
                         //setmInZone(beacon.getDistance());
+                        Log.d(TAG, "timere is " + WAIT_PERIOD);
                         setmInZone(beacon.getRssi());
                         passiveEntry();
                     }
