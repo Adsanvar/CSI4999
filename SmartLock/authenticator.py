@@ -57,11 +57,12 @@ def login():
             return redirect(url_for('auth.index'))
             
 
-@auth.route('/mobileUnlock/<pin>', methods=['POST'])
-def mobileUnlock(pin):
+@auth.route('/mobileUnlock/<pin>/<int:timer>', methods=['POST'])
+def mobileUnlock(pin, timer):
     rpi = database.query_rpi()
+    timer = timer / 1000
     if rpi.pin_code == pin:
-        GPIOon()
+        GPIOon(timer)
     
     return 'Success'
 
@@ -84,7 +85,7 @@ def post_keypad():
     pin=request.form['code']
     rpi = database.query_rpi()
     if rpi.pin_code == pin:
-        GPIOon()
+        GPIOon(13)
 
     return redirect(url_for('auth.keypad'))
 

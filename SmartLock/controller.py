@@ -4,9 +4,9 @@ from time import sleep
 #pin
 gpio = LED(17)
 
-def GPIOon():
+def GPIOon(timer):
     gpio.on()
-    sleep(10)
+    sleep(timer)
     GPIOoff()
 
 def GPIOoff():
