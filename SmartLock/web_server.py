@@ -35,6 +35,26 @@ def post_dashboard():
     if 'logout' in request.form:
         return redirect(url_for('auth.logout'))
 
+    if 'confirm' in request.form:
+        #checks to see if any field is empty 
+        if request.form.get('member_username') and request.form.get('member_password') and request.form.get('firstname') and request.form.get('lastname') and request.form.get('email'):
+            #Non-empty
+            uname = request.form.get('member_username')
+            pas = request.form.get('member_password')
+            name = request.form.get('firstname')
+            last = request.form.get('lastname')
+            mail = request.form.get('email')
+            #obtaines user from database thru ORM
+            usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail)
+            database.create_user(usr)
+            flash('Your new member has been created')
+            return redirect(url_for('home.dashboard'))
+        else:
+            #empty
+            flash('You have an empty field')
+            return redirect(url_for('auth.dashboard'))
+    #if confirm button is activated proceed with change of password
+
     if 'confirm1' in request.form: #if confirm button is clicked the dashboard
         #TODO: Query old RPI, by user_id. Then compare the pin codes
         #obtain input
