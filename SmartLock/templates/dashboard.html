@@ -45,7 +45,7 @@
             {% endif %}
           {% endwith %}  
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <h3>Change Password</h3>
                     <ul class="list-group">
                       <form action="{{ url_for('home.post_dashboard') }}" method="post">
@@ -64,7 +64,7 @@
                   </form>
                   </ul>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <h3>Change Pin Code</h3>
                   <ul class="list-group">
                     <form action="{{ url_for('home.post_dashboard') }}" method="post">
@@ -85,7 +85,32 @@
                     <!-- <p>
                         <a href="#" class="btn btn-default btn-lg">More...</a>
                     </p> -->
-                  </div>    
+                  </div>
+                  <div class="col-md-4">
+                    <h3>Add Member</h3>
+                    <ul class="list-group">
+                      <form action="{{ url_for('home.post_dashboard') }}" method="post">
+                        <div class="form-group">
+                          <input class="list-group-item" type="text" name="member_username" placeholder="Username" value='{{username}}' required>
+                        </div>
+                        <div class="form-group">
+                          <input class="list-group-item" type="password" name="signup_password" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                          <input class="list-group-item" type="text" name="firstname" placeholder="First Name" value='{{firstname}}' required>
+                        </div>
+                        <div class="form-group">
+                          <input class="list-group-item" type="text" name="lastname" placeholder="Last Name" value='{{lastname}}' required>
+                        </div>
+                        <div class="form-group">
+                          <input class="list-group-item" type="text" name="email" placeholder="Email" value='{{email}}' required>
+                        </div>
+                        <div class="form-group">
+                          <input class="list-group-item" type="submit" name="confirm" value="Confirm" required>
+                        </div>
+                      </form>
+                    </ul>
+                  </div>  
             </div>
         </div>
         <footer>
