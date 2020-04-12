@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     private static int SENSINTIVITY;
     private static int SENSINTIVITY_VALUE;
-    private static int mLOW = -60;
-    private static int mMEDIUM = -70;
-    private static int mHIGH = -85;
+    private static int mLOW = -55;
+    private static int mMEDIUM = -65;
+    private static int mHIGH = -75;
     private int BASETIME;
 
     private String username = null;
