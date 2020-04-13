@@ -70,22 +70,25 @@ def post_dashboard():
             rpi = database.query_rpi_by_id(current_user.id)
             new_pin = request.form.get('rpi_pin')
             confrim_pin = request.form.get('rpi_confirm_pin')
-
-            if old_pin != new_pin:
-                if old_pin == rpi.pin_code : 
-                    #make sure they match, redirect to rpi_config with pas as a parameter - Adrian
-                    if new_pin == confrim_pin:
-                        flash('PIN SUCESSFULLY CHANGED', 'success')
-                        return redirect(url_for('auth.rpi_config', sn=rpi.serial_number , pas=confrim_pin))
-                    else:
-                        flash('Oops, Looks like your confirmation PIN doesn\'t match', 'error')
+            if rpi != None:
+                if old_pin != new_pin:
+                    if old_pin == rpi.pin_code : 
+                        #make sure they match, redirect to rpi_config with pas as a parameter - Adrian
+                        if new_pin == confrim_pin:
+                            flash('PIN SUCESSFULLY CHANGED', 'success')
+                            return redirect(url_for('auth.rpi_config', sn=rpi.serial_number , pas=confrim_pin))
+                        else:
+                            flash('Oops, Looks like your confirmation PIN doesn\'t match', 'error')
+                            return redirect(url_for('home.dashboard'))
+                    else: #if failed redirect to dashboard
+                        flash('Oops, Looks like you mistyped your old PIN', 'error')
                         return redirect(url_for('home.dashboard'))
-                else: #if failed redirect to dashboard
-                    flash('Oops, Looks like you mistyped your old PIN', 'error')
-                    return redirect(url_for('home.dashboard'))
-            else:#if failed redirect to dashboard
-                    flash('You Cannot Have The Same PIN', 'error')
-                    return redirect(url_for('home.dashboard'))
+                else:#if failed redirect to dashboard
+                        flash('You Cannot Have The Same PIN', 'error')
+                        return redirect(url_for('home.dashboard'))
+            else:
+                flash('Please Start You RPI and Login.', 'error')
+                return redirect(url_for('home.dashboard'))
         else:
             flash('Enter A PIN', 'error')
             return redirect(url_for('home.dashboard'))
