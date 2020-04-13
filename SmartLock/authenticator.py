@@ -12,7 +12,7 @@ auth = Blueprint('auth', __name__)
 #Standard login function that loads the index.html - Adrian
 @auth.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('keypad.html')
 
 #route for the login - Adrian
 @auth.route('/login', methods=['POST'])
