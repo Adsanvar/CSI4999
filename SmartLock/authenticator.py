@@ -40,7 +40,7 @@ def login():
                 if usr.username == name and bcrypt.check_password_hash(usr.password, pas) and database.user_query(name).verified == True: 
                 #if usr.username == name and usr.password == pas:
                     #Determines the role of the logged in user - Adrina
-                    if usr.role == 'Member':
+                    if usr.role == 'Member' or usr.role == 'Linked-Member':
                         #route to dashboard and update the login session
                         login_user(usr)
                         return redirect(url_for('home.dashboard'))
@@ -103,7 +103,7 @@ def signup():
                     # if sendMail(mail, msg)
                         #print(mail, "\t", msg)
                     # created hashed password - Heath
-                    usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False, sensitivity=0)
+                    usr = database.User(username=uname, password = bcrypt.generate_password_hash(pas).decode('utf-8'), first_name=name, last_name=last, role='Member', email=mail, verified = False, sensitivity=0, assocaiated_user = None)
                     #usr = database.User(username=uname, password = pas, first_name=name, last_name=last, role='Member', email=mail, verified = False)
 
                     database.create_user(usr)
@@ -146,19 +146,17 @@ def verification_return(key):
 @auth.route('/rpi/<sn>/<pas>')
 @login_required
 def rpi_config(sn, pas):
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE RPI'))
     database.update_pi(sn, pas)
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     return redirect(url_for('home.dashboard'))
 
 #Route for changing User Password
 @auth.route('/userpass/<usr>/<pas>')
 @login_required
 def userpass(usr, pas):
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE User'))
     database.update_pass(usr, bcrypt.generate_password_hash(pas).decode('utf-8'))
     return redirect(url_for('home.dashboard'))
 
+#Change Password From Forgotten
 @auth.route('/changePassword', methods=['POST'])
 def changePassword_post():
     usr = request.form.get('user')
@@ -224,7 +222,6 @@ def forgotpass():
 @auth.route('/changepass/<usr>/<pas>')
 @login_required
 def changepass(usr, pas):
-    print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('INIDE User'))
     database.update_pass(usr, bcrypt.generate_password_hash(pas).decode('utf-8'))
     return redirect(url_for('auth.login_index'))
 

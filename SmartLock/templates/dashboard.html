@@ -64,6 +64,7 @@
                   </form>
                   </ul>
                 </div>
+                {% if role == 'member' %}
                 <div class="col-md-4">
                   <h3>Change Pin Code</h3>
                   <ul class="list-group">
@@ -91,33 +92,120 @@
                     <ul class="list-group">
                       <form action="{{ url_for('home.post_dashboard') }}" method="post">
                         <div class="form-group">
-                          <input class="list-group-item" type="text" name="member_username" placeholder="Username" value='{{username}}' required>
+                          <input class="list-group-item" type="text" name="member_username" placeholder="Username" required>
                         </div>
                         <div class="form-group">
-                          <input class="list-group-item" type="password" name="signup_password" placeholder="Password" required>
+                          <input class="list-group-item" type="password" name="member_password" placeholder="Password" required>
                         </div>
                         <div class="form-group">
-                          <input class="list-group-item" type="text" name="firstname" placeholder="First Name" value='{{firstname}}' required>
+                          <input class="list-group-item" type="text" name="member_firstname" placeholder="First Name" required>
                         </div>
                         <div class="form-group">
-                          <input class="list-group-item" type="text" name="lastname" placeholder="Last Name" value='{{lastname}}' required>
+                          <input class="list-group-item" type="text" name="member_lastname" placeholder="Last Name" required>
                         </div>
                         <div class="form-group">
-                          <input class="list-group-item" type="text" name="email" placeholder="Email" value='{{email}}' required>
-                        </div>
-                        <div class="form-group">
-                          <input class="list-group-item" type="submit" name="confirm" value="Confirm" required>
+                          <input class="list-group-item" type="submit" name="confirm_member" value="Confirm" required>
                         </div>
                       </form>
                     </ul>
-                  </div>  
+                  </div>
+                <div class="container">
+                  <h3 style='text-align: center;'>Members</h3>
+                  <table class="table table-hover table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Update</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for user in members %}
+                        <!-- <th scope="row">1</th> -->
+                        <td>{{user.username}}</td>
+                        <td>
+                          <div class="row btn-toolbar">
+                            <div class="btn-group mr-2">
+                              <button class= "btn btn-outline-warning" type="button" data-toggle="modal" data-target="#exampleModal" data-user="{{user.username}}">Edit</button>
+                            </div>
+                            <div class="btn-group mr-2">
+                              <button class= "btn btn-outline-danger" name="btn_delete" data-toggle="modal" data-target="#exampleModalCenter" data-user="{{user.username}}">Delete</button>                        
+                            </div>                            
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                      <tr>
+
+                    </tbody>
+                  </table>
+
+                <!--Modal For Edit-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Member</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="{{ url_for('home.post_dashboard') }}" method="post">
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Username</label>
+                            <input class="form-control" type="text" name="username" id="username" readonly>
+                            </input>
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">Password</label>
+                            <input class="form-control" type="password" name="password" id="password"></input>
+                            <input type="checkbox" onclick="viewPassword()"> Show Password</input>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" name="update_user" class="btn btn-primary">Update User</input>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+
+                <!--Modal For Edit-->
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Delete Member</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="{{ url_for('home.post_dashboard') }}" method="post">
+                            <p id="info1"></p>
+                            <input name="delete_user" id="user" type="text" readonly></input>
+                            <p id="info2"></p>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                              <button type="submit" name="member_delete" class="btn btn-outline-danger">Yes</button>
+                            </div>
+                          </form>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}  
             </div>
         </div>
         <footer>
+          <br/>
           <div class="container-fluid">
               <p>©2020 SmartLock</p>
               <p> Contact Us By Phone: 1-800-111-1111</p>
-              <p> Email: SmartLock.noplay@gmail.com</p>
+              <p> Email: SmartLock.noreply@gmail.com</p>
           </div>
       </footer>
         <!-- Optional JavaScript -->
@@ -128,6 +216,46 @@
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!--Gets Data From Table and puts in Model-->
+        <script>
+          $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('user') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            //var modal = $(this)
+            //modal.find('.modal-body input').val(pas)
+            //modal.find('input p').text(recipient)
+            $("#username").val(recipient)
+            })
+
+            $('#exampleModalCenter').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('user') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            //modal.find('.modal-body input').val(pas)
+            //modal.find('input p').text(recipient)
+            $("#info1").text("You Are About To Delete:")
+            $("#user").val(recipient)
+            $("#info2").text("Are You Sure?")
+          })
+        </script>
+        <!-- View Password In Model Code -->
+        <script>
+          function viewPassword() {
+            var x = document.getElementById("password");
+            if (x.type === "password") 
+            {
+              x.type = "text";
+            } 
+            else 
+            {
+              x.type = "password";
+            }
+          }
+        </script>
       </form>
       </body>
 </html>

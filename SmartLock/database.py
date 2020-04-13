@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+from flask import flash
 
 #this is the model for the user table in the db -jared
 class User(UserMixin, db.Model):
@@ -12,6 +13,7 @@ class User(UserMixin, db.Model):
     role = db.Column(db.String(45))#Adrian
     verified = db.Column(db.Boolean(1))#brandons
     sensitivity = db.Column(db.String(45))
+    associated_user = db.Column(db.String(45))
     
     def __repr__(self):
         return self.username
@@ -42,8 +44,8 @@ def user_query(usr):
     return User.query.filter_by(username = usr).first()
 
 #get user by ID #Adrian
-def user_id_query(id):
-    return User.query.get(int(id))
+def query_user_by_id(ref):
+    return User.query.filter_by(id = ref).first()
     
 #Query User By Email
 def query_userByEmail(rEmail):
@@ -54,6 +56,16 @@ def create_user(usr):
         db.session.add(usr)
         db.session.commit()
     except:
+        flash('Error Adding User', 'error')
+        db.session.rollback()
+
+def delete_user(username):
+    try:
+        usr = user_query(username)
+        db.session.delete(usr)
+        db.session.commit()
+    except:
+        flash('Error Deleting User', 'error')
         db.session.rollback()
 
 def create_entry_log(entry_log):
@@ -68,7 +80,6 @@ def create_rpi(rpi):
     try:
         db.session.add(rpi)
         db.session.commit()
-        
     except:
         db.session.rollback()
 
@@ -78,9 +89,13 @@ def update_pass(usrname, password):
         usr = user_query(usrname)
         usr.password = password
         db.session.commit()
-        print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
+        flash('Password Successful Changed', 'success')
     except:
         db.session.rollback()
+
+#get all associated members
+def get_members(usr_id):
+    return User.query.filter_by(associated_user = str(usr_id)).all()
 
 #Update pi's password - Adrian
 def update_pi(sn, pin_code):
@@ -88,7 +103,6 @@ def update_pi(sn, pin_code):
         pi = query_rpi(sn)
         pi.pin_code = pin_code
         db.session.commit()
-        print('@@@@@@@@@@@@@@@@@@@@@@@@ {}'.format('SUCCESS'))
     except:
         db.session.rollback()
 
@@ -146,8 +160,14 @@ def query_pin_code(sn):
 #Queries rpi pin code by usr association
 def get_mobile_information(user):
     usr = user_query(user)
-    pi = Rpi.query.filter_by(user_id = usr.id).first()
-    data = pi.pin_code + ','+pi.ip+','+usr.sensitivity
+    data = ''
+    if usr.role == 'Linked-Member':
+        owner = query_user_by_id(usr.associated_user)
+        pi = Rpi.query.filter_by(user_id = owner.id).first()
+        data = pi.pin_code + ','+pi.ip+','+usr.sensitivity
+    else:
+        pi = Rpi.query.filter_by(user_id = usr.id).first()
+        data = pi.pin_code + ','+pi.ip+','+usr.sensitivity
     return data
 
 #sets the user's sensitivity for the mobile app
