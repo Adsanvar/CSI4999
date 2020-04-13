@@ -205,7 +205,7 @@ def forgotpass():
                     msg = 'We Got You Covered, click on the link below to reset your password.\n'
                     has = bcrypt.generate_password_hash('Reset').decode('utf-8')
                     has = has.replace('/', '-')
-                    msg = msg + 'http://localhost:5000/changePassword/'+has+'/'+uname
+                    msg = msg + 'http://adsanvar.pythonanywhere.com/changePassword/'+has+'/'+uname
                     sendMail(mail, msg)
                     flash('Email Sent', 'success')
                     return redirect(url_for('auth.login_index'))
