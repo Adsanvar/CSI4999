@@ -108,7 +108,7 @@ def signup():
 
                     database.create_user(usr)
                     flash('Please Verify Your Email', 'success')
-                    return redirect(url_for('auth.login_from_pass'))
+                    return redirect(url_for('auth.login_index'))
 
                 else:
                     flash('Email Syntax Invalid. Please Re-enter Email.', 'error')
