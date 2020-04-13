@@ -44,12 +44,16 @@ def user_query(usr):
     return User.query.filter_by(username = usr).first()
 
 #get user by ID #Adrian
+def user_id_query(id):
+    return User.query.get(int(id))
+
 def query_user_by_id(ref):
     return User.query.filter_by(id = ref).first()
     
 #Query User By Email
 def query_userByEmail(rEmail):
     return User.query.filter_by(email = rEmail).first()
+
 #Create user call api - Adrian
 def create_user(usr):
     try:
