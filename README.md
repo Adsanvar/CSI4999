@@ -2,65 +2,23 @@
 
 ## Welcome to Senior Capstone Project
 
-## **Important** 
+## Smart Lock
 
-**Always Remember to check the branch your are working on. Pull before you start making any changes. Add any files. Commit changes. Push changes at the end of your work. Repeat.**
+### System Architecture
+Smart Lock is a three application system to offer a wide range of functionality.
 
-### Introduction
+__Lock Controller__
 
-### Git
+The lock controller is handled by a Raspberrry Pi using it's GPIO interface to power a 5v Relay. The Raspberry Pi also acts as our BLE transmission beacon for our mobile application and back up entry via an onscreen keypad and persistent storage incase phone is dead or forgotten.
 
-<img src='git.png'>
+__Web Management__
 
-To clone the whole repo
+Our web application allows users to manage who has access to it's lock aswell as to other user account settings.
+http://adsanvar.pythonanywhere.com
 
-```
-git clone https://github.com/adsanvar/CSI4999
-```
 
-To change branch
+__Mobile Application__
 
-```
-git checkout ‘Your Branch Name’
+*Android*
 
-ex: git checkout Database
-```
-
-To check what branch you are in
-
-```
-git branch
-```
-
-Adds all new files
-
-```
-git add .
-```
-
-the current branch will be *
-
-To commit
-
-```
-git commit
-git commit -a .
-git commit -am -> git commit -am "Updated Algorithm"
-```
-
-To push
-
-```
-git push
-```
-
-To pull
-
-```
-git pull origin ‘Your Branch Name’
-
-ex: git pull origin Database
-```
-
-Reference Links:
-[ExplainShell]( https://explainshell.com/explain?cmd=git+commit+-am)
+The sole purpose for this application is to provide a passive unlock to the user when hands our occupied. This is implemented using BLE to transmit a signal with a specific ip to handshake and share information between Mobile and Raspberry Pi.
